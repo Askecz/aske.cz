@@ -1,111 +1,609 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 20px;
-    background-color: #f0f2f5;
-    color: #1c1e21;
+/* style.css */
+
+:root {
+    /* Full Black Theme */
+    --primary-bg: #2e2e2e; /* Změněno z #000000 na tmavě šedou */
+    --secondary-bg: #1a1a1a; /* Velmi tmavě šedá pro kontejnery/karty (nebudou mít border) */
+    --text-color: #ffffff; /* Bílý text */
+    --accent-color: #007bff; /* Modrá, jako PlayStation/Web akcent */
+    --button-bg: #333333; /* Tmavě šedá pro tlačítka */
+    --button-hover-bg: #444444;
+    --input-bg: #222222; /* Tmavá pro input */
+    --input-text-color: #ffffff;
+    --placeholder-color: #cccccc;
+    --border-color: #444444; /* Tmavší okraje inputu */
+    --shadow-color: rgba(0, 0, 0, 0.6); /* Stín pro tlačítka a input */
+    --border-radius-main: 10px; /* Střední zaoblení */
+    --border-radius-button: 6px; /* Menší zaoblení pro tlačítka */
+
+    /* Pure White Theme */
+    --light-primary-bg: #f0f0f0; /* Změněno z #ffffff na světle šedou pro světlý motiv */
+    --light-secondary-bg: #ffffff; /* Čistě bílá pro světlý motiv (karty, inputy) */
+    --light-text-color: #1c1e21; /* Velmi tmavá šedá/černá */
+    --light-accent-color: #007bff;
+    --light-button-bg: #e0e0e0; /* Světle šedá */
+    --light-button-hover-bg: #d0d0d0;
+    --light-input-bg: #ffffff;
+    --light-input-text-color: #1c1e21;
+    --light-placeholder-color: #606770;
+    --light-border-color: #cccccc;
+    --light-shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+/* Base styles for dark theme */
+body.dark-theme {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll due to background shapes */
+    position: relative; /* For background shapes positioning */
+}
+
+/* Base styles for light theme */
+body.light-theme {
+    background-color: var(--light-primary-bg);
+    color: var(--light-text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background Shapes */
+.background-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.shape {
+    position: absolute;
+    opacity: 0.1;
+    animation: float 20s infinite ease-in-out alternate;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 173.2px solid rgba(0, 123, 255, 0.2); /* Blue triangle */
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.square {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(255, 165, 0, 0.2); /* Orange square */
+    top: 40%;
+    right: 10%;
+    animation-delay: 5s;
+}
+
+.circle {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(0, 255, 0, 0.2); /* Green circle */
+    border-radius: 50%;
+    bottom: 5%;
+    left: 20%;
+    animation-delay: 10s;
+}
+
+.cross {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255,0,0,0.2) 30%, transparent 30%),
+                linear-gradient(rgba(255,0,0,0.2), rgba(255,0,0,0.2)),
+                linear-gradient(90deg, rgba(255,0,0,0.2), rgba(255,0,0,0.2));
+    background-size: 20px 20px, 100% 20px, 20px 100%;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: center, center, center;
+    top: 20%;
+    left: 70%;
+    animation-delay: 15s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(20px, 50px) rotate(10deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.central-content-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: calc(100vh - 100px); /* Adjust based on footer/utility height */
+    z-index: 1; /* Ensure content is above shapes */
+}
+
+.main-search-area {
+    background-color: var(--secondary-bg);
+    padding: 30px;
+    border-radius: var(--border-radius-main);
+    box-shadow: 0 4px 15px var(--shadow-color);
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light-theme .main-search-area {
+    background-color: var(--light-secondary-bg);
+    box-shadow: 0 4px 15px var(--light-shadow-color);
 }
 
 h1 {
-    text-align: center;
-    color: #1877f2; /* Facebook blue, just for a touch of color */
+    color: var(--accent-color);
     margin-bottom: 25px;
+    font-size: 2.8em;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    transition: color 0.3s ease;
 }
 
-h2 {
-    color: #333;
+body.light-theme h1 {
+    color: var(--light-accent-color);
+    text-shadow: none;
+}
+
+h3 {
+    color: var(--text-color);
     margin-top: 30px;
     margin-bottom: 15px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+body.light-theme h3 {
+    color: var(--light-text-color);
+}
+
+.search-input-area {
     display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: center;
     align-items: center;
 }
 
-.icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-}
-
-.input-group {
-    margin-bottom: 20px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: #606770;
-}
-
-.input-group input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #dddfe2;
-    border-radius: 6px;
-    font-size: 16px;
-    box-sizing: border-box; /* Aby padding neovlivňoval šířku */
-}
-
-.input-group input[type="text"]:focus {
-    border-color: #1877f2;
-    box-shadow: 0 0 0 2px #e7f3ff;
+.search-input-area input[type="text"] {
+    flex-grow: 1;
+    padding: 15px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    background-color: var(--input-bg);
+    color: var(--input-text-color);
+    font-size: 1.1em;
     outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box; /* Include padding in width */
+    min-width: 250px; /* Ensure input is not too small */
 }
 
-.search-section {
-    margin-bottom: 30px;
+body.light-theme .search-input-area input[type="text"] {
+    border: 1px solid var(--light-border-color);
+    background-color: var(--light-input-bg);
+    color: var(--light-input-text-color);
 }
 
-.button-grid {
+.search-input-area input[type="text"]::placeholder {
+    color: var(--placeholder-color);
+    transition: color 0.3s ease;
+}
+
+body.light-theme .search-input-area input[type="text"]::placeholder {
+    color: var(--light-placeholder-color);
+}
+
+.search-input-area input[type="text"]:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+}
+
+body.light-theme .search-input-area input[type="text"]:focus {
+    border-color: var(--light-accent-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.action-button {
+    padding: 15px 30px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--border-radius-button);
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+}
+
+body.light-theme .action-button {
+    background-color: var(--light-accent-color);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+body.light-theme .action-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+}
+
+.search-options-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Space between the two main sections */
+    justify-content: center;
+}
+
+.search-type-section,
+.search-source-section {
+    flex: 1 1 45%; /* Allow sections to grow/shrink, minimum 45% width */
+    min-width: 300px; /* Minimum width for each section before wrapping */
+    background-color: var(--secondary-bg);
+    padding: 20px;
+    border-radius: var(--border-radius-main);
+    box-shadow: 0 2px 10px var(--shadow-color);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light-theme .search-type-section,
+body.light-theme .search-source-section {
+    background-color: var(--light-secondary-bg);
+    box-shadow: 0 2px 10px var(--light-shadow-color);
+}
+
+.search-type-buttons,
+.search-source-buttons {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 3 columns by default */
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* General button styles for search type and source */
+.search-type-btn,
+.search-source-btn {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    min-height: 90px; /* Ensure consistent height */
+}
+
+body.light-theme .search-type-btn,
+body.light-theme .search-source-btn {
+    background-color: var(--light-button-bg);
+    color: var(--light-text-color);
+    border: 1px solid var(--light-border-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-type-btn:hover,
+.search-source-btn:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+body.light-theme .search-type-btn:hover,
+body.light-theme .search-source-btn:hover {
+    background-color: var(--light-button-hover-bg);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.search-type-btn.active,
+.search-source-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+    transform: scale(1.02);
+}
+
+body.light-theme .search-type-btn.active,
+body.light-theme .search-source-btn.active {
+    background-color: var(--light-accent-color);
+    border-color: var(--light-accent-color);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.search-type-btn img,
+.search-source-btn img {
+    height: 30px;
+    width: 30px;
+    filter: invert(100%); /* Make icons white by default for dark theme */
+    transition: filter 0.3s ease;
+}
+
+body.light-theme .search-type-btn img,
+body.light-theme .search-source-btn img {
+    filter: invert(0%); /* Make icons black for light theme */
+}
+
+/* Active icons - make them white regardless of theme */
+.search-type-btn.active img,
+.search-source-btn.active img {
+    filter: invert(100%);
+}
+
+
+/* Bottom Left Utility (Language and Theme) */
+.bottom-left-utility {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 2; /* Ensure it's above other content if needed */
+}
+
+.utility-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
 }
 
-button {
-    background-color: #e7f3ff; /* Light blue */
-    color: #1877f2; /* Facebook blue */
-    border: 1px solid #1877f2;
-    padding: 10px 15px;
-    border-radius: 6px;
+.utility-group > span { /* Label for language/theme selector */
+    font-size: 0.9em;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+body.light-theme .utility-group > span {
+    color: var(--light-text-color);
+}
+
+.language-selection,
+.theme-selection {
+    display: flex;
+    gap: 8px;
+    background-color: var(--secondary-bg);
+    padding: 8px;
+    border-radius: var(--border-radius-button);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light-theme .language-selection,
+body.light-theme .theme-selection {
+    background-color: var(--light-secondary-bg);
+    box-shadow: 0 2px 5px var(--light-shadow-color);
+}
+
+.lang-btn,
+.theme-btn {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    background-color: var(--button-bg);
+    color: var(--text-color);
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
-    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-button:hover {
-    background-color: #1877f2;
-    color: #fff;
+body.light-theme .lang-btn,
+body.light-theme .theme-btn {
+    border: 1px solid var(--light-border-color);
+    background-color: var(--light-button-bg);
+    color: var(--light-text-color);
 }
 
-button:active {
-    background-color: #166fe5; /* Darker blue on click */
-    color: #fff;
+.lang-btn:hover,
+.theme-btn:hover {
+    background-color: var(--button-hover-bg);
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .button-grid {
-        grid-template-columns: 1fr; /* Stack buttons on smaller screens */
+body.light-theme .lang-btn:hover,
+body.light-theme .theme-btn:hover {
+    background-color: var(--light-button-hover-bg);
+}
+
+.lang-btn.active,
+.theme-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+}
+
+body.light-theme .lang-btn.active,
+body.light-theme .theme-btn.active {
+    background-color: var(--light-accent-color);
+    border-color: var(--light-accent-color);
+    color: #ffffff;
+}
+
+.color-box {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.3); /* subtle border */
+}
+
+.dark-box {
+    background-color: #222222;
+}
+
+.light-box {
+    background-color: #ffffff;
+}
+
+/* Bottom Right Footer */
+.bottom-right-footer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 0.85em;
+    color: var(--text-color);
+    opacity: 0.7;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+body.light-theme .bottom-right-footer {
+    color: var(--light-text-color);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) { /* Tablety a menší desktopy */
+    .search-options-grid {
+        flex-direction: column;
+        gap: 20px;
     }
-    body {
-        padding: 10px;
+    .search-type-section,
+    .search-source-section {
+        flex: 1 1 100%; /* Take full width */
+        min-width: unset;
     }
-    .container {
+    .search-type-buttons,
+    .search-source-buttons {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* More columns on smaller screens */
+    }
+}
+
+@media (max-width: 768px) { /* Větší telefony a menší tablety */
+    .main-search-area {
         padding: 20px;
+    }
+    h1 {
+        font-size: 2.2em;
+    }
+    .search-input-area {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .search-input-area input[type="text"],
+    .action-button {
+        width: 100%;
+        min-width: unset;
+    }
+    .search-type-buttons,
+    .search-source-buttons {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* Even more columns, smaller buttons */
+        gap: 10px;
+    }
+    .search-type-btn, .search-source-btn {
+        font-size: 0.8em;
+        padding: 8px;
+        min-height: 70px;
+    }
+    .search-type-btn img, .search-source-btn img {
+        height: 25px;
+        width: 25px;
+    }
+    .bottom-left-utility,
+    .bottom-right-footer {
+        position: relative; /* Make them flow with content */
+        bottom: unset;
+        left: unset;
+        right: unset;
+        margin-top: 20px;
+        align-self: flex-start;
+        width: auto;
+        padding: 0 20px; /* Add padding for better spacing */
+    }
+    .bottom-left-utility {
+        flex-direction: row;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    .utility-group {
+        align-items: center;
+    }
+    .language-selection, .theme-selection {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        padding: 6px;
+    }
+}
+
+@media (max-width: 600px) { /* Menší telefony */
+    h1 {
+        font-size: 2em; /* Další zmenšení */
+    }
+    h3 {
+        font-size: 1em; /* Další zmenšení */
+    }
+    .search-input-area {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #searchBtn {
+        width: 100%;
+        padding: 14px 20px;
+    }
+    .search-type-btn, .search-source-btn {
+        min-width: 80px; /* Ještě menší tlačítka */
+        height: 80px; /* Ještě menší tlačítka */
+        font-size: 0.8em; /* Ještě menší font */
+        gap: 6px;
+        flex-basis: calc(50% - 10px); /* Dva sloupce na malých telefonech */
+    }
+    .search-type-btn img, .search-source-btn img {
+        height: 25px; /* Ještě menší ikony */
+        width: 25px;
+    }
+    .language-selection, .theme-selection {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 8px;
+    }
+    .lang-btn, .theme-btn {
+        width: 100%;
+    }
+    .bottom-left-utility {
+        flex-direction: column;
+        align-items: center;
     }
 }
