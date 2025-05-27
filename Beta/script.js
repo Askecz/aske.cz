@@ -8,8 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const langButtons = document.querySelectorAll('.lang-btn');
     const themeButtons = document.querySelectorAll('.theme-btn');
     const searchButton = document.getElementById('searchBtn');
+    
+    // Získání wrapperu, kam se bude vkládat autocomplete
+    const inputAutocompleteWrapper = document.querySelector('.input-autocomplete-wrapper');
 
-    // Nové elementy pro autocomplete
     let autocompleteContainer; // Bude vytvořen dynamicky
     let currentInputForAutocomplete = null; // Sleduje, který input má autocomplete
 
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             specificTrophyBtn: "Specific Trophy",
             videosGeneralBtn: "Videos (General)",
             selectSearchSource: "Select Search Source:",
-            googleBtn: "Google", // Přidáno pro překlad tlačítka Google
+            googleBtn: "Google",
             psnprofilesBtn: "PSNProfiles",
             powerpyxBtn: "PowerPyx",
             truetrophiesBtn: "TrueTrophies",
@@ -61,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             trophyBtn: "Trofej",
             roadmapBtn: "Roadmap & Průvodce",
             collectiblesBtn: "Sběratelské předměty",
-            notesBtn: "Poznámky / Lore", // ponecháno "Lore" i v CZ pro konzistenci
+            notesBtn: "Poznámky / Lore",
             mapBtn: "Mapy",
             weaponsBtn: "Zbraně",
             upgradesBtn: "Vylepšení",
@@ -200,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'psnprofiles': url = `https://psnprofiles.com/search/games?q=${encodeURIComponent(gameName)}`; break;
             case 'powerpyx': url = `https://www.powerpyx.com/?s=${encodeURIComponent(searchTerm)}`; break;
             case 'truetrophies': url = `https://www.truetrophies.com/searchresults.aspx?search=${encodeURIComponent(gameName)}`; break;
-            case 'youtube': url = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`; break; // Opravená URL pro YouTube
+            case 'youtube': url = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`; break; // OPRAVENO ZDE
             default: url = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`; break;
         }
 
@@ -215,17 +217,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
                     element.placeholder = translations[lang][key];
                 } else if (element.tagName === 'SPAN' && !element.classList.contains('material-icons-outlined') && !element.classList.contains('color-box')) {
-                    // Překládá SPAN, který není ikona ani barevný box (typicky text v tlačítku vedle ikony)
                     element.textContent = translations[lang][key];
                 } else if (element.tagName === 'TITLE' || element.tagName === 'H1' || element.tagName === 'H3') {
-                    // Přímý překlad pro TITLE, H1, H3
                     element.textContent = translations[lang][key];
                 }
-                // Pro tlačítka s ikonami, kde je text ve vnořeném SPANu s data-lang-key, se to již pokryje výše.
-                // Pro tlačítka ENG/CS/DE se text nastavuje explicitně níže.
             }
         });
-        // Zajistí, že texty jazykových tlačítek zůstanou jako kódy
         document.querySelector('.lang-btn[data-lang="en"]').textContent = "ENG";
         document.querySelector('.lang-btn[data-lang="cs"]').textContent = "CS";
         document.querySelector('.lang-btn[data-lang="de"]').textContent = "DE";
@@ -239,27 +236,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Autocomplete Functions ---
 
-    // Vytvoří kontejner pro autocomplete, pokud neexistuje
+    // Vytvoří kontejner pro autocomplete, pokud neexistuje, a vloží ho do wrapperu
     function createAutocompleteContainer() {
         if (!autocompleteContainer) {
             autocompleteContainer = document.createElement('div');
             autocompleteContainer.classList.add('autocomplete-suggestions');
-            // Přidáme ho do těla, aby se správně pozicoval absolutně
-            document.body.appendChild(autocompleteContainer);
+            inputAutocompleteWrapper.appendChild(autocompleteContainer); // Vložit do nového wrapperu
         }
-        // Ujistíme se, že je skrytý na začátku
         autocompleteContainer.style.display = 'none';
     }
 
-    // Pozice kontejneru autocomplete pod inputem
+    // Pozicování autocomplete kontejneru (už nebude potřeba window.scrollY/X, protože je relativní)
     function positionAutocompleteContainer(inputElement) {
-        const inputRect = inputElement.getBoundingClientRect();
-        autocompleteContainer.style.position = 'absolute';
-        // Přidáme scrollY/scrollX pro správné pozicování vzhledem k dokumentu
-        autocompleteContainer.style.top = `${inputRect.bottom + window.scrollY + 5}px`;
-        autocompleteContainer.style.left = `${inputRect.left + window.scrollX}px`;
-        autocompleteContainer.style.width = `${inputRect.width}px`;
-        autocompleteContainer.style.zIndex = '1001'; // Vyšší z-index
+        // Pozice je nyní řízena CSS "position: absolute; top: 100%; left: 0; right: 0;"
+        // Není potřeba dynamicky počítat top/left JS, stačí zobrazit.
         autocompleteContainer.style.display = 'block';
     }
 
@@ -273,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Získá návrhy z Google (neoficiální API)
     async function fetchGoogleSuggestions(query) {
-        if (query.length < 2) { // Hledat až od 2 znaků
+        if (query.length < 2) {
             hideAutocomplete();
             return [];
         }
@@ -282,7 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(url);
             const data = await response.json();
-            // Data jsou pole: [původní dotaz, [návrhy], [], []]
             return data[1] || [];
         } catch (error) {
             console.error('Error fetching Google suggestions:', error);
@@ -294,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function displaySuggestions(suggestions, inputElement) {
         if (!autocompleteContainer) return;
 
-        autocompleteContainer.innerHTML = ''; // Vyčistit předchozí návrhy
+        autocompleteContainer.innerHTML = '';
 
         if (suggestions.length === 0) {
             hideAutocomplete();
@@ -305,7 +294,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const suggestionItem = document.createElement('div');
             suggestionItem.classList.add('autocomplete-item');
             suggestionItem.textContent = suggestion;
-            suggestionItem.addEventListener('click', () => {
+            suggestionItem.addEventListener('mousedown', (e) => { // Použít mousedown místo click pro řešení blur
+                e.preventDefault(); // Zabraňuje ztrátě focusu inputu
                 inputElement.value = suggestion;
                 hideAutocomplete();
             });
@@ -317,12 +307,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Initial Setup ---
     currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
-    if (!translations[currentLanguage]) currentLanguage = 'en'; // Fallback
+    if (!translations[currentLanguage]) currentLanguage = 'en';
     langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === currentLanguage));
     
     currentTheme = localStorage.getItem('selectedTheme') || 'dark';
-    applyTheme(currentTheme); // Použít motiv
-    applyTranslations(currentLanguage); // AŽ POTOM aplikovat překlady
+    applyTheme(currentTheme);
+    applyTranslations(currentLanguage);
 
     const initialSearchType = document.querySelector('.search-type-btn[data-search-term="trophy"]');
     if (initialSearchType) initialSearchType.classList.add('active');
@@ -331,11 +321,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (initialSearchSource && !document.querySelector('.search-source-btn.active')) {
         initialSearchSource.classList.add('active');
     }
-    updateTrophyInputVisibility(); // Nastaví výchozí input pro autocomplete a jeho viditelnost
+    updateTrophyInputVisibility();
 
     // Vytvoření autocomplete kontejneru hned po načtení DOM
     createAutocompleteContainer();
-    // currentInputForAutocomplete je již nastaveno v updateTrophyInputVisibility()
 
     // --- Event Listeners ---
     langButtons.forEach(button => {
@@ -362,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.classList.add('active');
             currentSearchTerm = button.dataset.searchTerm;
             updateTrophyInputVisibility();
-            hideAutocomplete(); // Skrýt autocomplete při změně typu hledání
+            hideAutocomplete();
         });
     });
 
@@ -387,30 +376,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Přidání autocomplete listeneru
         input.addEventListener('input', async (event) => {
-            // Kontrola, zda event.target je aktuální input pro autocomplete
-            // (Zabraňuje spouštění autocomplete na skrytém trophyNameInput)
             if (event.target === currentInputForAutocomplete) {
                 const query = event.target.value;
-                if (query.length > 1) { // Spustit autocomplete od 2 znaků
+                if (query.length > 1) {
                     const suggestions = await fetchGoogleSuggestions(query);
                     displaySuggestions(suggestions, event.target);
                 } else {
                     hideAutocomplete();
                 }
             } else {
-                hideAutocomplete(); // Skrýt autocomplete, pokud píšeme do jiného inputu
+                hideAutocomplete();
             }
         });
 
-        // Skrýt autocomplete, když input ztratí focus, ale s malým zpožděním, aby se stihl kliknout na návrh
-        input.addEventListener('blur', () => {
-            setTimeout(() => {
+        // Důležité: Mousedown listener pro dokument, aby se autocomplete schoval při kliknutí mimo něj
+        document.addEventListener('mousedown', (event) => {
+            // Pokud kliknutí nebylo uvnitř input-autocomplete-wrapper, skryj autocomplete
+            if (autocompleteContainer && !inputAutocompleteWrapper.contains(event.target)) {
                 hideAutocomplete();
-            }, 150); // Krátké zpoždění
+            }
         });
-
+        
+        // Zabrání skrytí autocomplete, když se klikne na posuvník v něm
+        if (autocompleteContainer) {
+            autocompleteContainer.addEventListener('mousedown', (event) => {
+                event.preventDefault(); // Zabrání ztrátě focusu inputu při kliknutí na scrollbar
+            });
+        }
+        
         // Při focusu na input, pokud už má text, zkusit znovu načíst návrhy
         input.addEventListener('focus', async (event) => {
             if (event.target === currentInputForAutocomplete && event.target.value.length > 1) {
