@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeButtons = document.querySelectorAll('.theme-btn');
     const searchButton = document.getElementById('searchBtn');
 
+    // Nové elementy pro autocomplete
+    let autocompleteContainer; // Bude vytvořen dynamicky
+    let currentInputForAutocomplete = null; // Sleduje, který input má autocomplete
+
     let currentSearchTerm = 'trophy'; // Default search term
     let currentLanguage = 'en'; // Default language
     let currentTheme = 'dark'; // Default theme
@@ -24,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             trophyBtn: "Trophy",
             roadmapBtn: "Roadmap & Guide",
             collectiblesBtn: "Collectibles",
-            notesBtn: "Notes / Lore", // V EN ponecháno "Lore"
+            notesBtn: "Notes / Lore",
             mapBtn: "Maps",
             weaponsBtn: "Weapons",
             upgradesBtn: "Upgrades",
@@ -35,6 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
             specificTrophyBtn: "Specific Trophy",
             videosGeneralBtn: "Videos (General)",
             selectSearchSource: "Select Search Source:",
+            googleBtn: "Google", // Přidáno pro překlad tlačítka Google
+            psnprofilesBtn: "PSNProfiles",
+            powerpyxBtn: "PowerPyx",
+            truetrophiesBtn: "TrueTrophies",
+            youtubeBtn: "YouTube",
             searchButtonText: "Search",
             languageSelector: "Language:",
             themeSelector: "Theme:",
@@ -52,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             trophyBtn: "Trofej",
             roadmapBtn: "Roadmap & Průvodce",
             collectiblesBtn: "Sběratelské předměty",
-            notesBtn: "Poznámky", // Změněno zde - "Lore" odstraněno
+            notesBtn: "Poznámky / Lore", // ponecháno "Lore" i v CZ pro konzistenci
             mapBtn: "Mapy",
             weaponsBtn: "Zbraně",
             upgradesBtn: "Vylepšení",
@@ -63,6 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
             specificTrophyBtn: "Konkrétní Trofej",
             videosGeneralBtn: "Videa (Obecné)",
             selectSearchSource: "Vyberte zdroj hledání:",
+            googleBtn: "Google",
+            psnprofilesBtn: "PSNProfiles",
+            powerpyxBtn: "PowerPyx",
+            truetrophiesBtn: "TrueTrophies",
+            youtubeBtn: "YouTube",
             searchButtonText: "Vyhledat",
             languageSelector: "Jazyk:",
             themeSelector: "Motiv:",
@@ -71,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alertGameName: "Prosím, zadej název hry.",
             alertTrophyName: "Prosím, zadej název trofeje/achievementu pro toto vyhledávání."
         },
-        de: { // V němčině "Lore" také ponecháno pro konzistenci, pokud není požadavek na změnu
+        de: {
             pageTitle: "PlayStation Trophäen-Suchmaschine",
             mainHeading: "PlayStation Trophäen-Suchmaschine",
             searchInputPlaceholder: "Spielname eingeben...",
@@ -91,6 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
             specificTrophyBtn: "Spezifische Trophäe",
             videosGeneralBtn: "Videos (Allgemein)",
             selectSearchSource: "Suchquelle auswählen:",
+            googleBtn: "Google",
+            psnprofilesBtn: "PSNProfiles",
+            powerpyxBtn: "PowerPyx",
+            truetrophiesBtn: "TrueTrophies",
+            youtubeBtn: "YouTube",
             searchButtonText: "Suchen",
             languageSelector: "Sprache:",
             themeSelector: "Thema:",
@@ -105,10 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentSearchTerm === 'specific_trophy') {
             trophyNameInput.style.display = 'block';
             trophyNameInput.focus();
+            currentInputForAutocomplete = trophyNameInput; // Autocomplete pro trofejní input
         } else {
             trophyNameInput.style.display = 'none';
             trophyNameInput.value = '';
+            currentInputForAutocomplete = gameSearchInput; // Autocomplete zpět na herní input
         }
+        hideAutocomplete(); // Vždy skrýt autocomplete, když se mění viditelnost inputu
     }
 
     function performSearch(source) {
@@ -151,6 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchTerm = `${gameName} ${specificQuery}`.trim();
 
         if (source === 'youtube') {
+            // Speciální úpravy pro YouTube vyhledávání, protože je často potřeba explicitní "video"
             if (currentSearchTerm === 'trophy') specificQuery = 'trophy list video';
             else if (currentSearchTerm === 'roadmap') specificQuery = 'video trophy roadmap guide';
             else if (currentSearchTerm === 'collectibles') specificQuery = 'all collectibles video guide';
@@ -177,11 +200,12 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'psnprofiles': url = `https://psnprofiles.com/search/games?q=${encodeURIComponent(gameName)}`; break;
             case 'powerpyx': url = `https://www.powerpyx.com/?s=${encodeURIComponent(searchTerm)}`; break;
             case 'truetrophies': url = `https://www.truetrophies.com/searchresults.aspx?search=${encodeURIComponent(gameName)}`; break;
-            case 'youtube': url = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`; break; // OPRAVENO
+            case 'youtube': url = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`; break; // Opravená URL pro YouTube
             default: url = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`; break;
         }
 
         if (url) window.open(url, '_blank');
+        hideAutocomplete(); // Skrýt autocomplete po vyhledávání
     }
 
     function applyTranslations(lang) {
@@ -213,6 +237,84 @@ document.addEventListener('DOMContentLoaded', () => {
         themeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme));
     }
 
+    // --- Autocomplete Functions ---
+
+    // Vytvoří kontejner pro autocomplete, pokud neexistuje
+    function createAutocompleteContainer() {
+        if (!autocompleteContainer) {
+            autocompleteContainer = document.createElement('div');
+            autocompleteContainer.classList.add('autocomplete-suggestions');
+            // Přidáme ho do těla, aby se správně pozicoval absolutně
+            document.body.appendChild(autocompleteContainer);
+        }
+        // Ujistíme se, že je skrytý na začátku
+        autocompleteContainer.style.display = 'none';
+    }
+
+    // Pozice kontejneru autocomplete pod inputem
+    function positionAutocompleteContainer(inputElement) {
+        const inputRect = inputElement.getBoundingClientRect();
+        autocompleteContainer.style.position = 'absolute';
+        // Přidáme scrollY/scrollX pro správné pozicování vzhledem k dokumentu
+        autocompleteContainer.style.top = `${inputRect.bottom + window.scrollY + 5}px`;
+        autocompleteContainer.style.left = `${inputRect.left + window.scrollX}px`;
+        autocompleteContainer.style.width = `${inputRect.width}px`;
+        autocompleteContainer.style.zIndex = '1001'; // Vyšší z-index
+        autocompleteContainer.style.display = 'block';
+    }
+
+    // Skryje kontejner autocomplete
+    function hideAutocomplete() {
+        if (autocompleteContainer) {
+            autocompleteContainer.innerHTML = '';
+            autocompleteContainer.style.display = 'none';
+        }
+    }
+
+    // Získá návrhy z Google (neoficiální API)
+    async function fetchGoogleSuggestions(query) {
+        if (query.length < 2) { // Hledat až od 2 znaků
+            hideAutocomplete();
+            return [];
+        }
+
+        const url = `https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(query)}`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            // Data jsou pole: [původní dotaz, [návrhy], [], []]
+            return data[1] || [];
+        } catch (error) {
+            console.error('Error fetching Google suggestions:', error);
+            return [];
+        }
+    }
+
+    // Zobrazí návrhy v autocomplete kontejneru
+    function displaySuggestions(suggestions, inputElement) {
+        if (!autocompleteContainer) return;
+
+        autocompleteContainer.innerHTML = ''; // Vyčistit předchozí návrhy
+
+        if (suggestions.length === 0) {
+            hideAutocomplete();
+            return;
+        }
+
+        suggestions.forEach(suggestion => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.classList.add('autocomplete-item');
+            suggestionItem.textContent = suggestion;
+            suggestionItem.addEventListener('click', () => {
+                inputElement.value = suggestion;
+                hideAutocomplete();
+            });
+            autocompleteContainer.appendChild(suggestionItem);
+        });
+
+        positionAutocompleteContainer(inputElement);
+    }
+
     // --- Initial Setup ---
     currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
     if (!translations[currentLanguage]) currentLanguage = 'en'; // Fallback
@@ -229,7 +331,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (initialSearchSource && !document.querySelector('.search-source-btn.active')) {
         initialSearchSource.classList.add('active');
     }
-    updateTrophyInputVisibility();
+    updateTrophyInputVisibility(); // Nastaví výchozí input pro autocomplete a jeho viditelnost
+
+    // Vytvoření autocomplete kontejneru hned po načtení DOM
+    createAutocompleteContainer();
+    // currentInputForAutocomplete je již nastaveno v updateTrophyInputVisibility()
 
     // --- Event Listeners ---
     langButtons.forEach(button => {
@@ -256,6 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.classList.add('active');
             currentSearchTerm = button.dataset.searchTerm;
             updateTrophyInputVisibility();
+            hideAutocomplete(); // Skrýt autocomplete při změně typu hledání
         });
     });
 
@@ -277,6 +384,39 @@ document.addEventListener('DOMContentLoaded', () => {
             if (event.key === 'Enter') {
                 event.preventDefault();
                 searchButton.click();
+            }
+        });
+
+        // Přidání autocomplete listeneru
+        input.addEventListener('input', async (event) => {
+            // Kontrola, zda event.target je aktuální input pro autocomplete
+            // (Zabraňuje spouštění autocomplete na skrytém trophyNameInput)
+            if (event.target === currentInputForAutocomplete) {
+                const query = event.target.value;
+                if (query.length > 1) { // Spustit autocomplete od 2 znaků
+                    const suggestions = await fetchGoogleSuggestions(query);
+                    displaySuggestions(suggestions, event.target);
+                } else {
+                    hideAutocomplete();
+                }
+            } else {
+                hideAutocomplete(); // Skrýt autocomplete, pokud píšeme do jiného inputu
+            }
+        });
+
+        // Skrýt autocomplete, když input ztratí focus, ale s malým zpožděním, aby se stihl kliknout na návrh
+        input.addEventListener('blur', () => {
+            setTimeout(() => {
+                hideAutocomplete();
+            }, 150); // Krátké zpoždění
+        });
+
+        // Při focusu na input, pokud už má text, zkusit znovu načíst návrhy
+        input.addEventListener('focus', async (event) => {
+            if (event.target === currentInputForAutocomplete && event.target.value.length > 1) {
+                const query = event.target.value;
+                const suggestions = await fetchGoogleSuggestions(query);
+                displaySuggestions(suggestions, event.target);
             }
         });
     });
