@@ -13,28 +13,30 @@
         <div class="shape triangle"></div>
         <div class="shape square"></div>
         <div class="shape circle"></div>
-        <div class="shape cross"></div> </div>
+        <div class="shape cross"></div>
+    </div>
 
     <div class="central-content-wrapper">
         <div class="main-search-area">
+            <div class="trophy-logo-container">
+                <span class="material-icons-outlined trophy-logo">emoji_events</span>
+            </div>
             <h1 data-lang-key="mainHeading"></h1>
 
-            <div class="input-autocomplete-wrapper">
-                <div class="search-input-area">
-                    <input type="text" id="gameSearchInput" placeholder="" data-lang-key="searchInputPlaceholder">
-                    <input type="text" id="trophyNameInput" placeholder="" data-lang-key="trophyInputPlaceholder" style="display: none;">
-                    <button id="searchBtn" class="action-button">
-                        <span class="material-icons-outlined">search</span>
-                        <span data-lang-key="searchButtonText"></span>
-                    </button>
-                </div>
-                </div>
-
+            <div class="search-input-area">
+                <input type="text" id="gameSearchInput" placeholder="" data-lang-key="searchInputPlaceholder">
+                <input type="text" id="trophyNameInput" placeholder="" data-lang-key="trophyInputPlaceholder" style="display: none;">
+                <button id="searchBtn" class="action-button">
+                    <span class="material-icons-outlined">search</span>
+                    <span data-lang-key="searchButtonText"></span>
+                </button>
+            </div>
 
             <div class="search-options-grid">
                 <div class="search-type-selection">
                     <h3 data-lang-key="selectSearchType"></h3>
-                    <div class="button-grid"> <button class="search-type-btn" data-search-term="trophy">
+                    <div class="button-grid types-grid">
+                        <button class="search-type-btn" data-search-term="trophy">
                             <span class="material-icons-outlined">military_tech</span>
                             <span data-lang-key="trophyBtn"></span>
                         </button>
@@ -91,31 +93,26 @@
 
                 <div class="search-source-selection">
                     <h3 data-lang-key="selectSearchSource"></h3>
-                    <div class="button-grid"> <button class="search-source-btn google" data-source="google">
-                            <svg viewBox="0 0 512 512" fill="currentColor" width="24" height="24">
-                                <path d="M488 261.8C488 276.9 487.6 291.6 486.2 305.8L486.2 305.8C482.9 337 465.4 416 384 416C325.3 416 276.4 376.1 261.8 322.4L261.8 322.4C261.3 320.5 259.9 318.5 258 317C246.3 306.4 233.5 296.2 220.3 286.4L220.3 286.4C216.9 283.8 213.6 281.3 210.3 278.8L210.3 278.8C201.2 272.2 191.6 266 182.2 260.1L182.2 260.1C180 258.8 178 257.5 176 256.2C169.5 252 163 247.9 156.4 243.9L156.4 243.9C154.6 242.8 152.9 241.8 151.1 240.8L151.1 240.8C148.8 239.5 146.5 238.2 144.2 236.9L144.2 236.9C143.1 236.3 142.1 235.6 141.1 235L141.1 235C139 233.7 136.9 232.4 134.8 231.1L134.8 231.1C132.8 229.9 130.8 228.6 128.8 227.4L128.8 227.4C126.9 226.3 125.1 225.2 123.3 224.1L123.3 224.1C122.2 223.4 121.1 222.8 120 222.1L120 222.1C118.9 221.5 117.8 220.8 116.7 220.2L116.7 220.2C115.8 219.7 114.9 219.1 114 218.6L114 218.6C113.1 218.1 112.2 217.5 111.3 217L111.3 217C107.5 214.9 103.6 212.9 99.8 210.8L99.8 210.8C98.4 210.1 97.1 209.5 95.7 208.8L95.7 208.8C93.7 207.7 91.8 206.6 89.8 205.5L89.8 205.5C88.2 204.6 86.5 203.8 84.9 203L84.9 203C83.2 202.1 81.5 201.2 79.8 200.4L79.8 200.4C77.4 199.1 75.1 197.9 72.8 196.7L72.8 196.7C69.3 194.8 65.9 193 62.4 191.1L62.4 191.1C60.2 189.9 57.9 188.7 55.7 187.6L55.7 187.6C54.4 186.9 53.2 186.2 51.9 185.5L51.9 185.5C49.8 184.4 47.7 183.3 45.6 182.2L45.6 182.2C44.4 181.5 43.1 180.8 41.9 180.1L41.9 180.1C39.9 179 37.9 177.9 35.9 176.8L35.9 176.8C33.7 175.7 31.6 174.6 29.5 173.5L29.5 173.5C28.2 172.9 27 172.2 25.8 171.6L25.8 171.6C23.6 170.5 21.5 169.5 19.4 168.4L19.4 168.4C18.2 167.9 17.1 167.3 16 166.7L16 166.7C15.1 166.2 14.1 165.7 13.2 165.2L13.2 165.2C12.3 164.7 11.4 164.2 10.5 163.7L10.5 163.7C9.6 163.2 8.7 162.7 7.8 162.2L7.8 162.2C6.9 161.7 6.1 161.2 5.2 160.7L5.2 160.7C4.6 160.4 4 160.1 3.4 159.8L3.4 159.8C2.8 159.5 2.2 159.2 1.6 158.9L1.6 158.9C1.1 158.6 0.5 158.3 0 158L0 256C0 396 116 512 256 512C337.5 512 405.5 470 442.2 408.8L442.2 408.8C462.6 373.1 488 300.9 488 261.8zM256 256C256 292 271 324.9 296 348.9L296 348.9C316.5 369.8 344.6 384 384 384C408.3 384 424.4 377.7 435.5 367.6L435.5 367.6C451.9 352.5 456 329.8 456 312L456 256L256 256zM384 224C344.6 224 316.5 209.8 296 188.9L296 188.9C271 164.9 256 132 256 96C256 56 271 23.1 296 0L296 0C316.5 20.9 344.6 35.1 384 35.1C408.3 35.1 424.4 41.4 435.5 51.5L435.5 51.5C451.9 66.6 456 89.3 456 107.1L456 107.1L456 224L384 224zM256 0C116 0 0 116 0 256C0 263.6 0.4 271 0.7 278.4L0.7 278.4C0.9 281.3 1.2 284.2 1.5 287L1.5 287C1.8 290.4 2.1 293.7 2.4 297L2.4 297C2.6 299.8 2.9 302.7 3.2 305.5L3.2 305.5C3.5 308.9 3.8 312.2 4.1 315.6L4.1 315.6C4.4 318.4 4.7 321.3 5 324.2L5 324.2C5.3 327.6 5.6 330.9 5.9 334.3L5.9 334.3C6.1 337.1 6.4 340 6.7 342.8L6.7 342.8C7 346.2 7.3 349.5 7.6 352.9L7.6 352.9C7.9 355.7 8.2 358.6 8.5 361.5L8.5 361.5C8.8 364.9 9.1 368.2 9.4 371.6L9.4 371.6C9.7 374.4 10 377.3 10.3 380.2L10.3 380.2C10.6 383.6 10.9 386.9 11.2 390.3L11.2 390.3C11.5 393.1 11.8 396 12.1 398.9L12.1 398.9C12.4 402.3 12.7 405.6 13 409L13 409C13.3 411.8 13.6 414.7 13.9 417.6L13.9 417.6C14.2 421 14.5 424.3 14.8 427.7L14.8 427.7C15.1 430.5 15.4 433.4 15.7 436.3L15.7 436.3C16 439.7 16.3 443 16.6 446.4L16.6 446.4C16.9 449.2 17.2 452.1 17.5 455L17.5 455C17.8 458.4 18.1 461.7 18.4 465.1L18.4 465.1C18.7 467.9 19 470.8 19.3 473.7L19.3 473.7C19.6 477.1 19.9 480.4 20.2 483.8L20.2 483.8C20.5 486.6 20.8 489.5 21.1 492.4L21.1 492.4C21.4 495.8 21.7 499.1 22 502.5L22 502.5C22.3 505.3 22.6 508.2 22.9 511.1L22.9 511.1C23 511.4 23 511.7 23 512L256 512L256 0z" />
-                            </svg>
-                            <span data-lang-key="googleBtn">Google</span>
+                    <div class="button-grid sources-grid">
+                        <button class="search-source-btn" data-source="google">
+                            <span class="material-icons-outlined">search</span>
+                            <span data-lang-key="googleBtn"></span>
                         </button>
                         <button class="search-source-btn" data-source="psnprofiles">
-                            <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1.895 18.105L4.545 11.23a.987.987 0 0 1 0-1.405l.95-.95a.987.987 0 0 1 1.405 0l4.29 4.291 7.21-7.21a.987.987 0 0 1 1.405 0l.95.95a.987.987 0 0 1 0 1.405L12.105 18.105a.987.987 0 0 1-1.405 0z"/>
-                            </svg>
-                            <span data-lang-key="psnprofilesBtn">PSNProfiles</span>
+                            <span class="material-icons-outlined">sports_esports</span>
+                            <span data-lang-key="psnprofilesBtn"></span>
                         </button>
                         <button class="search-source-btn" data-source="powerpyx">
-                            <img src="https://www.powerpyx.com/wp-content/themes/PowerPyx/images/logo.png" alt="PowerPyx Logo" width="24" height="24">
-                            <span data-lang-key="powerpyxBtn">PowerPyx</span>
+                            <span class="material-icons-outlined">local_fire_department</span>
+                            <span data-lang-key="powerpyxBtn"></span>
                         </button>
                         <button class="search-source-btn" data-source="truetrophies">
-                            <img src="https://www.truetrophies.com/assets/images/logo.png" alt="TrueTrophies Logo" width="24" height="24">
-                            <span data-lang-key="truetrophiesBtn">TrueTrophies</span>
+                            <span class="material-icons-outlined">verified</span>
+                            <span data-lang-key="truetrophiesBtn"></span>
                         </button>
-                        <button class="search-source-btn youtube" data-source="youtube">
-                            <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm8.683 8.358c.287-1.047.458-2.148.458-3.358 0-4.418-3.582-8-8-8S4 4.223 4 8.642c0 1.21.171 2.311.458 3.358L2.091 16.94c-.266.86-.062 1.8.497 2.477.558.677 1.432.96 2.378.857L12 18.814l7.034 1.456c.946.103 1.82-.18 2.378-.857.559-.677.763-1.617.497-2.477L20.683 8.358zM12 18c-3.313 0-6-2.687-6-6s2.687-6 6-6 6 2.687 6 6-2.687 6-6 6z"/>
-                            </svg>
-                            <span data-lang-key="youtubeBtn">YouTube</span>
+                        <button class="search-source-btn" data-source="youtube">
+                            <span class="material-icons-outlined">ondemand_video</span>
+                            <span data-lang-key="youtubeBtn"></span>
                         </button>
                     </div>
                 </div>
@@ -123,11 +120,25 @@
         </div>
     </div>
 
-    <div class="bottom-left-utility">
+    <div class="bottom-utility-area">
+        <div class="utility-group">
+            <span data-lang-key="layoutSelector"></span>
+            <div class="layout-selection">
+                <button class="layout-btn active" data-layout="grid">
+                    <span class="material-icons-outlined">grid_view</span>
+                    <span data-lang-key="gridLayoutText"></span>
+                </button>
+                <button class="layout-btn" data-layout="columns">
+                    <span class="material-icons-outlined">view_column</span>
+                    <span data-lang-key="columnLayoutText"></span>
+                </button>
+            </div>
+        </div>
+
         <div class="utility-group">
             <span data-lang-key="languageSelector"></span>
             <div class="language-selection">
-                <button class="lang-btn" data-lang="en">ENG</button>
+                <button class="lang-btn active" data-lang="en">EN</button>
                 <button class="lang-btn" data-lang="cs">CS</button>
                 <button class="lang-btn" data-lang="de">DE</button>
             </div>
@@ -148,12 +159,22 @@
         </div>
     </div>
 
+    <div class="toplist-container">
+        <a href="https://www.toplist.cz" id="toplistcz1839753" title="TOPlist">
+            <noscript><img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&njs=1" border="0" alt="TOPlist" width="80" height="15"/></noscript>
+            <script language="JavaScript">
+                (function(d,e,s) {
+                    d.getElementById('toplistcz1839753').innerHTML='<img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&njs=1" border="0" '
+                    + 'alt="TOPlist" width="80" height="15"/>';
+                }(document,screen,'https://toplist.cz/'));
+            </script>
+        </a>
+    </div>
+
     <div class="bottom-right-footer">
         <span>Aske 2025</span>
     </div>
+
     <script src="script.js"></script>
-<a href="https://www.toplist.cz" id="toplistcz1839753" title="TOPlist"><noscript><img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&njs=1" border="0"
-alt="TOPlist" width="80" height="15"/></noscript><script language="JavaScript">
-(function(d,e,s) {d.getElementById('toplistcz1839753').innerHTML='<img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&njs=1" border="0" alt="TOPlist" width="88" height="31" \/>';})(document, 'script', '//toplist.cz/dot.js');</script><noscript><img src="https://toplist.cz/dot.asp?id=1839753&nr=1" border="0" alt="TOPlist" width="1" height="1"/></noscript></a>
 </body>
 </html>
