@@ -1,60 +1,153 @@
-﻿<!DOCTYPE html>
-<html lang="cs">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herní Vyhledávač Návodů</title>
+    <title data-lang-key="pageTitle"></title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
-    <div class="container">
-        <h1>Herní Vyhledávač Návodů</h1>
+<body class="dark-theme">
+    <div class="background-shapes">
+        <div class="shape triangle"></div>
+        <div class="shape square"></div>
+        <div class="shape circle"></div>
+        <div class="shape cross"></div>
+    </div>
 
-        <div class="input-group">
-            <label for="gameName">Název Hry:</label>
-            <input type="text" id="gameName" placeholder="Např. Cyberpunk 2077">
-        </div>
+    <div class="central-content-wrapper">
+        <div class="main-search-area">
+            <h1 data-lang-key="mainHeading"></h1>
 
-        <div class="input-group">
-            <label for="trophyName">Název konkrétní Trofeje/Achievementu (volitelné):</label>
-            <input type="text" id="trophyName" placeholder="Např. V for Vendetta">
-        </div>
-
-        <div class="search-section">
-            <h2><img src="https://www.google.com/favicon.ico" alt="Google icon" class="icon"> Vyhledat na Google:</h2>
-            <div class="button-grid">
-                <button data-engine="google" data-querytype="roadmap">Roadmap & Trophy Guide</button>
-                <button data-engine="google" data-querytype="collectibles">Collectibles (Sběratelské předměty)</button>
-                <button data-engine="google" data-querytype="notes">Notes / Lore</button>
-                <button data-engine="google" data-querytype="maps">Maps (Mapy)</button>
-                <button data-engine="google" data-querytype="weapons">Weapons (Zbraně)</button>
-                <button data-engine="google" data-querytype="upgrades">Full Upgrade (Vylepšení)</button>
-                <button data-engine="google" data-querytype="speedrun">Speedrun Guide</button>
-                <button data-engine="google" data-querytype="all_quests">All Quests (Všechny hlavní úkoly)</button>
-                <button data-engine="google" data-querytype="all_side_quests">All Side Quests (Všechny vedlejší úkoly)</button>
-                <button data-engine="google" data-querytype="specific_trophy">Konkrétní Trofej/Achievement</button>
-                <button data-engine="google" data-querytype="hardest_difficulty">Hardest Difficulty Run (Nejtěžší obtížnost)</button>
+            <div class="search-input-area">
+                <input type="text" id="gameSearchInput" placeholder="" data-lang-key="searchInputPlaceholder">
+                <input type="text" id="trophyNameInput" placeholder="" data-lang-key="trophyInputPlaceholder" style="display: none;">
+                <button id="searchBtn" class="action-button" data-lang-key="searchButtonText"></button>
             </div>
-        </div>
 
-        <div class="search-section">
-            <h2><img src="https://www.youtube.com/favicon.ico" alt="YouTube icon" class="icon"> Vyhledat na YouTube:</h2>
-            <div class="button-grid">
-                <button data-engine="youtube" data-querytype="roadmap_video">Roadmap (Video)</button>
-                <button data-engine="youtube" data-querytype="collectibles_video">Collectibles (Video Návod)</button>
-                <button data-engine="youtube" data-querytype="maps_video">Maps (Video Průvodce)</button>
-                <button data-engine="youtube" data-querytype="weapons_video">Weapons (Video Ukázka/Lokace)</button>
-                <button data-engine="youtube" data-querytype="upgrades_video">Full Upgrade (Video Návod)</button>
-                <button data-engine="youtube" data-querytype="speedrun_video">Speedrun (Video)</button>
-                <button data-engine="youtube" data-querytype="all_quests_video">All Quests (Video Walkthrough)</button>
-                <button data-engine="youtube" data-querytype="all_side_quests_video">All Side Quests (Video Walkthrough)</button>
-                <button data-engine="youtube" data-querytype="videos_general">Videa o hře (Obecné)</button>
-                <button data-engine="youtube" data-querytype="specific_trophy_video">Konkrétní Trofej (Video Návod)</button>
-                <button data-engine="youtube" data-querytype="hardest_difficulty_video">Hardest Difficulty Run (Video Playthrough)</button>
+            <div class="search-options-grid">
+                <div class="search-type-section">
+                    <h3><span data-lang-key="selectSearchType"></span></h3>
+                    <div class="search-type-buttons">
+                        <button id="trophyBtn" class="search-type-btn active" data-search-term="trophy">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/trophy.svg" alt="Trophy Icon">
+                            <span data-lang-key="trophyBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="roadmap">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/route.svg" alt="Roadmap Icon">
+                            <span data-lang-key="roadmapBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="collectibles">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/gem.svg" alt="Collectibles Icon">
+                            <span data-lang-key="collectiblesBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="notes">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/note-sticky.svg" alt="Notes Icon">
+                            <span data-lang-key="notesBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="maps">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/map.svg" alt="Maps Icon">
+                            <span data-lang-key="mapBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="weapons">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/gun.svg" alt="Weapons Icon">
+                            <span data-lang-key="weaponsBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="upgrades">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/arrow-up-from-bracket.svg" alt="Upgrades Icon">
+                            <span data-lang-key="upgradesBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="speedrun">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/stopwatch.svg" alt="Speedrun Icon">
+                            <span data-lang-key="speedrunBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="all_quests">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/scroll.svg" alt="Quests Icon">
+                            <span data-lang-key="allQuestsBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="all_side_quests">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/clipboard-list.svg" alt="Side Quests Icon">
+                            <span data-lang-key="allSideQuestsBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="hardest_difficulty">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/skull.svg" alt="Difficulty Icon">
+                            <span data-lang-key="hardestDifficultyBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="specific_trophy">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/crosshairs.svg" alt="Specific Trophy Icon">
+                            <span data-lang-key="specificTrophyBtn"></span>
+                        </button>
+                        <button class="search-type-btn" data-search-term="videos_general">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/svgs/solid/video.svg" alt="Videos Icon">
+                            <span data-lang-key="videosGeneralBtn"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="search-source-section">
+                    <h3><span data-lang-key="selectSearchSource"></span></h3>
+                    <div class="search-source-buttons">
+                        <button class="search-source-btn google" data-source="google">
+                            <img src="https://www.google.com/favicon.ico" alt="Google Icon">
+                            <span>Google</span>
+                        </button>
+                        <button class="search-source-btn youtube" data-source="youtube">
+                            <img src="https://www.youtube.com/favicon.ico" alt="YouTube Icon">
+                            <span>YouTube</span>
+                        </button>
+                        <button class="search-source-btn psnprofiles" data-source="psnprofiles">
+                            <img src="https://psnprofiles.com/favicon.ico" alt="PSNProfiles Icon">
+                            <span>PSNProfiles</span>
+                        </button>
+                        <button class="search-source-btn powerpyx" data-source="powerpyx">
+                            <img src="https://www.powerpyx.com/favicon.ico" alt="PowerPyx Icon">
+                            <span>PowerPyx</span>
+                        </button>
+                        <button class="search-source-btn truetrophies" data-source="truetrophies">
+                            <img src="https://truetrophies.com/favicon.ico" alt="TrueTrophies Icon">
+                            <span>TrueTrophies</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="bottom-left-utility">
+        <div class="utility-group">
+            <span data-lang-key="languageSelector"></span>
+            <div class="language-selection">
+                <button class="lang-btn" data-lang="en">ENG</button>
+                <button class="lang-btn" data-lang="cs">CS</button>
+                <button class="lang-btn" data-lang="de">DE</button>
+            </div>
+        </div>
+
+        <div class="utility-group">
+            <span data-lang-key="themeSelector"></span>
+            <div class="theme-selection">
+                <button class="theme-btn active" data-theme="dark">
+                    <span class="color-box dark-box"></span>
+                    <span data-lang-key="darkThemeText"></span>
+                </button>
+                <button class="theme-btn" data-theme="light">
+                    <span class="color-box light-box"></span>
+                    <span data-lang-key="lightThemeText"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-right-footer">
+        <span>Aske 2025</span>
+    </div>
     <script src="script.js"></script>
+    <a href="https://www.toplist.cz" id="toplistcz1839753" title="TOPlist"><noscript><img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&njs=1" border="0"
+alt="TOPlist" width="80" height="15"/></noscript><script language="JavaScript">
+(function(d,e,s) {d.getElementById('toplistcz1839753').innerHTML='<img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&http='+
+e(d.referrer)+'&t='+e(d.title)+'&l='+e(d.URL)+'&wi='+e(s.width)+'&he='+e(s.height)+'&cd='+
+e(s.colorDepth)+'" width="80" height="15" border="0" alt="TOPlist" />';
+}(document,encodeURIComponent,window.screen))
+</script></a>
 </body>
 </html>
