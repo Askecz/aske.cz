@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-lang-key="pageTitle"></title>
     <link rel="stylesheet" href="style.css">
-    </head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="icon" href="https://img.icons8.com/fluency/48/trophy.png" type="image/png">
+</head>
 <body class="dark-theme">
     <div class="background-shapes">
         <div class="shape triangle"></div>
         <div class="shape square"></div>
         <div class="shape circle"></div>
-        <div class="shape cross"></div>
-    </div>
+        <div class="shape cross"></div> </div>
 
     <div class="central-content-wrapper">
         <div class="main-search-area">
@@ -21,7 +22,10 @@
             <div class="search-input-area">
                 <input type="text" id="gameSearchInput" placeholder="" data-lang-key="searchInputPlaceholder">
                 <input type="text" id="trophyNameInput" placeholder="" data-lang-key="trophyInputPlaceholder" style="display: none;">
-                <button id="searchBtn" class="action-button" data-lang-key="searchButtonText"></button>
+                <button id="searchBtn" class="action-button">
+                    <span class="material-icons-outlined">search</span>
+                    <span data-lang-key="searchButtonText"></span>
+                </button>
             </div>
 
             <div class="search-options-grid">
@@ -29,42 +33,55 @@
                     <h3><span data-lang-key="selectSearchType"></span></h3>
                     <div class="search-type-buttons">
                         <button id="trophyBtn" class="search-type-btn active" data-search-term="trophy">
+                            <span class="material-icons-outlined">emoji_events</span>
                             <span data-lang-key="trophyBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="roadmap">
+                            <span class="material-icons-outlined">map</span>
                             <span data-lang-key="roadmapBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="collectibles">
+                            <span class="material-icons-outlined">inventory_2</span>
                             <span data-lang-key="collectiblesBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="notes">
+                            <span class="material-icons-outlined">description</span>
                             <span data-lang-key="notesBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="maps">
+                            <span class="material-icons-outlined">explore</span>
                             <span data-lang-key="mapBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="weapons">
+                            <span class="material-icons-outlined">shield</span>
                             <span data-lang-key="weaponsBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="upgrades">
+                            <span class="material-icons-outlined">trending_up</span>
                             <span data-lang-key="upgradesBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="speedrun">
+                            <span class="material-icons-outlined">timer</span>
                             <span data-lang-key="speedrunBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="all_quests">
+                            <span class="material-icons-outlined">list_alt</span>
                             <span data-lang-key="allQuestsBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="all_side_quests">
+                            <span class="material-icons-outlined">playlist_add_check</span>
                             <span data-lang-key="allSideQuestsBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="hardest_difficulty">
+                            <span class="material-icons-outlined">star</span>
                             <span data-lang-key="hardestDifficultyBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="specific_trophy">
+                            <span class="material-icons-outlined">bookmark_added</span>
                             <span data-lang-key="specificTrophyBtn"></span>
                         </button>
                         <button class="search-type-btn" data-search-term="videos_general">
+                            <span class="material-icons-outlined">play_circle_outline</span>
                             <span data-lang-key="videosGeneralBtn"></span>
                         </button>
                     </div>
@@ -74,18 +91,23 @@
                     <h3><span data-lang-key="selectSearchSource"></span></h3>
                     <div class="search-source-buttons">
                         <button class="search-source-btn google" data-source="google">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.19,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.19,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.19,22C17.6,22 21.5,18.33 21.5,12.33C21.5,11.76 21.35,11.1 21.35,11.1Z" fill="currentColor"></path></svg>
                             <span>Google</span>
                         </button>
                         <button class="search-source-btn youtube" data-source="youtube">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M21.582,6.186c-0.218-0.808-0.856-1.446-1.664-1.664C18.26,4,12,4,12,4S5.74,4,4.082,4.522 C3.274,4.74,2.636,5.378,2.418,6.186C1.896,7.844,1.896,12,1.896,12s0,4.156,0.522,5.814c0.218,0.808,0.856,1.446,1.664,1.664 C5.74,20,12,20,12,20s6.26,0,7.918-0.522c0.808-0.218,1.446-0.856,1.664-1.664C22.104,16.156,22.104,12,22.104,12 S22.104,7.844,21.582,6.186z M9.996,15.006V8.994l5.214,3.006L9.996,15.006z" fill="currentColor"></path></svg>
                             <span>YouTube</span>
                         </button>
                         <button class="search-source-btn psnprofiles" data-source="psnprofiles">
+                            <span class="material-icons-outlined">groups</span>
                             <span>PSNProfiles</span>
                         </button>
                         <button class="search-source-btn powerpyx" data-source="powerpyx">
+                            <span class="material-icons-outlined">bolt</span>
                             <span>PowerPyx</span>
                         </button>
                         <button class="search-source-btn truetrophies" data-source="truetrophies">
+                            <span class="material-icons-outlined">verified_user</span>
                             <span>TrueTrophies</span>
                         </button>
                     </div>
@@ -108,11 +130,11 @@
             <span data-lang-key="themeSelector"></span>
             <div class="theme-selection">
                 <button class="theme-btn active" data-theme="dark">
-                    <span class="color-box dark-box"></span>
+                    <span class="material-icons-outlined">dark_mode</span>
                     <span data-lang-key="darkThemeText"></span>
                 </button>
                 <button class="theme-btn" data-theme="light">
-                    <span class="color-box light-box"></span>
+                    <span class="material-icons-outlined">light_mode</span>
                     <span data-lang-key="lightThemeText"></span>
                 </button>
             </div>
