@@ -8,9 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const langButtons = document.querySelectorAll('.lang-btn');
     const themeButtons = document.querySelectorAll('.theme-btn');
     const searchButton = document.getElementById('searchBtn');
-    const layoutButtons = document.querySelectorAll('.layout-btn'); // Nové tlačítko pro rozložení
+    const layoutButtons = document.querySelectorAll('.layout-btn');
 
     let currentSearchTerm = 'trophy'; // Default search term
+    let currentSearchSource = 'google'; // Default search source (only one allowed now)
     let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default language, retrieve from localStorage
     let currentTheme = localStorage.getItem('selectedTheme') || 'dark'; // Default theme, retrieve from localStorage
     let currentLayout = localStorage.getItem('selectedLayout') || 'grid'; // Default layout, retrieve from localStorage
@@ -45,9 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
             youtubeBtn: "YouTube",
             languageSelector: "Language:",
             themeSelector: "Theme:",
-            layoutSelector: "Layout:", // Nový text pro rozložení
-            gridLayoutText: "Grid",    // Nový text pro mřížkové rozložení
-            columnLayoutText: "Columns"// Nový text pro sloupcové rozložení
+            layoutSelector: "Layout:",
+            gridLayoutText: "Grid",
+            columnLayoutText: "Columns"
         },
         cs: {
             pageTitle: "Vyhledávač PlayStation trofejí",
@@ -77,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
             youtubeBtn: "YouTube",
             languageSelector: "Jazyk:",
             themeSelector: "Vzhled:",
-            layoutSelector: "Rozložení:", // Nový text pro rozložení
-            gridLayoutText: "Mřížka",    // Nový text pro mřížkové rozložení
-            columnLayoutText: "Sloupce"  // Nový text pro sloupcové rozložení
+            layoutSelector: "Rozložení:",
+            gridLayoutText: "Mřížka",
+            columnLayoutText: "Sloupce"
         },
         de: {
             pageTitle: "PlayStation Trophäen-Suche",
@@ -109,11 +110,29 @@ document.addEventListener('DOMContentLoaded', () => {
             youtubeBtn: "YouTube",
             languageSelector: "Sprache:",
             themeSelector: "Design:",
-            layoutSelector: "Layout:", // Nový text pro rozložení
-            gridLayoutText: "Raster",    // Nový text pro mřížkové rozložení
-            columnLayoutText: "Spalten"  // Nový text pro sloupcové rozložení
+            layoutSelector: "Layout:",
+            gridLayoutText: "Raster",
+            columnLayoutText: "Spalten"
         }
     };
+
+    // Mapping pro anglické vyhledávací termíny (pro Google)
+    const englishSearchTerms = {
+        trophy: "trophy",
+        roadmap: "roadmap & guide",
+        collectibles: "collectibles",
+        notes: "notes",
+        maps: "maps",
+        weapons: "weapons",
+        upgrades: "upgrades",
+        speedrun: "speedrun",
+        all_quests: "all quests",
+        all_side_quests: "all side quests",
+        hardest_difficulty: "hardest difficulty",
+        specific_trophy: "trophy", // For specific trophy, we'll use "trophy" in the search query
+        videos_general: "videos"
+    };
+
 
     // Function to apply translations
     function applyTranslations() {
@@ -133,9 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to set the active state for buttons
-    function setActiveButton(buttons, activeValue) {
+    function setActiveButton(buttons, activeValue, dataAttribute) {
         buttons.forEach(button => {
-            if (button.dataset.lang === activeValue || button.dataset.theme === activeValue || button.dataset.layout === activeValue) {
+            if (button.dataset[dataAttribute] === activeValue) {
                 button.classList.add('active');
             } else {
                 button.classList.remove('active');
@@ -143,18 +162,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Apply saved language and theme on load
+    // Apply saved language, theme and layout on load
     applyTranslations();
-    setActiveButton(langButtons, currentLanguage);
+    setActiveButton(langButtons, currentLanguage, 'lang');
     document.body.classList.add(`${currentTheme}-theme`);
-    setActiveButton(themeButtons, currentTheme);
+    setActiveButton(themeButtons, currentTheme, 'theme');
 
-    // Apply saved layout on load
-    const searchOptionsGrid = document.querySelector('.search-options-grid');
+    const searchOptionsContainer = document.querySelector('.search-options-container');
     if (currentLayout === 'columns') {
-        searchOptionsGrid.classList.add('columns-layout');
+        searchOptionsContainer.classList.add('columns-layout');
     }
-    setActiveButton(layoutButtons, currentLayout);
+    setActiveButton(layoutButtons, currentLayout, 'layout');
 
 
     // Language selection
@@ -163,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLanguage = button.dataset.lang;
             localStorage.setItem('selectedLanguage', currentLanguage);
             applyTranslations();
-            setActiveButton(langButtons, currentLanguage);
+            setActiveButton(langButtons, currentLanguage, 'lang');
         });
     });
 
@@ -176,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.add(`${newTheme}-theme`);
                 currentTheme = newTheme;
                 localStorage.setItem('selectedTheme', currentTheme);
-                setActiveButton(themeButtons, currentTheme);
+                setActiveButton(themeButtons, currentTheme, 'theme');
             }
         });
     });
@@ -187,13 +205,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const newLayout = button.dataset.layout;
             if (newLayout !== currentLayout) {
                 if (newLayout === 'columns') {
-                    searchOptionsGrid.classList.add('columns-layout');
+                    searchOptionsContainer.classList.add('columns-layout');
                 } else {
-                    searchOptionsGrid.classList.remove('columns-layout');
+                    searchOptionsContainer.classList.remove('columns-layout');
                 }
                 currentLayout = newLayout;
                 localStorage.setItem('selectedLayout', currentLayout);
-                setActiveButton(layoutButtons, currentLayout);
+                setActiveButton(layoutButtons, currentLayout, 'layout');
             }
         });
     });
@@ -202,18 +220,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Search type selection
     searchTypeButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Remove active from all search type buttons
             searchTypeButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active to the clicked button
             button.classList.add('active');
             currentSearchTerm = button.dataset.searchTerm;
 
-            // Show/hide trophyNameInput based on search term
             if (currentSearchTerm === 'specific_trophy') {
                 trophyNameInput.style.display = 'block';
             } else {
                 trophyNameInput.style.display = 'none';
-                trophyNameInput.value = ''; // Clear trophy name input
+                trophyNameInput.value = '';
             }
         });
     });
@@ -225,10 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Search source selection (allow multiple)
+    // Search source selection (only one allowed)
     searchSourceButtons.forEach(button => {
         button.addEventListener('click', () => {
-            button.classList.toggle('active');
+            searchSourceButtons.forEach(btn => btn.classList.remove('active')); // Remove active from all
+            button.classList.add('active'); // Add active to the clicked one
+            currentSearchSource = button.dataset.source;
         });
     });
 
@@ -243,50 +260,46 @@ document.addEventListener('DOMContentLoaded', () => {
     searchButton.addEventListener('click', () => {
         const gameTitle = gameSearchInput.value.trim();
         const trophyName = trophyNameInput.value.trim();
-        const selectedSources = Array.from(searchSourceButtons)
-                                    .filter(button => button.classList.contains('active'))
-                                    .map(button => button.dataset.source);
 
         if (!gameTitle) {
-            alert(translations[currentLanguage].searchInputPlaceholder); // Use translation for alert
+            alert(translations[currentLanguage].searchInputPlaceholder);
             return;
         }
 
-        if (selectedSources.length === 0) {
-            alert(translations[currentLanguage].selectSearchSource); // Use translation for alert
-            return;
-        }
+        let searchQuery = `${gameTitle}`;
+        const englishTerm = englishSearchTerms[currentSearchTerm];
 
-        let searchQuery = `${gameTitle} ${translations[currentLanguage][currentSearchTerm + 'Btn']}`; // Use translated term
         if (currentSearchTerm === 'specific_trophy' && trophyName) {
-            searchQuery = `${gameTitle} ${trophyName} ${translations[currentLanguage].trophyBtn}`; // Specific trophy search
-        } else if (currentSearchTerm === 'trophy') {
-             searchQuery = `${gameTitle} ${translations[currentLanguage].trophyBtn}`;
+            searchQuery += ` ${trophyName} ${englishTerm}`; // Game Title + Trophy Name + "trophy"
+        } else if (englishTerm) {
+            searchQuery += ` ${englishTerm}`; // Game Title + English search term
         }
 
 
-        let urls = [];
-        selectedSources.forEach(source => {
-            let encodedQuery = encodeURIComponent(searchQuery);
-            switch (source) {
-                case 'google':
-                    urls.push(`https://www.google.com/search?q=${encodedQuery}`);
-                    break;
-                case 'psnprofiles':
-                    urls.push(`https://psnprofiles.com/search/games?q=${encodeURIComponent(gameTitle)}`); // PSNProfiles search game directly
-                    break;
-                case 'powerpyx':
-                    urls.push(`https://www.powerpyx.com/?s=${encodedQuery}`); // PowerPyx search general
-                    break;
-                case 'truetrophies':
-                    urls.push(`https://www.truetrophies.com/search/games?search=${encodeURIComponent(gameTitle)}`); // TrueTrophies search game directly
-                    break;
-                case 'youtube':
-                    urls.push(`https://www.youtube.com/results?search_query=${encodedQuery}`);
-                    break;
-            }
-        });
+        let url = '';
+        const encodedQuery = encodeURIComponent(searchQuery);
+        const encodedGameTitle = encodeURIComponent(gameTitle);
 
-        urls.forEach(url => window.open(url, '_blank'));
+        switch (currentSearchSource) {
+            case 'google':
+                url = `https://www.google.com/search?q=${encodedQuery}`;
+                break;
+            case 'psnprofiles':
+                url = `https://psnprofiles.com/search/games?q=${encodedGameTitle}`;
+                break;
+            case 'powerpyx':
+                url = `https://www.powerpyx.com/?s=${encodedQuery}`;
+                break;
+            case 'truetrophies':
+                url = `https://www.truetrophies.com/search/games?search=${encodedGameTitle}`;
+                break;
+            case 'youtube':
+                url = `https://www.youtube.com/results?search_query=${encodedQuery}`;
+                break;
+        }
+
+        if (url) {
+            window.open(url, '_blank');
+        }
     });
 });
