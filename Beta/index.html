@@ -23,17 +23,19 @@
             </div>
             <h1 data-lang-key="mainHeading"></h1>
 
-            <div class="search-input-area">
-                <input type="text" id="gameSearchInput" placeholder="" data-lang-key="searchInputPlaceholder">
-                <input type="text" id="trophyNameInput" placeholder="" data-lang-key="trophyInputPlaceholder" style="display: none;">
-                <button id="searchBtn" class="action-button">
-                    <span class="material-icons-outlined">search</span>
-                    <span data-lang-key="searchButtonText"></span>
-                </button>
+            <div class="input-autocomplete-wrapper">
+                <div class="search-input-area">
+                    <input type="text" id="gameSearchInput" placeholder="" data-lang-key="searchInputPlaceholder">
+                    <input type="text" id="trophyNameInput" placeholder="" data-lang-key="trophyInputPlaceholder" style="display: none;">
+                    <button id="searchBtn" class="action-button">
+                        <span class="material-icons-outlined">search</span>
+                        <span data-lang-key="searchButtonText"></span>
+                    </button>
+                </div>
+                <div id="autocomplete-results" class="autocomplete-results-container"></div>
             </div>
 
-            <div class="search-options-grid">
-                <div class="search-type-selection">
+            <div class="search-options-container"> <div class="search-type-selection">
                     <h3 data-lang-key="selectSearchType"></h3>
                     <div class="button-grid types-grid">
                         <button class="search-type-btn" data-search-term="trophy">
