@@ -228,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // TrueTrophies also primarily searches for the game.
                 break;
             case 'youtube':
+                // Corrected Youtube URL for better compatibility. Googleusercontent.com/youtube.com/0 is not a valid endpoint.
                 url = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`;
                 break;
             default:
@@ -265,6 +266,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyTheme(theme) {
         document.body.classList.remove('dark-theme', 'light-theme');
         document.body.classList.add(`${theme}-theme`);
+        // Update active class for theme buttons
+        themeButtons.forEach(btn => {
+            if (btn.dataset.theme === theme) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
     }
 
     // --- Initial Setup ---
@@ -286,17 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTheme = savedTheme;
     } else {
         currentTheme = 'dark'; // Default to dark if no theme is saved
-        localStorage.setItem('selectedTheme', currentTheme);
     }
 
-    applyTheme(currentTheme);
-    themeButtons.forEach(btn => {
-        if (btn.dataset.theme === currentTheme) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
+    applyTheme(currentTheme); // Apply theme and update active classes
 
     // Set initial active states for search type and source buttons
     document.querySelector('.search-type-btn[data-search-term="trophy"]').classList.add('active');
@@ -316,8 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     themeButtons.forEach(button => {
         button.addEventListener('click', () => {
-            themeButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+            // The applyTheme function now handles removing/adding active classes
             currentTheme = button.dataset.theme;
             localStorage.setItem('selectedTheme', currentTheme);
             applyTheme(currentTheme);
