@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herní Vyhledávač Návodů</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Herní Vyhledávač Návodů</h1>
+
+        <div class="input-group">
+            <label for="gameName">Název Hry:</label>
+            <input type="text" id="gameName" placeholder="Např. Cyberpunk 2077">
+        </div>
+
+        <div class="input-group">
+            <label for="trophyName">Název konkrétní Trofeje/Achievementu (volitelné):</label>
+            <input type="text" id="trophyName" placeholder="Např. V for Vendetta">
+        </div>
+
+        <div class="search-section">
+            <h2><img src="https://www.google.com/favicon.ico" alt="Google icon" class="icon"> Vyhledat na Google:</h2>
+            <div class="button-grid">
+                <button data-engine="google" data-querytype="roadmap">Roadmap & Trophy Guide</button>
+                <button data-engine="google" data-querytype="collectibles">Collectibles (Sběratelské předměty)</button>
+                <button data-engine="google" data-querytype="notes">Notes / Lore</button>
+                <button data-engine="google" data-querytype="maps">Maps (Mapy)</button>
+                <button data-engine="google" data-querytype="weapons">Weapons (Zbraně)</button>
+                <button data-engine="google" data-querytype="upgrades">Full Upgrade (Vylepšení)</button>
+                <button data-engine="google" data-querytype="speedrun">Speedrun Guide</button>
+                <button data-engine="google" data-querytype="all_quests">All Quests (Všechny hlavní úkoly)</button>
+                <button data-engine="google" data-querytype="all_side_quests">All Side Quests (Všechny vedlejší úkoly)</button>
+                <button data-engine="google" data-querytype="specific_trophy">Konkrétní Trofej/Achievement</button>
+                <button data-engine="google" data-querytype="hardest_difficulty">Hardest Difficulty Run (Nejtěžší obtížnost)</button>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <h2><img src="https://www.youtube.com/favicon.ico" alt="YouTube icon" class="icon"> Vyhledat na YouTube:</h2>
+            <div class="button-grid">
+                <button data-engine="youtube" data-querytype="roadmap_video">Roadmap (Video)</button>
+                <button data-engine="youtube" data-querytype="collectibles_video">Collectibles (Video Návod)</button>
+                <button data-engine="youtube" data-querytype="maps_video">Maps (Video Průvodce)</button>
+                <button data-engine="youtube" data-querytype="weapons_video">Weapons (Video Ukázka/Lokace)</button>
+                <button data-engine="youtube" data-querytype="upgrades_video">Full Upgrade (Video Návod)</button>
+                <button data-engine="youtube" data-querytype="speedrun_video">Speedrun (Video)</button>
+                <button data-engine="youtube" data-querytype="all_quests_video">All Quests (Video Walkthrough)</button>
+                <button data-engine="youtube" data-querytype="all_side_quests_video">All Side Quests (Video Walkthrough)</button>
+                <button data-engine="youtube" data-querytype="videos_general">Videa o hře (Obecné)</button>
+                <button data-engine="youtube" data-querytype="specific_trophy_video">Konkrétní Trofej (Video Návod)</button>
+                <button data-engine="youtube" data-querytype="hardest_difficulty_video">Hardest Difficulty Run (Video Playthrough)</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
