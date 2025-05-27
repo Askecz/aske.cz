@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             trophyBtn: "Trophy",
             roadmapBtn: "Roadmap & Guide",
             collectiblesBtn: "Collectibles",
-            notesBtn: "Notes / Lore",
+            notesBtn: "Notes / Lore", // V EN ponecháno "Lore"
             mapBtn: "Maps",
             weaponsBtn: "Weapons",
             upgradesBtn: "Upgrades",
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             trophyBtn: "Trofej",
             roadmapBtn: "Roadmap & Průvodce",
             collectiblesBtn: "Sběratelské předměty",
-            notesBtn: "Poznámky / Lore",
+            notesBtn: "Poznámky", // Změněno zde - "Lore" odstraněno
             mapBtn: "Mapy",
             weaponsBtn: "Zbraně",
             upgradesBtn: "Vylepšení",
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alertGameName: "Prosím, zadej název hry.",
             alertTrophyName: "Prosím, zadej název trofeje/achievementu pro toto vyhledávání."
         },
-        de: {
+        de: { // V němčině "Lore" také ponecháno pro konzistenci, pokud není požadavek na změnu
             pageTitle: "PlayStation Trophäen-Suchmaschine",
             mainHeading: "PlayStation Trophäen-Suchmaschine",
             searchInputPlaceholder: "Spielname eingeben...",
@@ -125,39 +125,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         switch (currentSearchTerm) {
-            case 'trophy':
-                specificQuery = 'trophy list';
-                break;
-            case 'roadmap':
-                specificQuery = 'trophy guide and roadmap';
-                break;
-            case 'collectibles':
-                specificQuery = 'all collectibles guide locations';
-                break;
-            case 'notes':
-                specificQuery = 'all notes lore items locations';
-                break;
-            case 'maps':
-                specificQuery = 'game map all locations';
-                break;
-            case 'weapons':
-                specificQuery = 'all weapons locations guide';
-                break;
-            case 'upgrades':
-                specificQuery = 'full character and weapon upgrades guide';
-                break;
-            case 'speedrun':
-                specificQuery = 'speedrun guide tips';
-                break;
-            case 'all_quests':
-                specificQuery = 'all main story quests walkthrough guide';
-                break;
-            case 'all_side_quests':
-                specificQuery = 'all side quests guide locations';
-                break;
-            case 'hardest_difficulty':
-                specificQuery = 'hardest difficulty guide walkthrough';
-                break;
+            case 'trophy': specificQuery = 'trophy list'; break;
+            case 'roadmap': specificQuery = 'trophy guide and roadmap'; break;
+            case 'collectibles': specificQuery = 'all collectibles guide locations'; break;
+            case 'notes': specificQuery = 'all notes lore items locations'; break;
+            case 'maps': specificQuery = 'game map all locations'; break;
+            case 'weapons': specificQuery = 'all weapons locations guide'; break;
+            case 'upgrades': specificQuery = 'full character and weapon upgrades guide'; break;
+            case 'speedrun': specificQuery = 'speedrun guide tips'; break;
+            case 'all_quests': specificQuery = 'all main story quests walkthrough guide'; break;
+            case 'all_side_quests': specificQuery = 'all side quests guide locations'; break;
+            case 'hardest_difficulty': specificQuery = 'hardest difficulty guide walkthrough'; break;
             case 'specific_trophy':
                 if (!trophyName) {
                     alert(translations[currentLanguage].alertTrophyName);
@@ -166,79 +144,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 specificQuery = `"${trophyName}" trophy achievement guide`;
                 break;
-            case 'videos_general':
-                specificQuery = 'gameplay videos';
-                break;
-            default:
-                specificQuery = ''; // Fallback for unknown terms
-                break;
+            case 'videos_general': specificQuery = 'gameplay videos'; break;
+            default: specificQuery = ''; break;
         }
 
         searchTerm = `${gameName} ${specificQuery}`.trim();
 
         if (source === 'youtube') {
-            // Adjust specificQuery for YouTube to be more video-centric
-            if (currentSearchTerm === 'trophy') {
-                specificQuery = 'trophy list video';
-            } else if (currentSearchTerm === 'roadmap') {
-                specificQuery = 'video trophy roadmap guide';
-            } else if (currentSearchTerm === 'collectibles') {
-                specificQuery = 'all collectibles video guide';
-            } else if (currentSearchTerm === 'maps') {
-                specificQuery = 'map guide video walkthrough';
-            } else if (currentSearchTerm === 'weapons') {
-                specificQuery = 'weapons showcase locations video';
-            } else if (currentSearchTerm === 'upgrades') {
-                specificQuery = 'full upgrade video guide';
-            } else if (currentSearchTerm === 'speedrun') {
-                specificQuery = 'speedrun video';
-            } else if (currentSearchTerm === 'all_quests') {
-                specificQuery = 'main quests video walkthrough';
-            } else if (currentSearchTerm === 'all_side_quests') {
-                specificQuery = 'all side quests video guide';
-            } else if (currentSearchTerm === 'hardest_difficulty') {
-                specificQuery = 'hardest difficulty playthrough video';
-            } else if (currentSearchTerm === 'specific_trophy') {
+            if (currentSearchTerm === 'trophy') specificQuery = 'trophy list video';
+            else if (currentSearchTerm === 'roadmap') specificQuery = 'video trophy roadmap guide';
+            else if (currentSearchTerm === 'collectibles') specificQuery = 'all collectibles video guide';
+            else if (currentSearchTerm === 'maps') specificQuery = 'map guide video walkthrough';
+            else if (currentSearchTerm === 'weapons') specificQuery = 'weapons showcase locations video';
+            else if (currentSearchTerm === 'upgrades') specificQuery = 'full upgrade video guide';
+            else if (currentSearchTerm === 'speedrun') specificQuery = 'speedrun video';
+            else if (currentSearchTerm === 'all_quests') specificQuery = 'main quests video walkthrough';
+            else if (currentSearchTerm === 'all_side_quests') specificQuery = 'all side quests video guide';
+            else if (currentSearchTerm === 'hardest_difficulty') specificQuery = 'hardest difficulty playthrough video';
+            else if (currentSearchTerm === 'specific_trophy') {
                 if (!trophyName) {
                     alert(translations[currentLanguage].alertTrophyName);
-                    trophyNameInput.focus();
-                    return;
+                    trophyNameInput.focus(); return;
                 }
                 specificQuery = `"${trophyName}" trophy achievement video guide`;
-            } else if (currentSearchTerm === 'videos_general') {
-                specificQuery = 'gameplay trailer review'; // Broaden for general videos
             }
+            else if (currentSearchTerm === 'videos_general') specificQuery = 'gameplay trailer review';
             searchTerm = `${gameName} ${specificQuery}`.trim();
         }
 
-
         switch (source) {
-            case 'google':
-                url = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`;
-                break;
-            case 'psnprofiles':
-                url = `https://psnprofiles.com/search/games?q=${encodeURIComponent(gameName)}`;
-                // PSNProfiles doesn't support specific query types beyond game search in URL
-                break;
-            case 'powerpyx':
-                url = `https://www.powerpyx.com/?s=${encodeURIComponent(searchTerm)}`;
-                break;
-            case 'truetrophies':
-                url = `https://www.truetrophies.com/searchresults.aspx?search=${encodeURIComponent(gameName)}`;
-                // TrueTrophies also primarily searches for the game.
-                break;
-            case 'youtube':
-                // Corrected Youtube URL for better compatibility. Googleusercontent.com/youtube.com/0 is not a valid endpoint.
-                url = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`;
-                break;
-            default:
-                url = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`;
-                break;
+            case 'google': url = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`; break;
+            case 'psnprofiles': url = `https://psnprofiles.com/search/games?q=${encodeURIComponent(gameName)}`; break;
+            case 'powerpyx': url = `https://www.powerpyx.com/?s=${encodeURIComponent(searchTerm)}`; break;
+            case 'truetrophies': url = `https://www.truetrophies.com/searchresults.aspx?search=${encodeURIComponent(gameName)}`; break;
+            case 'youtube': url = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`; break; // OPRAVENO
+            default: url = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`; break;
         }
 
-        if (url) {
-            window.open(url, '_blank');
-        }
+        if (url) window.open(url, '_blank');
     }
 
     function applyTranslations(lang) {
@@ -246,18 +189,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const key = element.dataset.langKey;
             if (translations[lang] && translations[lang][key]) {
                 if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
-                    element.setAttribute('placeholder', translations[lang][key]);
-                } else if (element.tagName === 'SPAN' || element.tagName === 'BUTTON') {
-                    if (element.classList.contains('color-box')) {
-                        return; // Don't translate color boxes
-                    }
+                    element.placeholder = translations[lang][key];
+                } else if (element.tagName === 'SPAN' && !element.classList.contains('material-icons-outlined') && !element.classList.contains('color-box')) {
+                    // Překládá SPAN, který není ikona ani barevný box (typicky text v tlačítku vedle ikony)
                     element.textContent = translations[lang][key];
-                } else {
+                } else if (element.tagName === 'TITLE' || element.tagName === 'H1' || element.tagName === 'H3') {
+                    // Přímý překlad pro TITLE, H1, H3
                     element.textContent = translations[lang][key];
                 }
+                // Pro tlačítka s ikonami, kde je text ve vnořeném SPANu s data-lang-key, se to již pokryje výše.
+                // Pro tlačítka ENG/CS/DE se text nastavuje explicitně níže.
             }
         });
-        // Ensure language button text remains short codes
+        // Zajistí, že texty jazykových tlačítek zůstanou jako kódy
         document.querySelector('.lang-btn[data-lang="en"]').textContent = "ENG";
         document.querySelector('.lang-btn[data-lang="cs"]').textContent = "CS";
         document.querySelector('.lang-btn[data-lang="de"]').textContent = "DE";
@@ -266,43 +210,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyTheme(theme) {
         document.body.classList.remove('dark-theme', 'light-theme');
         document.body.classList.add(`${theme}-theme`);
-        // Update active class for theme buttons
-        themeButtons.forEach(btn => {
-            if (btn.dataset.theme === theme) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
+        themeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme));
     }
 
     // --- Initial Setup ---
-    const savedLanguage = localStorage.getItem('selectedLanguage');
-    if (savedLanguage && translations[savedLanguage]) {
-        currentLanguage = savedLanguage;
+    currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    if (!translations[currentLanguage]) currentLanguage = 'en'; // Fallback
+    langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === currentLanguage));
+    
+    currentTheme = localStorage.getItem('selectedTheme') || 'dark';
+    applyTheme(currentTheme); // Použít motiv
+    applyTranslations(currentLanguage); // AŽ POTOM aplikovat překlady
+
+    const initialSearchType = document.querySelector('.search-type-btn[data-search-term="trophy"]');
+    if (initialSearchType) initialSearchType.classList.add('active');
+    
+    const initialSearchSource = document.querySelector('.search-source-btn.google');
+    if (initialSearchSource && !document.querySelector('.search-source-btn.active')) {
+        initialSearchSource.classList.add('active');
     }
-    langButtons.forEach(btn => {
-        if (btn.dataset.lang === currentLanguage) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-    applyTranslations(currentLanguage);
-
-    const savedTheme = localStorage.getItem('selectedTheme');
-    if (savedTheme) {
-        currentTheme = savedTheme;
-    } else {
-        currentTheme = 'dark'; // Default to dark if no theme is saved
-    }
-
-    applyTheme(currentTheme); // Apply theme and update active classes
-
-    // Set initial active states for search type and source buttons
-    document.querySelector('.search-type-btn[data-search-term="trophy"]').classList.add('active');
-    document.querySelector('.search-source-btn.google').classList.add('active');
-    updateTrophyInputVisibility(); // Call initially to set correct visibility
+    updateTrophyInputVisibility();
 
     // --- Event Listeners ---
     langButtons.forEach(button => {
@@ -317,7 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     themeButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // The applyTheme function now handles removing/adding active classes
             currentTheme = button.dataset.theme;
             localStorage.setItem('selectedTheme', currentTheme);
             applyTheme(currentTheme);
@@ -342,37 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchButton.addEventListener('click', () => {
         const activeSourceButton = document.querySelector('.search-source-btn.active');
-        let source = 'google';
-
-        if (activeSourceButton) {
-            source = activeSourceButton.dataset.source;
-        }
+        let source = activeSourceButton ? activeSourceButton.dataset.source : 'google';
         performSearch(source);
     });
 
-    gameSearchInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            const activeSourceButton = document.querySelector('.search-source-btn.active');
-            let source = 'google';
-
-            if (activeSourceButton) {
-                source = activeSourceButton.dataset.source;
+    [gameSearchInput, trophyNameInput].forEach(input => {
+        input.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                searchButton.click();
             }
-            performSearch(source);
-        }
-    });
-
-    trophyNameInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            const activeSourceButton = document.querySelector('.search-source-btn.active');
-            let source = 'google';
-
-            if (activeSourceButton) {
-                source = activeSourceButton.dataset.source;
-            }
-            performSearch(source);
-        }
+        });
     });
 });
