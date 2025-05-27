@@ -133,6 +133,7 @@ body.light-theme {
     padding: 20px;
     min-height: calc(100vh - 100px); /* Adjust based on footer/utility height */
     z-index: 1; /* Ensure content is above shapes */
+    text-align: center; /* Centering for h1, h3 etc. */
 }
 
 .main-search-area {
@@ -144,6 +145,9 @@ body.light-theme {
     width: 100%;
     text-align: center;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex; /* Použít flexbox pro vnitřní centrování */
+    flex-direction: column; /* Položky pod sebou */
+    align-items: center; /* Vycentrovat horizontálně */
 }
 
 body.light-theme .main-search-area {
@@ -185,6 +189,7 @@ body.light-theme h3 {
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
     justify-content: center;
     align-items: center;
+    width: 100%; /* Důležité pro responsivitu, aby se inputy roztáhly */
 }
 
 .search-input-area input[type="text"] {
@@ -260,6 +265,7 @@ body.light-theme .action-button:hover {
     flex-wrap: wrap;
     gap: 30px; /* Space between the two main sections */
     justify-content: center;
+    width: 100%; /* Ensure it takes full available width */
 }
 
 .search-type-section,
@@ -306,6 +312,7 @@ body.light-theme .search-source-section {
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     min-height: 90px; /* Ensure consistent height */
+    text-align: center; /* Ensure text is centered */
 }
 
 body.light-theme .search-type-btn,
@@ -346,24 +353,11 @@ body.light-theme .search-source-btn.active {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
-.search-type-btn img,
+/* Odebrány styly pro img v tlačítkách */
+/* .search-type-btn img,
 .search-source-btn img {
-    height: 30px;
-    width: 30px;
-    filter: invert(100%); /* Make icons white by default for dark theme */
-    transition: filter 0.3s ease;
-}
-
-body.light-theme .search-type-btn img,
-body.light-theme .search-source-btn img {
-    filter: invert(0%); /* Make icons black for light theme */
-}
-
-/* Active icons - make them white regardless of theme */
-.search-type-btn.active img,
-.search-source-btn.active img {
-    filter: invert(100%);
-}
+    display: none;
+} */
 
 
 /* Bottom Left Utility (Language and Theme) */
@@ -375,6 +369,7 @@ body.light-theme .search-source-btn img {
     flex-direction: column;
     gap: 20px;
     z-index: 2; /* Ensure it's above other content if needed */
+    align-items: flex-start; /* Ensure contents align to start */
 }
 
 .utility-group {
@@ -533,10 +528,11 @@ body.light-theme .bottom-right-footer {
         padding: 8px;
         min-height: 70px;
     }
-    .search-type-btn img, .search-source-btn img {
+    /* Odebrány styly pro img v tlačítkách na mobilu */
+    /* .search-type-btn img, .search-source-btn img {
         height: 25px;
         width: 25px;
-    }
+    } */
     .bottom-left-utility,
     .bottom-right-footer {
         position: relative; /* Make them flow with content */
@@ -544,18 +540,19 @@ body.light-theme .bottom-right-footer {
         left: unset;
         right: unset;
         margin-top: 20px;
-        align-self: flex-start;
-        width: auto;
-        padding: 0 20px; /* Add padding for better spacing */
+        align-self: center; /* Center these elements */
+        width: 90%; /* Take up more width for better layout */
+        max-width: 400px; /* Limit their width */
+        padding: 0; /* Remove horizontal padding here, parent has it */
     }
     .bottom-left-utility {
-        flex-direction: row;
-        justify-content: center;
+        flex-direction: column; /* Stack language/theme options vertically */
+        align-items: center; /* Center them */
         gap: 15px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap; /* Prevent wrapping for utility groups */
     }
     .utility-group {
-        align-items: center;
+        align-items: center; /* Center content within utility group */
     }
     .language-selection, .theme-selection {
         flex-direction: row;
@@ -563,6 +560,11 @@ body.light-theme .bottom-right-footer {
         align-items: center;
         gap: 6px;
         padding: 6px;
+        width: 100%; /* Make them fill width */
+    }
+    .lang-btn, .theme-btn {
+        flex-grow: 1; /* Allow buttons to expand */
+        text-align: center; /* Center text within buttons */
     }
 }
 
@@ -586,24 +588,20 @@ body.light-theme .bottom-right-footer {
         height: 80px; /* Ještě menší tlačítka */
         font-size: 0.8em; /* Ještě menší font */
         gap: 6px;
-        flex-basis: calc(50% - 10px); /* Dva sloupce na malých telefonech */
+        flex-basis: calc(50% - 7.5px); /* Dva sloupce na malých telefonech s ohledem na gap */
     }
-    .search-type-btn img, .search-source-btn img {
-        height: 25px; /* Ještě menší ikony */
-        width: 25px;
+    .search-type-buttons, .search-source-buttons {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* 2 columns on very small screens */
     }
-    .language-selection, .theme-selection {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        padding: 8px;
+    .bottom-left-utility,
+    .bottom-right-footer {
+        width: calc(100% - 40px); /* Adjust width to account for 20px padding on each side */
+        left: 20px; /* Ensure it stays left-aligned in column flex */
+        right: 20px; /* Ensure it stays right-aligned in column flex */
+        margin: 20px auto; /* Center it with auto margins */
+        text-align: center; /* Center footer text */
     }
-    .lang-btn, .theme-btn {
-        width: 100%;
-    }
-    .bottom-left-utility {
-        flex-direction: column;
-        align-items: center;
+    .bottom-right-footer {
+        text-align: center;
     }
 }
