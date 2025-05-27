@@ -202,12 +202,6 @@ body.light-theme h1 {
     color: var(--light-text-color);
 }
 
-/* Kontejner pro autocomplete */
-.input-autocomplete-wrapper {
-    position: relative; /* Klíčové pro pozicování autocomplete uvnitř */
-    width: 100%; /* Zajistí, že autocomplete zabere celou šířku */
-}
-
 .search-input-area {
     display: flex;
     gap: 10px;
@@ -321,20 +315,9 @@ body.light-theme .search-source-selection h3 {
     color: var(--light-text-color);
 }
 
-/* Flexibilní mřížka pro tlačítka */
-.button-grid {
-    display: flex;
-    flex-wrap: wrap; /* Umožní zalomení do více řádků */
-    gap: 10px; /* Mezery mezi tlačítky */
-    justify-content: flex-start; /* Zarovná tlačítka na začátek */
-}
-
 .search-type-btn,
 .search-source-btn {
-    /* Odebrána width: 100%; */
-    flex: 1 1 auto; /* Flexibilní šířka, zabírá dostupné místo, ale může se zmenšit */
-    min-width: 140px; /* Minimální šířka tlačítka, aby se text nezlomil moc brzy */
-    max-width: 200px; /* Maximální šířka, aby se moc neroztahovaly */
+    width: 100%;
     padding: 10px 15px;
     background-color: var(--input-bg);
     color: var(--text-color);
@@ -539,17 +522,13 @@ body.light-theme .bottom-right-footer {
     background-color: var(--secondary-bg);
     max-height: 200px;
     overflow-y: auto;
-    border-radius: 0 0 var(--border-radius-button) var(--border-radius-button); /* Zaoblení jen dole */
+    border-radius: var(--border-radius-button);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: absolute; /* Relativně k .input-autocomplete-wrapper */
-    top: calc(100% + 5px); /* Pod inputem */
-    left: 0;
-    right: 0; /* Roztažení na šířku parenta */
-    z-index: 1001;
+    position: absolute; /* Nastaveno v JS */
+    z-index: 1001; /* Vyšší z-index */
     list-style: none;
     padding: 0;
     margin: 0;
-    display: none; /* Skryté defaultně */
 }
 
 body.light-theme .autocomplete-suggestions {
@@ -586,6 +565,18 @@ body.light-theme .autocomplete-item:hover {
     color: var(--light-accent-color);
 }
 
+/* Responsivní úpravy pro autocomplete */
+@media (max-width: 768px) {
+    .autocomplete-suggestions {
+        /* Na mobilu se autocomplete může lépe umístit relativně k parentu,
+           nebo zajistit, aby nepřesahoval šířku obrazovky */
+        left: 50% !important; /* Vycentrovat */
+        transform: translateX(-50%);
+        width: calc(100% - 40px) !important; /* Menší marginy */
+        max-width: 500px; /* Aby se neroztáhl moc */
+    }
+}
+
 
 /* Responsivní úpravy */
 @media (max-width: 1024px) {
@@ -605,7 +596,7 @@ body.light-theme .autocomplete-item:hover {
 
     .search-options-grid { flex-direction: column; gap: 20px; align-items: stretch; }
     .search-type-selection, .search-source-selection { min-width: unset; width: 100%; }
-    /* .button-grid už se postará o layout tlačítek uvnitř */
+    .search-type-btn, .search-source-btn { padding: 8px 12px; font-size: 0.85em; }
 
     .bottom-left-utility {
         position: static; /* Odstranit fixed pozici */
@@ -635,14 +626,8 @@ body.light-theme .autocomplete-item:hover {
     .search-input-area { margin-bottom: 20px; }
     .search-type-selection, .search-source-selection { padding: 15px; gap: 10px; }
     .search-type-selection h3, .search-source-selection h3 { font-size: 1.1em; margin-bottom: 10px; }
-    /* Tlačítka se už flexibilně přizpůsobí díky .button-grid */
-    .search-type-btn, .search-source-btn { 
-        min-width: unset; /* Zrušit min-width pro menší obrazovky */
-        flex: 1 1 45%; /* Dvě tlačítka na řádek s mezerou */
-        padding: 8px 10px;
-        font-size: 0.8em;
-    }
-    .search-type-btn .material-icons-outlined, .search-source-btn .material-icons-outlined, .search-source-btn svg { font-size: calc(var(--icon-size)); width: calc(var(--icon-size)); height: calc(var(--icon-size)); }
+    .search-type-btn, .search-source-btn { font-size: 0.7em; padding: 7px; min-height: 70px; gap: 3px;}
+    .search-type-btn .material-icons-outlined, .search-source-btn .material-icons-outlined, .search-source-btn svg { font-size: calc(var(--icon-size) + 2px); width: calc(var(--icon-size) + 2px); height: calc(var(--icon-size) + 2px); }
 
     .bottom-left-utility, .bottom-right-footer, #toplistcz1839753 {
         position: static; margin: 20px auto; width: 90%; max-width: 320px; text-align: center;
@@ -669,13 +654,11 @@ body.light-theme .autocomplete-item:hover {
     .action-button .material-icons-outlined {
         font-size: 18px;
     }
-    /* Tlačítka se už flexibilně přizpůsobí díky .button-grid */
     .search-type-btn, .search-source-btn {
         flex-direction: column; /* Ikony a text pod sebou */
         align-items: center;
         text-align: center;
         gap: 5px;
-        flex: 1 1 48%; /* Dvě tlačítka na řádek, menší mezera */
     }
     .search-type-btn span:last-child, .search-source-btn span:last-child {
         font-size: 0.65em; /* Menší text pro názvy tlačítek */
@@ -685,4 +668,4 @@ body.light-theme .autocomplete-item:hover {
         width: 22px;
         height: 22px;
     }
-        }
+}
