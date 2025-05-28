@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTheme = localStorage.getItem('selectedTheme') || 'dark'; // Default theme, retrieve from localStorage
     let currentLayout = localStorage.getItem('selectedLayout') || 'grid'; // Default layout, retrieve from localStorage
 
-    // Object for translations
+    // Object for translations (DE removed)
     const translations = {
         en: {
             pageTitle: "PlayStation Trophy Search",
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             allSideQuestsBtn: "All Side Quests",
             hardestDifficultyBtn: "Hardest Difficulty",
             specificTrophyBtn: "Specific Trophy",
-            videosGeneralBtn: "Videos (General)",
+            // videosGeneralBtn: "Videos (General)", // Removed
             selectSearchSource: "Select Search Source:",
             googleBtn: "Google",
             psnprofilesBtn: "PSNProfiles",
@@ -48,7 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
             themeSelector: "Theme:",
             layoutSelector: "Layout:",
             gridLayoutText: "Grid",
-            columnLayoutText: "Columns"
+            columnLayoutText: "Columns",
+            darkThemeText: "Dark",
+            lightThemeText: "Light"
         },
         cs: {
             pageTitle: "Vyhledávač PlayStation trofejí",
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             allSideQuestsBtn: "Všechny vedlejší úkoly",
             hardestDifficultyBtn: "Nejtěžší obtížnost",
             specificTrophyBtn: "Konkrétní trofej",
-            videosGeneralBtn: "Videa (obecné)",
+            // videosGeneralBtn: "Videa (obecné)", // Removed
             selectSearchSource: "Vyberte zdroj hledání:",
             googleBtn: "Google",
             psnprofilesBtn: "PSNProfiles",
@@ -80,43 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
             themeSelector: "Vzhled:",
             layoutSelector: "Rozložení:",
             gridLayoutText: "Mřížka",
-            columnLayoutText: "Sloupce"
-        },
-        de: {
-            pageTitle: "PlayStation Trophäen-Suche",
-            mainHeading: "PlayStation Trophäen-Suche",
-            searchInputPlaceholder: "Spieltitel eingeben...",
-            trophyInputPlaceholder: "Spezifischen Trophäen-/Errungenschaftsnamen eingeben (optional)...",
-            searchButtonText: "Suchen",
-            selectSearchType: "Suchtyp auswählen:",
-            trophyBtn: "Trophäe",
-            roadmapBtn: "Roadmap & Leitfaden",
-            collectiblesBtn: "Sammelobjekte",
-            notesBtn: "Notizen",
-            mapBtn: "Karten",
-            weaponsBtn: "Waffen",
-            upgradesBtn: "Upgrades",
-            speedrunBtn: "Speedrun",
-            allQuestsBtn: "Alle Quests",
-            allSideQuestsBtn: "Alle Nebenquests",
-            hardestDifficultyBtn: "Schwierigster Schwierigkeitsgrad",
-            specificTrophyBtn: "Spezifische Trophäe",
-            videosGeneralBtn: "Videos (Allgemein)",
-            selectSearchSource: "Suchquelle auswählen:",
-            googleBtn: "Google",
-            psnprofilesBtn: "PSNProfiles",
-            powerpyxBtn: "PowerPyx",
-            truetrophiesBtn: "TrueTrophies",
-            youtubeBtn: "YouTube",
-            languageSelector: "Sprache:",
-            themeSelector: "Design:",
-            layoutSelector: "Layout:",
-            gridLayoutText: "Raster",
-            columnLayoutText: "Spalten"
+            columnLayoutText: "Sloupce",
+            darkThemeText: "Tmavý",
+            lightThemeText: "Světlý"
         }
     };
 
-    // Mapping pro anglické vyhledávací termíny (pro Google)
+    // Mapping pro anglické vyhledávací termíny (pro Google a PowerPyx)
     const englishSearchTerms = {
         trophy: "trophy",
         roadmap: "roadmap & guide",
@@ -130,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         all_side_quests: "all side quests",
         hardest_difficulty: "hardest difficulty",
         specific_trophy: "trophy", // For specific trophy, we'll use "trophy" in the search query
-        videos_general: "videos"
+        // videos_general: "videos" // Removed
     };
 
 
@@ -267,12 +239,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let searchQuery = `${gameTitle}`;
-        const englishTerm = englishSearchTerms[currentSearchTerm];
+        const englishTerm = englishSearchTerms[currentSearchTerm]; // Always use English term for search query
 
         if (currentSearchTerm === 'specific_trophy' && trophyName) {
             searchQuery += ` ${trophyName} ${englishTerm}`; // Game Title + Trophy Name + "trophy"
         } else if (englishTerm) {
-            searchQuery += ` ${englishTerm}`; // Game Title + English search term
+            searchQuery += ` ${englishTerm}`; // Game Title + English search term (e.g., "trophy", "roadmap & guide")
         }
 
 
@@ -288,9 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 url = `https://psnprofiles.com/search/games?q=${encodedGameTitle}`;
                 break;
             case 'powerpyx':
-                url = `https://www.powerpyx.com/?s=${encodedQuery}`;
+                url = `https://www.powerpyx.com/?s=${encodedQuery}`; // PowerPyx generally handles combined query well
                 break;
             case 'truetrophies':
+                // TrueTrophies requires a specific search URL for games
+                // The search query itself is appended after 'search='
                 url = `https://www.truetrophies.com/search/games?search=${encodedGameTitle}`;
                 break;
             case 'youtube':
