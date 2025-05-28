@@ -327,6 +327,7 @@ input[type="text"]:focus {
 }
 
 .autocomplete-results-container {
+    /* Tyto styly jsou zachovány pro případ, že by se autocomplete v budoucnu znovu zapnulo */
     position: absolute;
     top: 100%; /* Pod inputem */
     left: 0;
@@ -338,7 +339,7 @@ input[type="text"]:focus {
     border-top: none;
     border-radius: 0 0 var(--border-radius-button) var(--border-radius-button);
     z-index: 10;
-    display: none; /* Skryté, dokud není aktivní */
+    display: none; /* Implicitně skryté, jelikož není aktivní */
 }
 
 .autocomplete-result-item {
@@ -374,7 +375,7 @@ input[type="text"]:focus {
 }
 
 /* Styly pro mřížku tlačítek Typy a Zdroje */
-.search-options-container { /* Nový kontejner */
+.search-options-container { /* Kontejner pro tlačítka typů a zdrojů */
     width: 100%;
     display: flex;
     flex-direction: column; /* Defaultně pod sebou */
@@ -398,18 +399,19 @@ input[type="text"]:focus {
 
 .button-grid {
     display: grid;
-    /* Toto bude defaultní nastavení - 4 tlačítka na řádek, flexibilní šířka */
+    /* Toto je základní nastavení - bude přepsáno pro specifická rozložení */
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 15px; /* Mezera mezi tlačítky */
     width: 100%; /* Plná šířka kontejneru */
 }
 
-/* Pro typy explicitně 4 tlačítka na řádek v grid módu */
+/* --- Výchozí rozložení (Grid) --- */
+/* Zajišťuje 4 tlačítka na řádek pro typy v defaultním grid režimu */
 .search-options-container:not(.columns-layout) .types-grid {
     grid-template-columns: repeat(4, 1fr);
 }
 
-/* Pro zdroje explicitně 4 tlačítka na řádek v grid módu, s odsazením */
+/* Zajišťuje 4 tlačítka na řádek pro zdroje v defaultním grid režimu, s odsazením */
 .search-options-container:not(.columns-layout) .sources-grid {
     grid-template-columns: repeat(4, 1fr); /* 4 tlačítka na řádek */
     margin-top: 20px; /* Odsazení pod typy (simulace 2x enter) */
@@ -439,7 +441,7 @@ input[type="text"]:focus {
     font-size: var(--icon-size);
 }
 
-/* Nové sloupcové rozložení pro typy a zdroje */
+/* --- Sloupcové rozložení (Columns) --- */
 .search-options-container.columns-layout {
     display: flex;
     flex-direction: row;
@@ -456,8 +458,9 @@ input[type="text"]:focus {
     align-items: flex-start; /* Zarovnání nadpisů vlevo ve sloupcích */
 }
 
+/* V sloupcovém režimu vždy 2 tlačítka na řádek */
 .search-options-container.columns-layout .button-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 tlačítka ve sloupci */
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     width: 100%; /* Důležité pro grid ve sloupci */
 }
@@ -564,13 +567,9 @@ input[type="text"]:focus {
     .main-search-area {
         padding: 25px;
     }
-    /* Zde se button-grid přizpůsobí flexibilně */
-    .button-grid {
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    }
-    /* Sloupce se na menších obrazovkách zalamují */
+    /* Button grid se už automaticky přizpůsobí díky auto-fit minmax */
     .search-options-container.columns-layout {
-        flex-direction: column;
+        flex-direction: column; /* Na menších obrazovkách sloupce pod sebou */
         align-items: center; /* Centrování sloupců */
     }
     .search-options-container.columns-layout .search-type-selection,
@@ -606,11 +605,9 @@ input[type="text"]:focus {
     .search-options-container:not(.columns-layout) .sources-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    /* Sloupcový režim - 2 tlačítka na řádek na mobilu */
-    .search-options-container.columns-layout .button-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    /* Sloupcový režim - 2 tlačítka na řádek na mobilu - už je řešeno výše */
 
+    /* Přesun spodní utility oblasti a footerů na konec stránky a změna jejich pozicování */
     .bottom-utility-area {
         position: relative; /* Změníme na relative, aby bylo součástí toku dokumentu */
         bottom: unset;
@@ -625,7 +622,7 @@ input[type="text"]:focus {
         background-color: var(--secondary-bg); /* Plné pozadí */
         border: none;
         border-top: 1px solid var(--border-color); /* Oddělení od obsahu */
-        margin-top: auto; /* Přesune na spodek */
+        margin-top: auto; /* Přesune na spodek, když je body flex column */
     }
     .utility-group {
         width: 100%;
@@ -686,7 +683,8 @@ input[type="text"]:focus {
         font-size: 0.85em; /* Ještě menší font na nejmenších obrazovkách */
         padding: 8px 5px; /* Menší padding */
     }
+    /* Na nejmenších obrazovkách se tlačítka v gridu dynamicky přizpůsobí */
     .types-grid, .sources-grid, .columns-layout .button-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Přizpůsobí se 1-2 tlačítka na řádek */
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
 }
