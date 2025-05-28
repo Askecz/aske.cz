@@ -67,7 +67,7 @@ body.dark-theme .action-button,
 body.dark-theme .search-type-btn,
 body.dark-theme .search-source-btn,
 body.dark-theme .lang-btn,
-body.dark-theme .theme-btn { /* Odebráno .layout-btn */
+body.dark-theme .theme-btn {
     background-color: var(--button-bg);
     color: var(--text-color);
     border: 1px solid var(--border-color);
@@ -77,14 +77,14 @@ body.dark-theme .action-button:hover,
 body.dark-theme .search-type-btn:hover,
 body.dark-theme .search-source-btn:hover,
 body.dark-theme .lang-btn:hover,
-body.dark-theme .theme-btn:hover { /* Odebráno .layout-btn:hover */
+body.dark-theme .theme-btn:hover {
     background-color: var(--button-hover-bg);
 }
 
 body.dark-theme .search-type-btn.active,
 body.dark-theme .search-source-btn.active,
 body.dark-theme .lang-btn.active,
-body.dark-theme .theme-btn.active { /* Odebráno .layout-btn.active */
+body.dark-theme .theme-btn.active {
     background-color: var(--button-active-bg);
     color: var(--button-active-text-color);
     border-color: var(--button-active-bg);
@@ -123,7 +123,7 @@ body.light-theme .action-button,
 body.light-theme .search-type-btn,
 body.light-theme .search-source-btn,
 body.light-theme .lang-btn,
-body.light-theme .theme-btn { /* Odebráno .layout-btn */
+body.light-theme .theme-btn {
     background-color: var(--light-button-bg);
     color: var(--light-text-color);
     border: 1px solid var(--light-border-color);
@@ -133,16 +133,16 @@ body.light-theme .action-button:hover,
 body.light-theme .search-type-btn:hover,
 body.light-theme .search-source-btn:hover,
 body.light-theme .lang-btn:hover,
-body.light-theme .theme-btn:hover { /* Odebráno .layout-btn:hover */
+body.light-theme .theme-btn:hover {
     background-color: var(--light-button-hover-bg);
 }
 
 body.light-theme .search-type-btn.active,
 body.light-theme .search-source-btn.active,
 body.light-theme .lang-btn.active,
-body.light-theme .theme-btn.active { /* Odebráno .layout-btn.active */
+body.light-theme .theme-btn.active {
     background-color: var(--light-button-active-bg);
-    color: var(--light-button-active-text-color); /* Zajišťuje bílý text na tmavším pozadí */
+    color: var(--light-button-active-text-color);
     border-color: var(--light-button-active-bg);
 }
 
@@ -254,7 +254,7 @@ body {
 }
 
 
-/* Centrování obsahu */
+/* Centrování obsahu - celá stránka je vycentrována přes body flexbox */
 .central-content-wrapper {
     flex-grow: 1; /* Zajistí, že zabere dostupný prostor */
     display: flex;
@@ -262,7 +262,8 @@ body {
     align-items: center;
     padding: 20px;
     box-sizing: border-box; /* Zahrne padding do šířky/výšky */
-    min-height: calc(100vh - 100px); /* Odečte prostor pro utility a copyright */
+    /* Min-height upravena tak, aby utility prvky na mobilu byly součástí toku */
+    min-height: calc(100vh - 120px); /* Předpoklad, že utility a copyright zaberou cca 120px */
 }
 
 .main-search-area {
@@ -284,7 +285,7 @@ body {
 }
 
 .trophy-logo {
-    font-size: 60px; /* Velikost ikony trofeje */
+    font-size: 80px; /* Zvětšená velikost ikony trofeje */
     color: gold; /* Zlatá barva pro trofej */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Jemný stín */
 }
@@ -331,7 +332,6 @@ input[type="text"]:focus {
 }
 
 .autocomplete-results-container {
-    /* Tyto styly jsou zachovány pro případ, že by se autocomplete v budoucnu znovu zapnulo */
     position: absolute;
     top: 100%; /* Pod inputem */
     left: 0;
@@ -382,7 +382,7 @@ input[type="text"]:focus {
 .search-options-container { /* Kontejner pro tlačítka typů a zdrojů */
     width: 100%;
     display: flex;
-    flex-direction: column; /* Vždy pod sebou, protože columns-layout byl odebrán */
+    flex-direction: column; /* Vždy pod sebou */
     gap: 30px; /* Mezera mezi sekcemi */
 }
 
@@ -403,7 +403,7 @@ input[type="text"]:focus {
 
 .button-grid {
     display: grid;
-    /* Toto je základní nastavení - vždy grid s 4 sloupci na větších obrazovkách */
+    /* Vždy grid s 4 sloupci na větších obrazovkách */
     grid-template-columns: repeat(4, 1fr);
     gap: 15px; /* Mezera mezi tlačítky */
     width: 100%; /* Plná šířka kontejneru */
@@ -471,13 +471,13 @@ input[type="text"]:focus {
 }
 
 .language-selection,
-.theme-selection { /* Odebráno .layout-selection */
+.theme-selection {
     display: flex;
     gap: 10px;
 }
 
 .lang-btn,
-.theme-btn { /* Odebráno .layout-btn */
+.theme-btn {
     padding: 10px 15px;
     border-radius: var(--border-radius-button);
     cursor: pointer;
@@ -489,7 +489,7 @@ input[type="text"]:focus {
 }
 
 .lang-btn .material-icons-outlined,
-.theme-btn .material-icons-outlined { /* Odebráno .layout-btn .material-icons-outlined */
+.theme-btn .material-icons-outlined {
     font-size: 18px;
 }
 
@@ -532,7 +532,6 @@ input[type="text"]:focus {
     .main-search-area {
         padding: 25px;
     }
-    /* Button grid se už automaticky přizpůsobí díky auto-fit minmax */
 }
 
 @media (max-width: 768px) {
