@@ -8,15 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const langButtons = document.querySelectorAll('.lang-btn');
     const themeButtons = document.querySelectorAll('.theme-btn');
     const searchButton = document.getElementById('searchBtn');
-    const layoutButtons = document.querySelectorAll('.layout-btn');
+    // const layoutButtons = document.querySelectorAll('.layout-btn'); // Odebráno
 
     let currentSearchTerm = 'trophy'; // Default search term
     let currentSearchSource = 'google'; // Default search source (only one allowed now)
     let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default language, retrieve from localStorage
     let currentTheme = localStorage.getItem('selectedTheme') || 'dark'; // Default theme, retrieve from localStorage
-    let currentLayout = localStorage.getItem('selectedLayout') || 'grid'; // Default layout, retrieve from localStorage
+    // let currentLayout = localStorage.getItem('selectedLayout') || 'grid'; // Odebráno, bude vždy 'grid'
 
-    // Object for translations (DE removed)
+    // Object for translations
     const translations = {
         en: {
             pageTitle: "PlayStation Trophy Search",
@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             allSideQuestsBtn: "All Side Quests",
             hardestDifficultyBtn: "Hardest Difficulty",
             specificTrophyBtn: "Specific Trophy",
-            // videosGeneralBtn: "Videos (General)", // Removed
             selectSearchSource: "Select Search Source:",
             googleBtn: "Google",
             psnprofilesBtn: "PSNProfiles",
@@ -46,9 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
             youtubeBtn: "YouTube",
             languageSelector: "Language:",
             themeSelector: "Theme:",
-            layoutSelector: "Layout:",
-            gridLayoutText: "Grid",
-            columnLayoutText: "Columns",
+            // layoutSelector: "Layout:", // Odebráno
+            // gridLayoutText: "Grid", // Odebráno
+            // columnLayoutText: "Columns", // Odebráno
             darkThemeText: "Dark",
             lightThemeText: "Light"
         },
@@ -71,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
             allSideQuestsBtn: "Všechny vedlejší úkoly",
             hardestDifficultyBtn: "Nejtěžší obtížnost",
             specificTrophyBtn: "Konkrétní trofej",
-            // videosGeneralBtn: "Videa (obecné)", // Removed
             selectSearchSource: "Vyberte zdroj hledání:",
             googleBtn: "Google",
             psnprofilesBtn: "PSNProfiles",
@@ -80,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
             youtubeBtn: "YouTube",
             languageSelector: "Jazyk:",
             themeSelector: "Vzhled:",
-            layoutSelector: "Rozložení:",
-            gridLayoutText: "Mřížka",
-            columnLayoutText: "Sloupce",
+            // layoutSelector: "Rozložení:", // Odebráno
+            // gridLayoutText: "Mřížka", // Odebráno
+            // columnLayoutText: "Sloupce", // Odebráno
             darkThemeText: "Tmavý",
             lightThemeText: "Světlý"
         }
@@ -102,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
         all_side_quests: "all side quests",
         hardest_difficulty: "hardest difficulty",
         specific_trophy: "trophy", // For specific trophy, we'll use "trophy" in the search query
-        // videos_general: "videos" // Removed
     };
 
 
@@ -134,17 +131,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Apply saved language, theme and layout on load
+    // Apply saved language and theme on load
     applyTranslations();
     setActiveButton(langButtons, currentLanguage, 'lang');
     document.body.classList.add(`${currentTheme}-theme`);
     setActiveButton(themeButtons, currentTheme, 'theme');
 
-    const searchOptionsContainer = document.querySelector('.search-options-container');
-    if (currentLayout === 'columns') {
-        searchOptionsContainer.classList.add('columns-layout');
-    }
-    setActiveButton(layoutButtons, currentLayout, 'layout');
+    // Není potřeba pro layout, protože bude vždy grid
+    // const searchOptionsContainer = document.querySelector('.search-options-container');
+    // if (currentLayout === 'columns') {
+    //     searchOptionsContainer.classList.add('columns-layout');
+    // }
+    // setActiveButton(layoutButtons, currentLayout, 'layout');
 
 
     // Language selection
@@ -171,22 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Layout selection
-    layoutButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const newLayout = button.dataset.layout;
-            if (newLayout !== currentLayout) {
-                if (newLayout === 'columns') {
-                    searchOptionsContainer.classList.add('columns-layout');
-                } else {
-                    searchOptionsContainer.classList.remove('columns-layout');
-                }
-                currentLayout = newLayout;
-                localStorage.setItem('selectedLayout', currentLayout);
-                setActiveButton(layoutButtons, currentLayout, 'layout');
-            }
-        });
-    });
+    // Odebrána logika pro Layout selection
+    // layoutButtons.forEach(button => { ... });
 
 
     // Search type selection
@@ -250,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let url = '';
         const encodedQuery = encodeURIComponent(searchQuery);
-        const encodedGameTitle = encodeURIComponent(gameTitle);
+        const encodedGameTitle = encodeURIComponent(gameTitle); // Pro TrueTrophies použijeme jen název hry
 
         switch (currentSearchSource) {
             case 'google':
@@ -263,9 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 url = `https://www.powerpyx.com/?s=${encodedQuery}`; // PowerPyx generally handles combined query well
                 break;
             case 'truetrophies':
-                // TrueTrophies requires a specific search URL for games
-                // The search query itself is appended after 'search='
-                url = `https://www.truetrophies.com/search/games?search=${encodedGameTitle}`;
+                // Nová URL pro TrueTrophies
+                url = `https://www.truetrophies.com/searchresults.aspx?search=${encodedGameTitle}`;
                 break;
             case 'youtube':
                 url = `https://www.youtube.com/results?search_query=${encodedQuery}`;
