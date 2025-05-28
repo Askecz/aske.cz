@@ -25,7 +25,7 @@
     /* Proměnné pro světlý motiv - zajišťujeme, že text na tlačítku bude vidět */
     --light-primary-bg: #f4f6f8;
     --light-secondary-bg: #ffffff;
-    --light-text-color: #212529;
+    --light-text-color: #212529; /* Černý text pro nadpis h1 */
     --light-accent-color: #007bff;
     --light-button-bg: #e9ecef;
     --light-button-hover-bg: #dee2e6;
@@ -67,8 +67,7 @@ body.dark-theme .action-button,
 body.dark-theme .search-type-btn,
 body.dark-theme .search-source-btn,
 body.dark-theme .lang-btn,
-body.dark-theme .theme-btn,
-body.dark-theme .layout-btn {
+body.dark-theme .theme-btn { /* Odebráno .layout-btn */
     background-color: var(--button-bg);
     color: var(--text-color);
     border: 1px solid var(--border-color);
@@ -78,19 +77,22 @@ body.dark-theme .action-button:hover,
 body.dark-theme .search-type-btn:hover,
 body.dark-theme .search-source-btn:hover,
 body.dark-theme .lang-btn:hover,
-body.dark-theme .theme-btn:hover,
-body.dark-theme .layout-btn:hover {
+body.dark-theme .theme-btn:hover { /* Odebráno .layout-btn:hover */
     background-color: var(--button-hover-bg);
 }
 
 body.dark-theme .search-type-btn.active,
 body.dark-theme .search-source-btn.active,
 body.dark-theme .lang-btn.active,
-body.dark-theme .theme-btn.active,
-body.dark-theme .layout-btn.active {
+body.dark-theme .theme-btn.active { /* Odebráno .layout-btn.active */
     background-color: var(--button-active-bg);
     color: var(--button-active-text-color);
     border-color: var(--button-active-bg);
+}
+
+/* Barva nadpisu pro tmavý motiv */
+body.dark-theme h1 {
+    color: var(--ps-blue);
 }
 
 /* Světlý motiv */
@@ -121,8 +123,7 @@ body.light-theme .action-button,
 body.light-theme .search-type-btn,
 body.light-theme .search-source-btn,
 body.light-theme .lang-btn,
-body.light-theme .theme-btn,
-body.light-theme .layout-btn {
+body.light-theme .theme-btn { /* Odebráno .layout-btn */
     background-color: var(--light-button-bg);
     color: var(--light-text-color);
     border: 1px solid var(--light-border-color);
@@ -132,19 +133,22 @@ body.light-theme .action-button:hover,
 body.light-theme .search-type-btn:hover,
 body.light-theme .search-source-btn:hover,
 body.light-theme .lang-btn:hover,
-body.light-theme .theme-btn:hover,
-body.light-theme .layout-btn:hover {
+body.light-theme .theme-btn:hover { /* Odebráno .layout-btn:hover */
     background-color: var(--light-button-hover-bg);
 }
 
 body.light-theme .search-type-btn.active,
 body.light-theme .search-source-btn.active,
 body.light-theme .lang-btn.active,
-body.light-theme .theme-btn.active,
-body.light-theme .layout-btn.active {
+body.light-theme .theme-btn.active { /* Odebráno .layout-btn.active */
     background-color: var(--light-button-active-bg);
     color: var(--light-button-active-text-color); /* Zajišťuje bílý text na tmavším pozadí */
     border-color: var(--light-button-active-bg);
+}
+
+/* Barva nadpisu pro světlý motiv */
+body.light-theme h1 {
+    color: var(--light-text-color); /* Černá barva */
 }
 
 /* Základní styly */
@@ -289,8 +293,8 @@ h1 {
     font-size: 2.5em;
     margin-top: 0;
     margin-bottom: 20px;
-    color: var(--text-color);
     text-align: center;
+    transition: color 0.3s; /* Plynulý přechod barvy */
 }
 
 /* Autocomplete wrapper (zachovávám strukturu i když je JS vypnuto) */
@@ -378,7 +382,7 @@ input[type="text"]:focus {
 .search-options-container { /* Kontejner pro tlačítka typů a zdrojů */
     width: 100%;
     display: flex;
-    flex-direction: column; /* Defaultně pod sebou */
+    flex-direction: column; /* Vždy pod sebou, protože columns-layout byl odebrán */
     gap: 30px; /* Mezera mezi sekcemi */
 }
 
@@ -399,21 +403,14 @@ input[type="text"]:focus {
 
 .button-grid {
     display: grid;
-    /* Toto je základní nastavení - bude přepsáno pro specifická rozložení */
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    /* Toto je základní nastavení - vždy grid s 4 sloupci na větších obrazovkách */
+    grid-template-columns: repeat(4, 1fr);
     gap: 15px; /* Mezera mezi tlačítky */
     width: 100%; /* Plná šířka kontejneru */
 }
 
-/* --- Výchozí rozložení (Grid) --- */
-/* Zajišťuje 4 tlačítka na řádek pro typy v defaultním grid režimu */
-.search-options-container:not(.columns-layout) .types-grid {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-/* Zajišťuje 4 tlačítka na řádek pro zdroje v defaultním grid režimu, s odsazením */
-.search-options-container:not(.columns-layout) .sources-grid {
-    grid-template-columns: repeat(4, 1fr); /* 4 tlačítka na řádek */
+/* Zajišťuje 4 tlačítka na řádek pro zdroje, s odsazením */
+.sources-grid {
     margin-top: 20px; /* Odsazení pod typy (simulace 2x enter) */
 }
 
@@ -441,43 +438,14 @@ input[type="text"]:focus {
     font-size: var(--icon-size);
 }
 
-/* --- Sloupcové rozložení (Columns) --- */
-.search-options-container.columns-layout {
-    display: flex;
-    flex-direction: row;
-    gap: 30px; /* Mezera mezi sloupci */
-    flex-wrap: wrap; /* Aby se sloupce zalamovaly na menších obrazovkách */
-    justify-content: center; /* Centrování sloupců */
-}
-
-.search-options-container.columns-layout .search-type-selection,
-.search-options-container.columns-layout .search-source-selection {
-    flex: 1; /* Sloupce zaberou stejný prostor */
-    min-width: 280px; /* Minimální šířka pro sloupec */
-    max-width: 400px; /* Maximální šířka pro sloupec */
-    align-items: flex-start; /* Zarovnání nadpisů vlevo ve sloupcích */
-}
-
-/* V sloupcovém režimu vždy 2 tlačítka na řádek */
-.search-options-container.columns-layout .button-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    width: 100%; /* Důležité pro grid ve sloupci */
-}
-
-.search-options-container.columns-layout .sources-grid {
-    margin-top: 0; /* Odebereme odsazení, když jsou ve sloupcích */
-}
-
-
-/* Spodní utility oblast (jazyk, vzhled, rozložení) */
+/* Spodní utility oblast (jazyk, vzhled) */
 .bottom-utility-area {
     position: fixed;
     bottom: 20px;
     left: 20px;
     display: flex;
     flex-direction: row;
-    gap: 20px; /* Mezera mezi skupinami (jazyk, vzhled, rozložení) */
+    gap: 20px; /* Mezera mezi skupinami (jazyk, vzhled) */
     background-color: rgba(var(--primary-bg-rgb), 0.8); /* Průhledné pozadí */
     padding: 15px 20px;
     border-radius: var(--border-radius-main);
@@ -503,15 +471,13 @@ input[type="text"]:focus {
 }
 
 .language-selection,
-.theme-selection,
-.layout-selection {
+.theme-selection { /* Odebráno .layout-selection */
     display: flex;
     gap: 10px;
 }
 
 .lang-btn,
-.theme-btn,
-.layout-btn {
+.theme-btn { /* Odebráno .layout-btn */
     padding: 10px 15px;
     border-radius: var(--border-radius-button);
     cursor: pointer;
@@ -523,8 +489,7 @@ input[type="text"]:focus {
 }
 
 .lang-btn .material-icons-outlined,
-.theme-btn .material-icons-outlined,
-.layout-btn .material-icons-outlined {
+.theme-btn .material-icons-outlined { /* Odebráno .layout-btn .material-icons-outlined */
     font-size: 18px;
 }
 
@@ -568,20 +533,6 @@ input[type="text"]:focus {
         padding: 25px;
     }
     /* Button grid se už automaticky přizpůsobí díky auto-fit minmax */
-    .search-options-container.columns-layout {
-        flex-direction: column; /* Na menších obrazovkách sloupce pod sebou */
-        align-items: center; /* Centrování sloupců */
-    }
-    .search-options-container.columns-layout .search-type-selection,
-    .search-options-container.columns-layout .search-source-selection {
-        min-width: unset; /* Zruší minimální šířku pro flexibilitu */
-        width: 100%;
-        align-items: center; /* Nadpisy opět na střed */
-    }
-    /* V sloupcovém režimu na menších obrazovkách stále 2 tlačítka na řádek */
-    .search-options-container.columns-layout .button-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 @media (max-width: 768px) {
@@ -600,12 +551,10 @@ input[type="text"]:focus {
         width: 100%; /* Plná šířka pro input a tlačítko */
         max-width: 320px; /* Omezení max. šířky */
     }
-    /* Defaultní grid pro typy a zdroje - 2 tlačítka na řádek na mobilu */
-    .search-options-container:not(.columns-layout) .types-grid,
-    .search-options-container:not(.columns-layout) .sources-grid {
+    /* Grid pro typy a zdroje - 2 tlačítka na řádek na mobilu */
+    .button-grid { /* Aplikujeme přímo na button-grid */
         grid-template-columns: repeat(2, 1fr);
     }
-    /* Sloupcový režim - 2 tlačítka na řádek na mobilu - už je řešeno výše */
 
     /* Přesun spodní utility oblasti a footerů na konec stránky a změna jejich pozicování */
     .bottom-utility-area {
@@ -631,12 +580,12 @@ input[type="text"]:focus {
     .utility-group > span {
         background-color: transparent !important; /* Odebrat pozadí labelů na mobilu */
     }
-    .language-selection, .theme-selection, .layout-selection {
+    .language-selection, .theme-selection {
         justify-content: center;
         width: auto;
         max-width: 100%;
     }
-    .lang-btn, .theme-btn, .layout-btn {
+    .lang-btn, .theme-btn {
         flex-grow: 0;
         padding: 7px 10px;
     }
@@ -684,7 +633,7 @@ input[type="text"]:focus {
         padding: 8px 5px; /* Menší padding */
     }
     /* Na nejmenších obrazovkách se tlačítka v gridu dynamicky přizpůsobí */
-    .types-grid, .sources-grid, .columns-layout .button-grid {
+    .button-grid { /* Aplikujeme přímo na button-grid */
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
 }
