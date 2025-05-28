@@ -8,13 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const langButtons = document.querySelectorAll('.lang-btn');
     const themeButtons = document.querySelectorAll('.theme-btn');
     const searchButton = document.getElementById('searchBtn');
-    // const layoutButtons = document.querySelectorAll('.layout-btn'); // Odebráno
 
     let currentSearchTerm = 'trophy'; // Default search term
     let currentSearchSource = 'google'; // Default search source (only one allowed now)
     let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default language, retrieve from localStorage
     let currentTheme = localStorage.getItem('selectedTheme') || 'dark'; // Default theme, retrieve from localStorage
-    // let currentLayout = localStorage.getItem('selectedLayout') || 'grid'; // Odebráno, bude vždy 'grid'
 
     // Object for translations
     const translations = {
@@ -45,9 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
             youtubeBtn: "YouTube",
             languageSelector: "Language:",
             themeSelector: "Theme:",
-            // layoutSelector: "Layout:", // Odebráno
-            // gridLayoutText: "Grid", // Odebráno
-            // columnLayoutText: "Columns", // Odebráno
             darkThemeText: "Dark",
             lightThemeText: "Light"
         },
@@ -78,9 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
             youtubeBtn: "YouTube",
             languageSelector: "Jazyk:",
             themeSelector: "Vzhled:",
-            // layoutSelector: "Rozložení:", // Odebráno
-            // gridLayoutText: "Mřížka", // Odebráno
-            // columnLayoutText: "Sloupce", // Odebráno
             darkThemeText: "Tmavý",
             lightThemeText: "Světlý"
         }
@@ -137,13 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add(`${currentTheme}-theme`);
     setActiveButton(themeButtons, currentTheme, 'theme');
 
-    // Není potřeba pro layout, protože bude vždy grid
-    // const searchOptionsContainer = document.querySelector('.search-options-container');
-    // if (currentLayout === 'columns') {
-    //     searchOptionsContainer.classList.add('columns-layout');
-    // }
-    // setActiveButton(layoutButtons, currentLayout, 'layout');
-
 
     // Language selection
     langButtons.forEach(button => {
@@ -168,10 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // Odebrána logika pro Layout selection
-    // layoutButtons.forEach(button => { ... });
-
 
     // Search type selection
     searchTypeButtons.forEach(button => {
@@ -234,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let url = '';
         const encodedQuery = encodeURIComponent(searchQuery);
-        const encodedGameTitle = encodeURIComponent(gameTitle); // Pro TrueTrophies použijeme jen název hry
+        const encodedGameTitle = encodeURIComponent(gameTitle);
 
         switch (currentSearchSource) {
             case 'google':
@@ -244,10 +225,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 url = `https://psnprofiles.com/search/games?q=${encodedGameTitle}`;
                 break;
             case 'powerpyx':
-                url = `https://www.powerpyx.com/?s=${encodedQuery}`; // PowerPyx generally handles combined query well
+                url = `https://www.powerpyx.com/?s=${encodedQuery}`;
                 break;
             case 'truetrophies':
-                // Nová URL pro TrueTrophies
                 url = `https://www.truetrophies.com/searchresults.aspx?search=${encodedGameTitle}`;
                 break;
             case 'youtube':
