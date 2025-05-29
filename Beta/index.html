@@ -1,161 +1,310 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="pageTitle"></title>
+    <title>Herní Vyhledávač Návodů</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <link rel="icon" href="https://img.icons8.com/fluency/48/trophy.png" type="image/png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
-<body class="dark-theme">
-    <div class="background-shapes">
-        <div class="shape triangle"></div>
-        <div class="shape square"></div>
-        <div class="shape circle"></div>
-        <div class="shape cross"></div>
-    </div>
+<body>
+    <div class="container">
+        <h1>Herní Vyhledávač Návodů</h1>
 
-    <div class="central-content-wrapper">
-        <div class="main-search-area">
-            <div class="trophy-logo-container">
-                <span class="material-icons-outlined trophy-logo">emoji_events</span>
-            </div>
-            <h1 data-lang-key="mainHeading"></h1>
-
-            <div class="input-autocomplete-wrapper">
-                <div class="search-input-area">
-                    <input type="text" id="gameSearchInput" placeholder="" data-lang-key="searchInputPlaceholder">
-                    <input type="text" id="trophyNameInput" placeholder="" data-lang-key="trophyInputPlaceholder" style="display: none;">
-                    <button id="searchBtn" class="action-button">
-                        <span class="material-icons-outlined">search</span>
-                        <span data-lang-key="searchButtonText"></span>
-                    </button>
-                </div>
-                <div id="autocomplete-results" class="autocomplete-results-container"></div>
-            </div>
-
-            <div class="search-options-container"> <div class="search-type-selection">
-                    <h3 data-lang-key="selectSearchType"></h3>
-                    <div class="button-grid types-grid">
-                        <button class="search-type-btn" data-search-term="trophy">
-                            <span class="material-icons-outlined">military_tech</span>
-                            <span data-lang-key="trophyBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="roadmap">
-                            <span class="material-icons-outlined">alt_route</span>
-                            <span data-lang-key="roadmapBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="collectibles">
-                            <span class="material-icons-outlined">diamond</span>
-                            <span data-lang-key="collectiblesBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="notes">
-                            <span class="material-icons-outlined">menu_book</span>
-                            <span data-lang-key="notesBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="maps">
-                            <span class="material-icons-outlined">map</span>
-                            <span data-lang-key="mapBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="weapons">
-                            <span class="material-icons-outlined">colorize</span>
-                            <span data-lang-key="weaponsBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="upgrades">
-                            <span class="material-icons-outlined">hardware</span>
-                            <span data-lang-key="upgradesBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="speedrun">
-                            <span class="material-icons-outlined">timer</span>
-                            <span data-lang-key="speedrunBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="all_quests">
-                            <span class="material-icons-outlined">assignment</span>
-                            <span data-lang-key="allQuestsBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="all_side_quests">
-                            <span class="material-icons-outlined">list_alt</span>
-                            <span data-lang-key="allSideQuestsBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="hardest_difficulty">
-                            <span class="material-icons-outlined">handshake</span>
-                            <span data-lang-key="hardestDifficultyBtn"></span>
-                        </button>
-                        <button class="search-type-btn" data-search-term="specific_trophy">
-                            <span class="material-icons-outlined">star</span>
-                            <span data-lang-key="specificTrophyBtn"></span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="search-source-selection">
-                    <h3 data-lang-key="selectSearchSource"></h3>
-                    <div class="button-grid sources-grid">
-                        <button class="search-source-btn" data-source="google">
-                            <span class="material-icons-outlined">search</span>
-                            <span data-lang-key="googleBtn"></span>
-                        </button>
-                        <button class="search-source-btn" data-source="psnprofiles">
-                            <span class="material-icons-outlined">sports_esports</span>
-                            <span data-lang-key="psnprofilesBtn"></span>
-                        </button>
-                        <button class="search-source-btn" data-source="powerpyx">
-                            <span class="material-icons-outlined">local_fire_department</span>
-                            <span data-lang-key="powerpyxBtn"></span>
-                        </button>
-                        <button class="search-source-btn" data-source="truetrophies">
-                            <span class="material-icons-outlined">verified</span>
-                            <span data-lang-key="truetrophiesBtn"></span>
-                        </button>
-                        <button class="search-source-btn" data-source="youtube">
-                            <span class="material-icons-outlined">ondemand_video</span>
-                            <span data-lang-key="youtubeBtn"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-utility-area">
-        <div class="utility-group">
-            <span data-lang-key="languageSelector"></span>
-            <div class="language-selection">
-                <button class="lang-btn active" data-lang="en">EN</button>
-                <button class="lang-btn" data-lang="cs">CS</button>
-            </div>
+        <div class="input-group">
+            <label for="gameName">Název Hry:</label>
+            <input type="text" id="gameName" placeholder="Např. Cyberpunk 2077">
         </div>
 
-        <div class="utility-group">
-            <span data-lang-key="themeSelector"></span>
-            <div class="theme-selection">
-                <button class="theme-btn active" data-theme="dark">
-                    <span class="material-icons-outlined">dark_mode</span>
-                    <span data-lang-key="darkThemeText"></span>
+        <div class="input-group">
+            <label for="trophyName">Název konkrétní Trofeje/Achievementu (volitelné):</label>
+            <input type="text" id="trophyName" placeholder="Např. V for Vendetta">
+        </div>
+
+        <div class="search-section">
+            <h2><img src="https://www.google.com/favicon.ico" alt="Google icon" class="icon"> Vyhledat na Google:</h2>
+            <div class="button-grid">
+                <button data-engine="google" data-querytype="full_guide">
+                    <span class="material-symbols-outlined icon-small">auto_stories</span> Celý Průvodce (Full Guide)
                 </button>
-                <button class="theme-btn" data-theme="light">
-                    <span class="material-icons-outlined">light_mode</span>
-                    <span data-lang-key="lightThemeText"></span>
+                <button data-engine="google" data-querytype="roadmap">
+                    <span class="material-symbols-outlined icon-small">map</span> Roadmap & Trophy Guide
+                </button>
+                <button data-engine="google" data-querytype="speedrun">
+                    <span class="material-symbols-outlined icon-small">timer</span> Speedrun Guide
+                </button>
+                <button data-engine="google" data-querytype="hardest_difficulty">
+                    <span class="material-symbols-outlined icon-small">military_tech</span> Hardest Difficulty Run
                 </button>
             </div>
+            <h3><span class="material-symbols-outlined icon-small">collections_bookmark</span> Sběratelské předměty:</h3>
+            <div class="button-grid">
+                <button data-engine="google" data-querytype="all_collectibles">
+                    <span class="material-symbols-outlined icon-small">inventory_2</span> Všechny Collectibles
+                </button>
+                <button data-engine="google" data-querytype="diaries">
+                    <span class="material-symbols-outlined icon-small">book_5</span> Deníky (Diaries)
+                </button>
+                <button data-engine="google" data-querytype="notes">
+                    <span class="material-symbols-outlined icon-small">note_add</span> Notes / Lore
+                </button>
+                <button data-engine="google" data-querytype="records">
+                    <span class="material-symbols-outlined icon-small">mic</span> Záznamy / Nahrávky (Records/Recordings)
+                </button>
+                <button data-engine="google" data-querytype="interviews">
+                    <span class="material-symbols-outlined icon-small">person_add</span> Rozhovory (Interviews)
+                </button>
+                <button data-engine="google" data-querytype="statues">
+                    <span class="material-symbols-outlined icon-small">sculpture</span> Sošky (Statues)
+                </button>
+                <button data-engine="google" data-querytype="paintings">
+                    <span class="material-symbols-outlined icon-small">palette</span> Obrazy (Paintings)
+                </button>
+                <button data-engine="google" data-querytype="documents">
+                    <span class="material-symbols-outlined icon-small">article</span> Dokumenty (Documents)
+                </button>
+                <button data-engine="google" data-querytype="photos">
+                    <span class="material-symbols-outlined icon-small">photo_camera</span> Fotky (Photos)
+                </button>
+                <button data-engine="google" data-querytype="artifacts">
+                    <span class="material-symbols-outlined icon-small">diamond</span> Artefakty (Artifacts)
+                </button>
+                <button data-engine="google" data-querytype="treasures">
+                    <span class="material-symbols-outlined icon-small">trophy</span> Poklady (Treasures)
+                </button>
+                <button data-engine="google" data-querytype="runes">
+                    <span class="material-symbols-outlined icon-small">hexagon</span> Runy (Runes)
+                </button>
+                <button data-engine="google" data-querytype="echos">
+                    <span class="material-symbols-outlined icon-small">hearing</span> Echa (Echos)
+                </button>
+                <button data-engine="google" data-querytype="relics">
+                    <span class="material-symbols-outlined icon-small">token</span> Relikvie (Relics)
+                </button>
+                <button data-engine="google" data-querytype="fish">
+                    <span class="material-symbols-outlined icon-small">phishing</span> Všechny Ryby (All Fish)
+                </button>
+                <button data-engine="google" data-querytype="keys">
+                    <span class="material-symbols-outlined icon-small">key</span> Všechny Klíče (All Keys)
+                </button>
+                <button data-engine="google" data-querytype="blueprints">
+                    <span class="material-symbols-outlined icon-small">design_services</span> Všechny Blueprinty
+                </button>
+                <button data-engine="google" data-querytype="emails">
+                    <span class="material-symbols-outlined icon-small">mail</span> Všechny Emaily
+                </button>
+            </div>
+            <h3><span class="material-symbols-outlined icon-small">bolt</span> Herní mechanismy a Progrese:</h3>
+            <div class="button-grid">
+                <button data-engine="google" data-querytype="all_characters">
+                    <span class="material-symbols-outlined icon-small">group</span> Všechny Postavy
+                </button>
+                <button data-engine="google" data-querytype="all_bosses">
+                    <span class="material-symbols-outlined icon-small">sports_martial_arts</span> Všechny Bossy
+                </button>
+                <button data-engine="google" data-querytype="puzzles">
+                    <span class="material-symbols-outlined icon-small">extension</span> Logické Skládačky (Puzzles)
+                </button>
+                <button data-engine="google" data-querytype="challenges">
+                    <span class="material-symbols-outlined icon-small">military_tech</span> Všechny Výzvy (Challenges)
+                </button>
+                <button data-engine="google" data-querytype="minigames">
+                    <span class="material-symbols-outlined icon-small">casino</span> Všechny Minihry
+                </button>
+                <button data-engine="google" data-querytype="dlc">
+                    <span class="material-symbols-outlined icon-small">download</span> Datadisky (DLCs/Expansions)
+                </button>
+                <button data-engine="google" data-querytype="all_music">
+                    <span class="material-symbols-outlined icon-small">music_note</span> Všechna Hudba (All Music)
+                </button>
+                <button data-engine="google" data-querytype="all_secrets">
+                    <span class="material-symbols-outlined icon-small">visibility_off</span> Všechny Tajemství (All Secrets)
+                </button>
+                <button data-engine="google" data-querytype="costumes">
+                    <span class="material-symbols-outlined icon-small">apparel</span> Všechny Kostýmy/Skiny
+                </button>
+            </div>
+            <h3><span class="material-symbols-outlined icon-small">auto_awesome</span> Upgrady:</h3>
+            <div class="button-grid">
+                <button data-engine="google" data-querytype="weapon_upgrades">
+                    <span class="material-symbols-outlined icon-small">hardware</span> Vylepšení Zbraní
+                </button>
+                <button data-engine="google" data-querytype="character_upgrades">
+                    <span class="material-symbols-outlined icon-small">person_apron</span> Vylepšení Postavy
+                </button>
+                <button data-engine="google" data-querytype="ability_upgrades">
+                    <span class="material-symbols-outlined icon-small">auto_awesome</span> Vylepšení Schopností
+                </button>
+                <button data-engine="google" data-querytype="all_upgrades">
+                    <span class="material-symbols-outlined icon-small">level_up</span> Všechny Upgrady
+                </button>
+                <button data-engine="google" data-querytype="health_upgrades">
+                    <span class="material-symbols-outlined icon-small">favorite</span> Upgrady Zdraví
+                </button>
+                <button data-engine="google" data-querytype="energy_upgrades">
+                    <span class="material-symbols-outlined icon-small">power</span> Upgrady Energie
+                </button>
+            </div>
+            <h3><span class="material-symbols-outlined icon-small">article</span> Příběh a Konec:</h3>
+            <div class="button-grid">
+                <button data-engine="google" data-querytype="all_main_quests">
+                    <span class="material-symbols-outlined icon-small">assignment</span> Všechny Hlavní Úkoly
+                </button>
+                <button data-engine="google" data-querytype="all_side_quests">
+                    <span class="material-symbols-outlined icon-small">assignment_turned_in</span> Všechny Vedlejší Úkoly
+                </button>
+                <button data-engine="google" data-querytype="good_ending">
+                    <span class="material-symbols-outlined icon-small">sentiment_satisfied</span> Dobrý Konec (Good Ending)
+                </button>
+                <button data-engine="google" data-querytype="bad_ending">
+                    <span class="material-symbols-outlined icon-small">sentiment_dissatisfied</span> Špatný Konec (Bad Ending)
+                </button>
+                <button data-engine="google" data-querytype="secret_ending">
+                    <span class="material-symbols-outlined icon-small">visibility_off</span> Tajný Konec (Secret Ending)
+                </button>
+                <button data-engine="google" data-querytype="all_endings">
+                    <span class="material-symbols-outlined icon-small">history</span> Všechny Konce (All Endings)
+                </button>
+            </div>
+            <h3><span class="material-symbols-outlined icon-small">military_tech</span> Specifické:</h3>
+            <div class="button-grid">
+                <button data-engine="google" data-querytype="specific_trophy">
+                    <span class="material-symbols-outlined icon-small">emoji_events</span> Konkrétní Trofej/Achievement
+                </button>
+            </div>
         </div>
-    </div>
 
-    <div class="toplist-container">
-        <a href="https://www.toplist.cz" id="toplistcz1839753" title="TOPlist">
-            <noscript><img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&njs=1" border="0" alt="TOPlist" width="80" height="15"/></noscript>
-            <script language="JavaScript">
-                (function(d,e,s) {
-                    d.getElementById('toplistcz1839753').innerHTML='<img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&njs=1" border="0" '
-                    + 'alt="TOPlist" width="80" height="15"/>';
-                }(document,screen,'https://toplist.cz/'));
-            </script>
-        </a>
-    </div>
+        <div class="search-section">
+            <h2><img src="https://www.youtube.com/favicon.ico" alt="YouTube icon" class="icon"> Vyhledat na YouTube:</h2>
+            <div class="button-grid">
+                <button data-engine="youtube" data-querytype="full_guide_video">
+                    <span class="material-symbols-outlined icon-small">smart_display</span> Celý Průvodce (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="roadmap_video">
+                    <span class="material-symbols-outlined icon-small">videocam</span> Roadmap (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="speedrun_video">
+                    <span class="material-symbols-outlined icon-small">slow_motion_video</span> Speedrun (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="hardest_difficulty_video">
+                    <span class="material-symbols-outlined icon-small">play_circle</span> Hardest Difficulty (Video Playthrough)
+                </button>
+            </div>
+            <h3><span class="material-symbols-outlined icon-small">video_library</span> Sběratelské předměty (Video):</h3>
+            <div class="button-grid">
+                <button data-engine="youtube" data-querytype="all_collectibles_video">
+                    <span class="material-symbols-outlined icon-small">movie</span> Všechny Collectibles (Video Návod)
+                </button>
+                <button data-engine="youtube" data-querytype="notes_video">
+                    <span class="material-symbols-outlined icon-small">video_file</span> Notes / Lore (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="maps_video">
+                    <span class="material-symbols-outlined icon-small">video_camera_front</span> Maps (Video Průvodce)
+                </button>
+                <button data-engine="youtube" data-querytype="weapons_video">
+                    <span class="material-symbols-outlined icon-small">videogame_asset</span> Weapons (Video Ukázka/Lokace)
+                </button>
+                <button data-engine="youtube" data-querytype="upgrades_video">
+                    <span class="material-symbols-outlined icon-small">grade</span> Full Upgrade (Video Návod)
+                </button>
+                <button data-engine="youtube" data-querytype="all_characters_video">
+                    <span class="material-symbols-outlined icon-small">group_add</span> Všechny Postavy (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="all_bosses_video">
+                    <span class="material-symbols-outlined icon-small">military_tech</span> Všechny Bossy (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="all_secrets_video">
+                    <span class="material-symbols-outlined icon-small">lock_open</span> Všechny Tajemství (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="all_music_video">
+                    <span class="material-symbols-outlined icon-small">music_video</span> Všechna Hudba (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="costumes_video">
+                    <span class="material-symbols-outlined icon-small">video_stable</span> Všechny Kostýmy/Skiny (Video)
+                </button>
+            </div>
+            <h3><span class="material-symbols-outlined icon-small">edit_square</span> Příběh a Konec (Video):</h3>
+            <div class="button-grid">
+                <button data-engine="youtube" data-querytype="all_main_quests_video">
+                    <span class="material-symbols-outlined icon-small">movie_filter</span> Všechny Hlavní Úkoly (Video Walkthrough)
+                </button>
+                <button data-engine="youtube" data-querytype="all_side_quests_video">
+                    <span class="material-symbols-outlined icon-small">theaters</span> Všechny Vedlejší Úkoly (Video Walkthrough)
+                </button>
+                <button data-engine="youtube" data-querytype="good_ending_video">
+                    <span class="material-symbols-outlined icon-small">check_circle</span> Dobrý Konec (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="bad_ending_video">
+                    <span class="material-symbols-outlined icon-small">cancel</span> Špatný Konec (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="secret_ending_video">
+                    <span class="material-symbols-outlined icon-small">videocam</span> Tajný Konec (Video)
+                </button>
+                <button data-engine="youtube" data-querytype="all_endings_video">
+                    <span class="material-symbols-outlined icon-small">play_arrow</span> Všechny Konce (Video)
+                </button>
+            </div>
+            <h3><span class="material-symbols-outlined icon-small">playlist_play</span> Specifické (Video):</h3>
+            <div class="button-grid">
+                <button data-engine="youtube" data-querytype="specific_trophy_video">
+                    <span class="material-symbols-outlined icon-small">emoji_events</span> Konkrétní Trofej (Video Návod)
+                </button>
+                <button data-engine="youtube" data-querytype="videos_general">
+                    <span class="material-symbols-outlined icon-small">live_tv</span> Videa o hře (Obecné)
+                </button>
+            </div>
+        </div>
 
-    <div class="bottom-right-footer">
-        <span>Aske 2025</span>
+        <div class="search-section">
+            <h2><img src="https://psnprofiles.com/favicon.ico" alt="PSNProfiles icon" class="icon"> Vyhledat na PSNProfiles:</h2>
+            <div class="button-grid">
+                <button data-engine="psnprofiles" data-querytype="game_page">
+                    <span class="material-symbols-outlined icon-small">extension</span> Stránka Hry (Trophy List)
+                </button>
+                <button data-engine="psnprofiles" data-querytype="roadmap_psn">
+                    <span class="material-symbols-outlined icon-small">map</span> Roadmap & Trophy Guide
+                </button>
+                <button data-engine="psnprofiles" data-querytype="specific_trophy_psn">
+                    <span class="material-symbols-outlined icon-small">emoji_events</span> Konkrétní Trofej
+                </button>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <h2><img src="https://www.powerpyx.com/favicon.ico" alt="PowerPyx icon" class="icon"> Vyhledat na PowerPyx:</h2>
+            <div class="button-grid">
+                <button data-engine="powerpyx" data-querytype="game_guide_pp">
+                    <span class="material-symbols-outlined icon-small">article</span> Průvodce Hrou
+                </button>
+                <button data-engine="powerpyx" data-querytype="roadmap_pp">
+                    <span class="material-symbols-outlined icon-small">map</span> Roadmap & Trophy Guide
+                </button>
+                <button data-engine="powerpyx" data-querytype="collectibles_pp">
+                    <span class="material-symbols-outlined icon-small">inventory_2</span> Collectibles Guide
+                </button>
+                <button data-engine="powerpyx" data-querytype="specific_trophy_pp">
+                    <span class="material-symbols-outlined icon-small">emoji_events</span> Konkrétní Trofej
+                </button>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <h2><img src="https://www.truetrophies.com/favicon.ico" alt="TrueTrophies icon" class="icon"> Vyhledat na TrueTrophies:</h2>
+            <div class="button-grid">
+                <button data-engine="truetrophies" data-querytype="game_guide_tt">
+                    <span class="material-symbols-outlined icon-small">auto_stories</span> Průvodce Hrou
+                </button>
+                <button data-engine="truetrophies" data-querytype="roadmap_tt">
+                    <span class="material-symbols-outlined icon-small">map</span> Roadmap & Achievement Guide
+                </button>
+                <button data-engine="truetrophies" data-querytype="collectibles_tt">
+                    <span class="material-symbols-outlined icon-small">inventory_2</span> Collectibles Guide
+                </button>
+                <button data-engine="truetrophies" data-querytype="specific_trophy_tt">
+                    <span class="material-symbols-outlined icon-small">emoji_events</span> Konkrétní Trofej
+                </button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
