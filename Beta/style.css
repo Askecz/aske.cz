@@ -1,132 +1,519 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 20px;
-    background-color: #f0f2f5;
-    color: #1c1e21;
+/* style.css */
+
+:root {
+    /* Full Black Theme */
+    --primary-bg: #2e2e2e;
+    --secondary-bg: #1a1a1a;
+    --text-color: #ffffff;
+    --accent-color: #007bff;
+    --button-bg: #333333;
+    --button-hover-bg: #444444;
+    --input-bg: #222222;
+    --input-text-color: #ffffff;
+    --placeholder-color: #cccccc;
+    --border-color: #444444;
+    --shadow-color: rgba(0, 0, 0, 0.6);
+    --border-radius-main: 10px;
+    --border-radius-button: 6px;
+
+    /* Pure White Theme */
+    --light-primary-bg: #f0f0f0;
+    --light-secondary-bg: #e0e0e0;
+    --light-text-color: #333333;
+    --light-accent-color: #007bff;
+    --light-button-bg: #d0d0d0;
+    --light-button-hover-bg: #c0c0c0;
+    --light-input-bg: #ffffff;
+    --light-input-text-color: #333333;
+    --light-placeholder-color: #888888;
+    --light-border-color: #cccccc;
+    --light-shadow-color: rgba(0, 0, 0, 0.15);
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+/* Apply theme variables based on body class */
+body.dark-theme {
+    /* Default variables are already set as "dark" in :root */
+}
+
+body.light-theme {
+    --primary-bg: var(--light-primary-bg);
+    --secondary-bg: var(--light-secondary-bg);
+    --text-color: var(--light-text-color);
+    --accent-color: var(--light-accent-color);
+    --button-bg: var(--light-button-bg);
+    --button-hover-bg: var(--light-button-hover-bg);
+    --input-bg: var(--light-input-bg);
+    --input-text-color: var(--light-input-text-color);
+    --placeholder-color: var(--light-placeholder-color);
+    --border-color: var(--light-border-color);
+    --shadow-color: var(--light-shadow-color);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    position: relative;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    box-sizing: border-box;
+}
+
+.background-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.1;
+}
+
+.shape {
+    position: absolute;
+    opacity: 0.7;
+    animation: float 25s infinite ease-in-out;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 70px solid transparent;
+    border-right: 70px solid transparent;
+    border-bottom: 140px solid rgba(255, 0, 0, 0.4);
+    top: 10%;
+    left: 15%;
+    animation-duration: 28s;
+    animation-delay: 1s;
+    transform: rotate(20deg);
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 255, 255, 0.4);
+    border-radius: 10%;
+    top: 30%;
+    left: 80%;
+    animation-duration: 22s;
+    animation-delay: 3s;
+    transform: rotate(-30deg);
+}
+
+.circle {
+    width: 120px;
+    height: 120px;
+    background-color: rgba(255, 255, 0, 0.4);
+    border-radius: 50%;
+    top: 70%;
+    left: 20%;
+    animation-duration: 26s;
+    animation-delay: 5s;
+}
+
+.cross {
+    width: 110px;
+    height: 110px;
+    background-image: linear-gradient(to right, transparent 40%, rgba(0, 255, 0, 0.4) 40%, rgba(0, 255, 0, 0.4) 60%, transparent 60%),
+                      linear-gradient(to bottom, transparent 40%, rgba(0, 255, 0, 0.4) 40%, rgba(0, 255, 0, 0.4) 60%, transparent 60%);
+    top: 50%;
+    left: 50%;
+    animation-duration: 30s;
+    animation-delay: 0s;
+    transform: rotate(15deg);
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    25% { transform: translate(120px, 70px) rotate(90deg) scale(1.05); }
+    50% { transform: translate(0, 140px) rotate(180deg) scale(1); }
+    75% { transform: translate(-120px, 70px) rotate(270deg) scale(0.95); }
+    100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+
+.central-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; /* Zmenšena mezera */
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px 20px; /* Upraven padding */
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    transition: background-color 0.4s ease;
+}
+
+.main-search-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Zmenšena mezera */
+    width: 100%;
+    max-width: 900px; /* Mírně zvětšeno pro více tlačítek */
+    text-align: center;
+    background-color: transparent;
 }
 
 h1 {
-    text-align: center;
-    color: #1877f2; /* Facebook blue, just for a touch of color */
-    margin-bottom: 25px;
+    color: var(--accent-color);
+    margin-bottom: 15px; /* Zmenšena mezera */
+    font-size: 2.8em; /* Mírně zmenšeno */
+    letter-spacing: 0.02em;
+    font-weight: 700;
+    word-break: break-word;
+    padding: 0 10px;
 }
 
-h2 {
-    color: #333;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
+.search-input-area {
     display: flex;
-    align-items: center;
-}
-
-h3 { /* Nový styl pro podkategorie */
-    color: #555;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    padding-bottom: 3px;
-    display: flex;
-    align-items: center;
-    font-size: 1.1em;
-}
-
-.icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-}
-
-.icon-small { /* Nový styl pro ikony uvnitř tlačítek */
-    font-size: 18px; /* Velikost ikonky */
-    margin-right: 8px; /* Mezera mezi ikonou a textem */
-    vertical-align: middle; /* Zarovnání s textem */
-    display: inline-block; /* Aby se daly nastavit rozměry a zarovnání */
-}
-
-.input-group {
-    margin-bottom: 20px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: #606770;
-}
-
-.input-group input[type="text"] {
+    flex-direction: column;
+    gap: 12px;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #dddfe2;
-    border-radius: 6px;
-    font-size: 16px;
-    box-sizing: border-box; /* Aby padding neovlivňoval šířku */
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
 }
 
-.input-group input[type="text"]:focus {
-    border-color: #1877f2;
-    box-shadow: 0 0 0 2px #e7f3ff;
+#gameSearchInput {
+    width: 100%;
+    max-width: 500px;
+    padding: 16px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-main);
+    background-color: var(--input-bg);
+    color: var(--input-text-color);
+    font-size: 1.1em;
     outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px var(--shadow-color);
 }
 
-.search-section {
-    margin-bottom: 30px;
+#gameSearchInput::placeholder {
+    color: var(--placeholder-color);
 }
 
-.button-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-    margin-bottom: 20px; /* Mezera pod mřížkou tlačítek */
+#gameSearchInput:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
 }
 
-button {
-    background-color: #e7f3ff; /* Light blue */
-    color: #1877f2; /* Facebook blue */
-    border: 1px solid #1877f2;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
+#searchBtn {
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    padding: 16px 30px;
+    border-radius: var(--border-radius-main);
+    font-size: 1.1em;
     font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    white-space: nowrap;
+}
+
+#searchBtn:hover {
+    background-color: color-mix(in srgb, var(--accent-color) 85%, black);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-color);
+}
+
+/* Kontejner pro všechny kategorie a zdroje */
+.search-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Mezera mezi skupinami kategorií a zdroji */
+    width: 100%;
+    margin-top: 25px; /* Mezera nad */
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* Skupina tlačítek (např. Endings, Collectibles, Sources) */
+.search-category-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
     text-align: center;
-    transition: background-color 0.2s, color 0.2s;
-    display: flex; /* Aby se ikona a text zarovnaly vedle sebe */
-    align-items: center; /* Vertikální zarovnání obsahu tlačítka */
-    justify-content: center; /* Horizontální zarovnání obsahu tlačítka */
+    padding: 15px; /* Přidán padding pro vizuální oddělení */
+    background-color: rgba(0,0,0,0.1); /* Lehké pozadí pro skupiny, pokud je potřeba */
+    border-radius: var(--border-radius-main);
 }
 
-button:hover {
-    background-color: #1877f2;
-    color: #fff;
+.search-category-group h3 {
+    color: var(--text-color);
+    margin-bottom: 5px;
+    font-size: 1.3em; /* Větší nadpisy kategorií */
+    font-weight: 600;
+    opacity: 0.95;
+    border-bottom: 2px solid var(--accent-color); /* Linka pod nadpisem */
+    padding-bottom: 5px;
+    width: fit-content;
 }
 
-button:active {
-    background-color: #166fe5; /* Darker blue on click */
-    color: #fff;
+/* Flex kontejner pro samotná tlačítka uvnitř skupiny */
+.search-buttons-flex-container {
+    display: flex;
+    flex-wrap: wrap; /* Zalamování tlačítek */
+    justify-content: center; /* Vycentrovat tlačítka */
+    gap: 12px; /* Mezera mezi tlačítky */
+    width: 100%;
+    max-width: 860px; /* Upravena šířka kontejneru tlačítek */
 }
+
+/* Styly pro nová tlačítka kategorií (search-item-btn) a zdrojová tlačítka (search-source-btn) */
+.search-item-btn, .search-source-btn {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius-button); /* Menší zaoblení */
+    cursor: pointer;
+    font-size: 0.9em; /* Zmenšen font */
+    font-weight: 500; /* Mírně tenčí font */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 3px 8px var(--shadow-color); /* Jemnější stín */
+
+    min-width: 120px; /* Upravena minimální šířka */
+    max-width: 180px; /* Omezení maximální šířky */
+    height: auto; /* Automatická výška podle obsahu */
+    padding: 10px 12px; /* Upraven padding */
+    
+    display: flex; /* Pro zarovnání ikonky a textu */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    flex-grow: 1; /* Aby tlačítka vyplnila prostor */
+    flex-basis: calc(20% - 10px); /* Cca 5 tlačítek v řadě, přizpůsobit podle potřeby */
+}
+
+.search-item-btn img, .search-source-btn img {
+    height: 24px; /* Zmenšeny ikonky */
+    width: 24px;
+    opacity: 0.8;
+}
+.search-item-btn span.btn-text {
+    white-space: normal; /* Umožní zalamování textu v tlačítku */
+    line-height: 1.2;
+}
+
+
+.search-item-btn:hover, .search-source-btn:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.search-item-btn.active, .search-source-btn.active {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    box-shadow: 0 3px 10px rgba(0, 123, 255, 0.5);
+    transform: translateY(0);
+}
+
+.search-item-btn.active img, .search-source-btn.active img {
+    opacity: 1;
+}
+
+/* Specifické úpravy pro zdrojová tlačítka, pokud jsou potřeba jiné rozměry */
+.search-source-btn {
+    min-width: 130px;
+    flex-basis: calc(25% - 10px); /* Cca 4 zdrojová tlačítka v řadě */
+}
+
+
+/* Utility sections (Language & Theme) */
+.bottom-left-utility {
+    position: absolute;
+    bottom: 20px; /* Posunuto výše */
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 10;
+    font-size: 0.9em;
+    color: var(--text-color);
+    background-color: rgba(var(--secondary-bg-rgb, 26, 26, 26), 0.5); /* Přidáno lehké pozadí pro lepší čitelnost */
+    padding: 10px 15px;
+    border-radius: var(--border-radius-main);
+}
+body.light-theme .bottom-left-utility {
+    background-color: rgba(var(--light-secondary-bg-rgb, 224, 224, 224), 0.5);
+}
+
+
+.utility-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.language-selection, .theme-selection {
+    display: flex;
+    gap: 8px; /* Menší mezera */
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.lang-btn, .theme-btn {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: none;
+    padding: 8px 15px; /* Upraven padding */
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 400;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.lang-btn:hover, .theme-btn:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px var(--shadow-color);
+}
+
+.lang-btn.active, .theme-btn.active {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 123, 255, 0.3);
+    transform: translateY(0);
+}
+
+.color-box {
+    width: 16px; /* Zmenšeno */
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+}
+
+.dark-box { background-color: #2e2e2e; } /* Změna na barvu pozadí tématu */
+.light-box { background-color: #f0f0f0; }
+
+
+/* Footer */
+.bottom-right-footer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 0.85em;
+    color: var(--text-color);
+    opacity: 0.7;
+    z-index: 10;
+    background-color: rgba(var(--secondary-bg-rgb, 26, 26, 26), 0.5);
+    padding: 8px 12px;
+    border-radius: var(--border-radius-button);
+}
+body.light-theme .bottom-right-footer {
+    background-color: rgba(var(--light-secondary-bg-rgb, 224, 224, 224), 0.5);
+}
+
 
 /* Responsive adjustments */
+@media (max-width: 992px) {
+    .central-content-wrapper {
+        padding: 25px 15px;
+    }
+    .main-search-area {
+        max-width: 100%;
+    }
+    h1 { font-size: 2.2em; }
+
+    .search-item-btn, .search-source-btn {
+        font-size: 0.85em;
+        min-width: 100px;
+        padding: 8px 10px;
+        flex-basis: calc(25% - 10px); /* Cca 4 tlačítka */
+    }
+    .search-item-btn img, .search-source-btn img {
+        height: 20px;
+        width: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-category-group h3 {
+        font-size: 1.15em;
+    }
+    .search-item-btn, .search-source-btn {
+        flex-basis: calc(33.333% - 10px); /* Cca 3 tlačítka */
+        font-size: 0.8em;
+    }
+    .bottom-left-utility, .bottom-right-footer {
+        position: static;
+        margin: 20px auto;
+        width: 90%;
+        align-items: center;
+        text-align: center;
+    }
+    .utility-group { align-items: center; }
+    .language-selection, .theme-selection { justify-content: center; }
+}
+
+
 @media (max-width: 600px) {
-    .button-grid {
-        grid-template-columns: 1fr; /* Stack buttons on smaller screens */
+    h1 { font-size: 2em; }
+    .search-category-group h3 { font-size: 1.1em; }
+    .search-input-area { flex-direction: column; gap: 10px; }
+    #searchBtn { width: 100%; padding: 14px 20px; }
+
+    .search-item-btn, .search-source-btn {
+        min-width: 90px;
+        font-size: 0.75em;
+        gap: 5px;
+        padding: 8px;
+        flex-basis: calc(50% - 8px); /* 2 tlačítka v řadě */
     }
-    body {
-        padding: 10px;
+     .search-item-btn img, .search-source-btn img {
+        height: 18px;
+        width: 18px;
     }
-    .container {
-        padding: 20px;
+    .language-selection, .theme-selection {
+        flex-direction: column; /* Tlačítka pod sebou */
+        align-items: stretch; /* Roztáhnout tlačítka na šířku */
+    }
+    .lang-btn, .theme-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 400px) {
+    h1 { font-size: 1.7em; }
+    .search-category-group h3 { font-size: 1em; }
+    #gameSearchInput { padding: 12px 15px; font-size: 0.9em; }
+    
+    .search-item-btn, .search-source-btn {
+        min-width: 80px;
+        font-size: 0.7em;
+        padding: 6px;
+        flex-basis: calc(50% - 6px); /* Stále 2, ale menší */
+    }
+    .search-item-btn img, .search-source-btn img {
+        height: 16px;
+        width: 16px;
     }
 }
