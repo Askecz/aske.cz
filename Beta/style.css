@@ -417,12 +417,6 @@ input[type="text"]:focus {
     place-items: center; /* Centrování obsahu každé buňky gridu */
 }
 
-/* Tento styl již není potřeba, jelikož flexbox řeší rozložení */
-/* .sources-grid {
-    margin-top: 15px;
-} */
-
-
 .search-type-btn,
 .search-source-btn {
     width: 100px; /* Pevná šířka */
@@ -550,9 +544,7 @@ input[type="text"]:focus {
     .search-source-selection {
         min-width: unset; /* Zrušíme min-width pro mobilní zobrazení */
     }
-    .sources-grid {
-        margin-top: 0; /* Zrušíme margin, protože už nejsou vedle sebe */
-    }
+    /* .sources-grid - tento styl již není potřeba, jelikož flexbox řeší rozložení a už jsi ho zakomentoval, což je správně. */
 }
 
 @media (max-width: 768px) {
@@ -564,13 +556,31 @@ input[type="text"]:focus {
         padding: 20px;
     }
     .search-input-area {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column; /* Input a tlačítko pod sebou */
+        align-items: center; /* Vycentrovat je */
+        gap: 10px; /* Mezera mezi inputem a tlačítkem */
     }
-    input[type="text"], .action-button {
-        width: 100%; /* Plná šířka pro input a tlačítko */
-        max-width: 320px; /* Omezení max. šířky */
+
+    /* Úpravy pro input a tlačítko Hledat */
+    input[type="text"] {
+        width: 100%; /* Roztáhne se na 100% šířky rodiče */
+        max-width: 300px; /* Omezení maximální šířky, aby nepřesahovalo */
+        box-sizing: border-box; /* Zajistí, že padding se započítá do šířky */
+        min-width: unset; /* Zrušení původní min-width */
     }
+
+    .action-button {
+        width: 100%; /* Roztáhne se na 100% šířky rodiče */
+        max-width: 150px; /* Zmenšíme max. šířku tlačítka Hledat */
+        padding: 10px 15px; /* Mírně menší padding pro menší tlačítko */
+        font-size: 0.9em; /* Mírně menší font */
+        box-sizing: border-box; /* Zajistí, že padding se započítá do šířky */
+    }
+    .action-button .material-icons-outlined {
+        font-size: 20px; /* Mírně menší ikona pro tlačítko */
+    }
+
+
     /* Grid pro typy a zdroje - 2 tlačítka na řádek na mobilu, flex-wrap pro zalomení */
     .button-grid {
         grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* Dynamicky přizpůsobí počet sloupců, menší min-width pro menší obrazovky */
@@ -648,20 +658,26 @@ input[type="text"]:focus {
     h1 {
         font-size: 1.5em;
     }
-    input[type="text"], .action-button {
+    input[type="text"] {
         padding: 10px;
         font-size: 0.9em;
+        max-width: 250px; /* Ještě menší maximální šířka pro input na nejmenších obrazovkách */
+    }
+    .action-button {
+        padding: 8px 12px; /* Ještě menší padding pro tlačítko */
+        font-size: 0.85em; /* Ještě menší font */
+        max-width: 120px; /* Ještě menší maximální šířka tlačítka */
     }
     .action-button .material-icons-outlined {
-        font-size: 18px;
+        font-size: 16px; /* Ještě menší ikona */
     }
     .search-type-btn, .search-source-btn {
-        width: 80px; /* Ještě menší šířka pro nejmenší mobily */
-        height: 80px; /* Ještě menší výška pro nejmenší mobily */
-        font-size: 0.75em; /* Ještě menší font na nejmenších obrazovkách */
+        width: 70px; /* Ještě menší šířka pro nejmenší mobily */
+        height: 70px; /* Ještě menší výška pro nejmenší mobily */
+        font-size: 0.7em; /* Ještě menší font na nejmenších obrazovkách */
     }
     .search-type-btn .material-icons-outlined,
     .search-source-btn .material-icons-outlined {
-        font-size: 24px; /* Menší ikona */
+        font-size: 20px; /* Menší ikona */
     }
 }
