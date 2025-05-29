@@ -1,242 +1,319 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    const gameSearchInput = document.getElementById('gameSearchInput');
-    const trophyNameInput = document.getElementById('trophyNameInput');
-    const searchTypeButtons = document.querySelectorAll('.search-type-btn');
-    const searchSourceButtons = document.querySelectorAll('.search-source-btn');
-    const langButtons = document.querySelectorAll('.lang-btn');
-    const themeButtons = document.querySelectorAll('.theme-btn');
-    const searchButton = document.getElementById('searchBtn');
+    const gameNameInput = document.getElementById('gameName');
+    const trophyNameInput = document.getElementById('trophyName');
+    const buttons = document.querySelectorAll('.button-grid button');
 
-    let currentSearchTerm = 'trophy'; // Default search term
-    let currentSearchSource = 'google'; // Default search source (only one allowed now)
-    let currentLanguage = localStorage.getItem('selectedLanguage') || 'en'; // Default language, retrieve from localStorage
-    let currentTheme = localStorage.getItem('selectedTheme') || 'dark'; // Default theme, retrieve from localStorage
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const gameName = gameNameInput.value.trim();
+            const trophyName = trophyNameInput.value.trim(); // Optional
+            const engine = button.dataset.engine;
+            const queryType = button.dataset.querytype;
 
-    // Object for translations
-    const translations = {
-        en: {
-            pageTitle: "PlayStation Trophy Search",
-            mainHeading: "PlayStation Trophy Search",
-            searchInputPlaceholder: "Enter game title...",
-            trophyInputPlaceholder: "Enter specific trophy/achievement name (optional)...",
-            searchButtonText: "Search",
-            selectSearchType: "Select Search Type:",
-            trophyBtn: "Trophy",
-            roadmapBtn: "Roadmap & Guide",
-            collectiblesBtn: "Collectibles",
-            notesBtn: "Notes",
-            mapBtn: "Maps",
-            weaponsBtn: "Weapons",
-            upgradesBtn: "Upgrades",
-            speedrunBtn: "Speedrun",
-            allQuestsBtn: "All Quests",
-            allSideQuestsBtn: "All Side Quests",
-            hardestDifficultyBtn: "Hardest Difficulty",
-            specificTrophyBtn: "Specific Trophy",
-            selectSearchSource: "Select Search Source:",
-            googleBtn: "Google",
-            psnprofilesBtn: "PSNProfiles",
-            powerpyxBtn: "PowerPyx",
-            truetrophiesBtn: "TrueTrophies",
-            youtubeBtn: "YouTube",
-            languageSelector: "Language:",
-            themeSelector: "Theme:",
-            darkThemeText: "Dark",
-            lightThemeText: "Light"
-        },
-        cs: {
-            pageTitle: "Vyhledávač PlayStation trofejí",
-            mainHeading: "Vyhledávač PlayStation trofejí",
-            searchInputPlaceholder: "Zadejte název hry...",
-            trophyInputPlaceholder: "Zadejte název konkrétní trofeje/achievementu (volitelné)...",
-            searchButtonText: "Hledat",
-            selectSearchType: "Vyberte typ hledání:",
-            trophyBtn: "Trofej",
-            roadmapBtn: "Roadmapa & Průvodce",
-            collectiblesBtn: "Sběratelské předměty",
-            notesBtn: "Poznámky",
-            mapBtn: "Mapy",
-            weaponsBtn: "Zbraně",
-            upgradesBtn: "Vylepšení",
-            speedrunBtn: "Speedrun",
-            allQuestsBtn: "Všechny úkoly",
-            allSideQuestsBtn: "Všechny vedlejší úkoly",
-            hardestDifficultyBtn: "Nejtěžší obtížnost",
-            specificTrophyBtn: "Konkrétní trofej",
-            selectSearchSource: "Vyberte zdroj hledání:",
-            googleBtn: "Google",
-            psnprofilesBtn: "PSNProfiles",
-            powerpyxBtn: "PowerPyx",
-            truetrophiesBtn: "TrueTrophies",
-            youtubeBtn: "YouTube",
-            languageSelector: "Jazyk:",
-            themeSelector: "Vzhled:",
-            darkThemeText: "Tmavý",
-            lightThemeText: "Světlý"
-        }
-    };
-
-    // Mapping pro anglické vyhledávací termíny (pro Google a PowerPyx)
-    const englishSearchTerms = {
-        trophy: "trophy",
-        roadmap: "roadmap & guide",
-        collectibles: "collectibles",
-        notes: "notes",
-        maps: "maps",
-        weapons: "weapons",
-        upgrades: "upgrades",
-        speedrun: "speedrun",
-        all_quests: "all quests",
-        all_side_quests: "all side quests",
-        hardest_difficulty: "hardest difficulty",
-        specific_trophy: "trophy", // For specific trophy, we'll use "trophy" in the search query
-    };
-
-
-    // Function to apply translations
-    function applyTranslations() {
-        const elements = document.querySelectorAll('[data-lang-key]');
-        elements.forEach(element => {
-            const key = element.getAttribute('data-lang-key');
-            if (translations[currentLanguage] && translations[currentLanguage][key]) {
-                if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
-                    element.setAttribute('placeholder', translations[currentLanguage][key]);
-                } else if (element.tagName === 'TITLE') {
-                    document.title = translations[currentLanguage][key];
-                } else {
-                    element.textContent = translations[currentLanguage][key];
-                }
+            if (!gameName) {
+                alert('Prosím, zadej název hry.');
+                gameNameInput.focus();
+                return;
             }
-        });
-    }
 
-    // Function to set the active state for buttons
-    function setActiveButton(buttons, activeValue, dataAttribute) {
-        buttons.forEach(button => {
-            if (button.dataset[dataAttribute] === activeValue) {
-                button.classList.add('active');
+            let specificQuery = ""; // Additional query for specific searches
+
+            // Determine specific query based on queryType
+            switch (queryType) {
+                // Google specific queries
+                case 'full_guide':
+                    specificQuery = 'full guide walkthrough';
+                    break;
+                case 'roadmap':
+                    specificQuery = 'trophy guide and roadmap';
+                    break;
+                case 'speedrun':
+                    specificQuery = 'speedrun guide tips';
+                    break;
+                case 'hardest_difficulty':
+                    specificQuery = 'hardest difficulty guide walkthrough';
+                    break;
+                case 'specific_trophy':
+                    if (!trophyName) {
+                        alert('Prosím, zadej název trofeje/achievementu pro toto vyhledávání.');
+                        trophyNameInput.focus();
+                        return;
+                    }
+                    specificQuery = `"${trophyName}" trophy achievement guide`;
+                    break;
+                case 'diaries':
+                    specificQuery = 'all diaries locations guide';
+                    break;
+                case 'all_characters':
+                    specificQuery = 'all characters guide';
+                    break;
+                case 'all_music':
+                    specificQuery = 'all music soundtrack locations';
+                    break;
+                case 'records':
+                    specificQuery = 'all records recordings locations';
+                    break;
+                case 'interviews':
+                    specificQuery = 'all interviews locations';
+                    break;
+                case 'statues':
+                    specificQuery = 'all statues locations guide';
+                    break;
+                case 'paintings':
+                    specificQuery = 'all paintings locations guide';
+                    break;
+                case 'documents':
+                    specificQuery = 'all documents locations guide';
+                    break;
+                case 'photos':
+                    specificQuery = 'all photos locations guide';
+                    break;
+                case 'artifacts':
+                    specificQuery = 'all artifacts locations guide';
+                    break;
+                case 'treasures':
+                    specificQuery = 'all treasures locations guide';
+                    break;
+                case 'runes':
+                    specificQuery = 'all runes locations guide';
+                    break;
+                case 'dlc':
+                    specificQuery = 'DLC expansions guide';
+                    break;
+                case 'echos':
+                    specificQuery = 'all echos locations guide';
+                    break;
+                case 'relics':
+                    specificQuery = 'all relics locations guide';
+                    break;
+                case 'weapon_upgrades':
+                    specificQuery = 'all weapon upgrades guide';
+                    break;
+                case 'character_upgrades':
+                    specificQuery = 'all character upgrades guide';
+                    break;
+                case 'ability_upgrades':
+                    specificQuery = 'all ability upgrades guide';
+                    break;
+                case 'all_upgrades':
+                    specificQuery = 'all upgrades guide';
+                    break;
+                case 'health_upgrades':
+                    specificQuery = 'health upgrades guide';
+                    break;
+                case 'energy_upgrades':
+                    specificQuery = 'energy upgrades guide';
+                    break;
+                case 'all_bosses':
+                    specificQuery = 'all bosses guide strategy';
+                    break;
+                case 'puzzles':
+                    specificQuery = 'all logical puzzles solutions';
+                    break;
+                case 'challenges':
+                    specificQuery = 'all challenges guide';
+                    break;
+                case 'all_fish':
+                    specificQuery = 'all fish locations guide';
+                    break;
+                case 'all_keys':
+                    specificQuery = 'all keys locations guide';
+                    break;
+                case 'all_blueprints':
+                    specificQuery = 'all blueprints locations guide';
+                    break;
+                case 'minigames':
+                    specificQuery = 'all minigames guide';
+                    break;
+                case 'costumes':
+                    specificQuery = 'all costumes skins locations';
+                    break;
+                case 'all_emails':
+                    specificQuery = 'all emails locations';
+                    break;
+                case 'all_collectibles':
+                    specificQuery = 'all collectibles locations guide';
+                    break;
+                case 'all_main_quests':
+                    specificQuery = 'all main quests walkthrough';
+                    break;
+                case 'all_side_quests':
+                    specificQuery = 'all side quests guide locations';
+                    break;
+                case 'good_ending':
+                    specificQuery = 'good ending guide';
+                    break;
+                case 'bad_ending':
+                    specificQuery = 'bad ending guide';
+                    break;
+                case 'secret_ending':
+                    specificQuery = 'secret ending guide';
+                    break;
+                case 'all_endings':
+                    specificQuery = 'all endings guide';
+                    break;
+                case 'all_secrets':
+                    specificQuery = 'all secrets guide';
+                    break;
+
+                // YouTube specific queries (often with "video" or "walkthrough" added)
+                case 'full_guide_video':
+                    specificQuery = 'full video guide walkthrough';
+                    break;
+                case 'roadmap_video':
+                    specificQuery = 'video trophy roadmap guide';
+                    break;
+                case 'all_collectibles_video':
+                    specificQuery = 'all collectibles video guide';
+                    break;
+                case 'notes_video':
+                    specificQuery = 'notes lore video guide';
+                    break;
+                case 'maps_video':
+                    specificQuery = 'map guide video walkthrough';
+                    break;
+                case 'weapons_video':
+                    specificQuery = 'weapons showcase locations video';
+                    break;
+                case 'upgrades_video':
+                    specificQuery = 'full upgrade video guide';
+                    break;
+                case 'speedrun_video':
+                    specificQuery = 'speedrun video';
+                    break;
+                case 'all_main_quests_video':
+                    specificQuery = 'main quests video walkthrough';
+                    break;
+                case 'all_side_quests_video':
+                    specificQuery = 'all side quests video guide';
+                    break;
+                case 'videos_general':
+                    specificQuery = 'gameplay videos';
+                    break;
+                case 'specific_trophy_video':
+                    if (!trophyName) {
+                        alert('Prosím, zadej název trofeje/achievementu pro toto vyhledávání.');
+                        trophyNameInput.focus();
+                        return;
+                    }
+                    specificQuery = `"${trophyName}" trophy achievement video guide`;
+                    break;
+                case 'hardest_difficulty_video':
+                    specificQuery = 'hardest difficulty playthrough video';
+                    break;
+                case 'all_characters_video':
+                    specificQuery = 'all characters video';
+                    break;
+                case 'all_bosses_video':
+                    specificQuery = 'all bosses video guide';
+                    break;
+                case 'all_secrets_video':
+                    specificQuery = 'all secrets video';
+                    break;
+                case 'all_music_video':
+                    specificQuery = 'all music video soundtrack';
+                    break;
+                case 'costumes_video':
+                    specificQuery = 'all costumes skins video';
+                    break;
+                case 'good_ending_video':
+                    specificQuery = 'good ending video';
+                    break;
+                case 'bad_ending_video':
+                    specificQuery = 'bad ending video';
+                    break;
+                case 'secret_ending_video':
+                    specificQuery = 'secret ending video';
+                    break;
+                case 'all_endings_video':
+                    specificQuery = 'all endings video';
+                    break;
+
+                // PSNProfiles specific queries
+                case 'game_page':
+                    specificQuery = ''; // For game search on PSNProfiles, just the game name
+                    break;
+                case 'roadmap_psn':
+                    specificQuery = 'trophy guide roadmap';
+                    break;
+                case 'specific_trophy_psn':
+                    if (!trophyName) {
+                        alert('Prosím, zadej název trofeje/achievementu pro toto vyhledávání.');
+                        trophyNameInput.focus();
+                        return;
+                    }
+                    specificQuery = `"${trophyName}" trophy guide`;
+                    break;
+
+                // PowerPyx specific queries
+                case 'game_guide_pp':
+                    specificQuery = 'trophy guide walkthrough';
+                    break;
+                case 'roadmap_pp':
+                    specificQuery = 'trophy roadmap';
+                    break;
+                case 'collectibles_pp':
+                    specificQuery = 'collectibles guide';
+                    break;
+                case 'specific_trophy_pp':
+                    if (!trophyName) {
+                        alert('Prosím, zadej název trofeje/achievementu pro toto vyhledávání.');
+                        trophyNameInput.focus();
+                        return;
+                    }
+                    specificQuery = `"${trophyName}" trophy guide`;
+                    break;
+
+                // TrueTrophies specific queries
+                case 'game_guide_tt':
+                    specificQuery = 'achievements guide walkthrough';
+                    break;
+                case 'roadmap_tt':
+                    specificQuery = 'achievements roadmap';
+                    break;
+                case 'collectibles_tt':
+                    specificQuery = 'collectibles guide';
+                    break;
+                case 'specific_trophy_tt':
+                    if (!trophyName) {
+                        alert('Prosím, zadej název trofeje/achievementu pro toto vyhledávání.');
+                        trophyNameInput.focus();
+                        return;
+                    }
+                    specificQuery = `"${trophyName}" achievement guide`;
+                    break;
+
+                default:
+                    alert('Neznámý typ dotazu!');
+                    return;
+            }
+
+            // Construct the final search term
+            const finalSearchTerm = `${gameName} ${specificQuery}`.trim();
+            
+            let searchUrl;
+            if (engine === 'google') {
+                searchUrl = `https://www.google.com/search?q=${encodeURIComponent(finalSearchTerm)}`;
+            } else if (engine === 'youtube') {
+                // Corrected Youtube URL
+                searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(finalSearchTerm)}`;
+            } else if (engine === 'psnprofiles') {
+                // PSNProfiles search via Google site search
+                searchUrl = `https://www.google.com/search?q=site:psnprofiles.com+${encodeURIComponent(finalSearchTerm)}`;
+            } else if (engine === 'powerpyx') {
+                // PowerPyx search via Google site search
+                searchUrl = `https://www.google.com/search?q=site:powerpyx.com+${encodeURIComponent(finalSearchTerm)}`;
+            } else if (engine === 'truetrophies') {
+                // TrueTrophies search via Google site search
+                searchUrl = `https://www.google.com/search?q=site:truetrophies.com+${encodeURIComponent(finalSearchTerm)}`;
             } else {
-                button.classList.remove('active');
+                alert('Neznámý vyhledávací engine!');
+                return;
+            }
+
+            if (searchUrl) {
+                window.open(searchUrl, '_blank');
             }
         });
-    }
-
-    // Apply saved language and theme on load
-    applyTranslations();
-    setActiveButton(langButtons, currentLanguage, 'lang');
-    document.body.classList.add(`${currentTheme}-theme`);
-    setActiveButton(themeButtons, currentTheme, 'theme');
-
-
-    // Language selection
-    langButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            currentLanguage = button.dataset.lang;
-            localStorage.setItem('selectedLanguage', currentLanguage);
-            applyTranslations();
-            setActiveButton(langButtons, currentLanguage, 'lang');
-        });
-    });
-
-    // Theme selection
-    themeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const newTheme = button.dataset.theme;
-            if (newTheme !== currentTheme) {
-                document.body.classList.remove(`${currentTheme}-theme`);
-                document.body.classList.add(`${newTheme}-theme`);
-                currentTheme = newTheme;
-                localStorage.setItem('selectedTheme', currentTheme);
-                setActiveButton(themeButtons, currentTheme, 'theme');
-            }
-        });
-    });
-
-    // Search type selection
-    searchTypeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            searchTypeButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            currentSearchTerm = button.dataset.searchTerm;
-
-            if (currentSearchTerm === 'specific_trophy') {
-                trophyNameInput.style.display = 'block';
-            } else {
-                trophyNameInput.style.display = 'none';
-                trophyNameInput.value = '';
-            }
-        });
-    });
-
-    // Set default active search type button (Trophy)
-    searchTypeButtons.forEach(button => {
-        if (button.dataset.searchTerm === 'trophy') {
-            button.classList.add('active');
-        }
-    });
-
-    // Search source selection (only one allowed)
-    searchSourceButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            searchSourceButtons.forEach(btn => btn.classList.remove('active')); // Remove active from all
-            button.classList.add('active'); // Add active to the clicked one
-            currentSearchSource = button.dataset.source;
-        });
-    });
-
-    // Set default active search source button (Google)
-    searchSourceButtons.forEach(button => {
-        if (button.dataset.source === 'google') {
-            button.classList.add('active');
-        }
-    });
-
-    // Search button click handler
-    searchButton.addEventListener('click', () => {
-        const gameTitle = gameSearchInput.value.trim();
-        const trophyName = trophyNameInput.value.trim();
-
-        if (!gameTitle) {
-            alert(translations[currentLanguage].searchInputPlaceholder);
-            return;
-        }
-
-        let searchQuery = `${gameTitle}`;
-        const englishTerm = englishSearchTerms[currentSearchTerm]; // Always use English term for search query
-
-        if (currentSearchTerm === 'specific_trophy' && trophyName) {
-            searchQuery += ` ${trophyName} ${englishTerm}`; // Game Title + Trophy Name + "trophy"
-        } else if (englishTerm) {
-            searchQuery += ` ${englishTerm}`; // Game Title + English search term (e.g., "trophy", "roadmap & guide")
-        }
-
-
-        let url = '';
-        const encodedQuery = encodeURIComponent(searchQuery);
-        const encodedGameTitle = encodeURIComponent(gameTitle);
-
-        switch (currentSearchSource) {
-            case 'google':
-                url = `https://www.google.com/search?q=${encodedQuery}`;
-                break;
-            case 'psnprofiles':
-                url = `https://psnprofiles.com/search/games?q=${encodedGameTitle}`;
-                break;
-            case 'powerpyx':
-                url = `https://www.powerpyx.com/?s=${encodedQuery}`;
-                break;
-            case 'truetrophies':
-                url = `https://www.truetrophies.com/searchresults.aspx?search=${encodedGameTitle}`;
-                break;
-            case 'youtube':
-                url = `https://www.youtube.com/results?search_query=${encodedQuery}`;
-                break;
-        }
-
-        if (url) {
-            window.open(url, '_blank');
-        }
     });
 });
