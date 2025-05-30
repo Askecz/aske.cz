@@ -2,25 +2,25 @@
 
 :root {
     /* Full Black Theme */
-    --primary-bg: #2e2e2e; /* Změněno z #000000 na tmavě šedou */
-    --secondary-bg: #1a1a1a; /* Velmi tmavě šedá pro kontejnery/karty (nebudou mít border) */
-    --text-color: #ffffff; /* Bílý text */
-    --accent-color: #007bff; /* Modrá, jako PlayStation/Web akcent */
-    --button-bg: #333333; /* Tmavě šedá pro tlačítka */
+    --primary-bg: #2e2e2e;
+    --secondary-bg: #1a1a1a;
+    --text-color: #ffffff;
+    --accent-color: #007bff;
+    --button-bg: #333333;
     --button-hover-bg: #444444;
-    --input-bg: #222222; /* Tmavá pro input */
+    --input-bg: #222222;
     --input-text-color: #ffffff;
     --placeholder-color: #cccccc;
-    --border-color: #444444; /* Tmavší okraje inputu */
-    --shadow-color: rgba(0, 0, 0, 0.6); /* Stín pro tlačítka a input */
-    --border-radius-main: 10px; /* Střední zaoblení */
-    --border-radius-button: 6px; /* Menší zaoblení pro tlačítka */
+    --border-color: #444444;
+    --shadow-color: rgba(0, 0, 0, 0.6);
+    --border-radius-main: 10px;
+    --border-radius-button: 6px;
 
     /* Pure White Theme */
-    --light-primary-bg: #f0f0f0; /* Změněno z #ffffff na světle šedou pro světlý motiv */
-    --light-secondary-bg: #e0e0e0; /* Velmi světle šedá */
-    --light-text-color: #333333; /* Tmavě šedý text */
-    --light-accent-color: #007bff; /* Stejná modrá */
+    --light-primary-bg: #f0f0f0;
+    --light-secondary-bg: #e0e0e0;
+    --light-text-color: #333333;
+    --light-accent-color: #007bff;
     --light-button-bg: #d0d0d0;
     --light-button-hover-bg: #c0c0c0;
     --light-input-bg: #ffffff;
@@ -28,11 +28,25 @@
     --light-placeholder-color: #888888;
     --light-border-color: #cccccc;
     --light-shadow-color: rgba(0, 0, 0, 0.15);
+
+    /* Sticky Footer variables */
+    --bottom-bar-height: 80px;
+    --bottom-bar-bg: rgba(26, 26, 26, 0.85);
+    --bottom-bar-light-bg: rgba(224, 224, 224, 0.85);
+    --bottom-bar-text-color: #ffffff;
+    --bottom-bar-light-text-color: #333333;
+    --bottom-bar-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+    --bottom-bar-light-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+
+    /* Barva pro zlatou trofej */
+    --gold-trophy-color: #FFD700; /* Zlatá barva */
 }
 
 /* Apply theme variables based on body class */
 body.dark-theme {
-    /* Default variables are already set as "dark" in :root */
+    --bottom-bar-actual-bg: var(--bottom-bar-bg);
+    --bottom-bar-actual-text-color: var(--bottom-bar-text-color);
+    --bottom-bar-actual-shadow: var(--bottom-bar-shadow);
 }
 
 body.light-theme {
@@ -47,24 +61,30 @@ body.light-theme {
     --placeholder-color: var(--light-placeholder-color);
     --border-color: var(--light-border-color);
     --shadow-color: var(--light-shadow-color);
-    --border-radius-main: 10px; /* Consistent border radius */
+    --border-radius-main: 10px;
     --border-radius-button: 6px;
+
+    /* Sticky Footer variables for light theme */
+    --bottom-bar-actual-bg: var(--bottom-bar-light-bg);
+    --bottom-bar-actual-text-color: var(--bottom-bar-light-text-color);
+    --bottom-bar-actual-shadow: var(--bottom-bar-light-shadow);
 }
 
 body {
     font-family: 'Arial', sans-serif;
     background-color: var(--primary-bg);
     color: var(--text-color);
-    display: flex; /* Použijeme flexbox */
-    flex-direction: column; /* Aby se obsah řadil pod sebe */
-    justify-content: flex-start; /* Zarovnáme nahoru */
-    align-items: center; /* Vycentrujeme horizontálně */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     min-height: 100vh;
     margin: 0;
-    overflow-x: hidden; /* Zabráníme horizontálnímu posouvání */
+    overflow-x: hidden;
     position: relative;
     transition: background-color 0.4s ease, color 0.4s ease;
-    box-sizing: border-box; /* Zajišťuje, že padding a border jsou součástí šířky/výšky */
+    box-sizing: border-box;
+    padding-bottom: var(--bottom-bar-height);
 }
 
 /* Background shapes */
@@ -72,12 +92,12 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw; /* Zajistí, že šířka bude odpovídat šířce viewportu */
-    height: 100vh; /* Zajistí, že výška bude odpovídat výšce viewportu */
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
     z-index: 0;
     pointer-events: none;
-    opacity: 0.1; /* Subtle effect */
+    opacity: 0.1;
 }
 
 .shape {
@@ -92,7 +112,7 @@ body {
     height: 0;
     border-left: 70px solid transparent;
     border-right: 70px solid transparent;
-    border-bottom: 140px solid rgba(255, 0, 0, 0.4); /* Red tint */
+    border-bottom: 140px solid rgba(255, 0, 0, 0.4);
     top: 10%;
     left: 15%;
     animation-duration: 28s;
@@ -103,7 +123,7 @@ body {
 .square {
     width: 100px;
     height: 100px;
-    background-color: rgba(0, 255, 255, 0.4); /* Cyan tint */
+    background-color: rgba(0, 255, 255, 0.4);
     border-radius: 10%;
     top: 30%;
     left: 80%;
@@ -115,7 +135,7 @@ body {
 .circle {
     width: 120px;
     height: 120px;
-    background-color: rgba(255, 255, 0, 0.4); /* Yellow tint */
+    background-color: rgba(255, 255, 0, 0.4);
     border-radius: 50%;
     top: 70%;
     left: 20%;
@@ -127,7 +147,7 @@ body {
     width: 110px;
     height: 110px;
     background-image: linear-gradient(to right, transparent 40%, rgba(0, 255, 0, 0.4) 40%, rgba(0, 255, 0, 0.4) 60%, transparent 60%),
-                      linear-gradient(to bottom, transparent 40%, rgba(0, 255, 0, 0.4) 40%, rgba(0, 255, 0, 0.4) 60%, transparent 60%); /* Green tint */
+                      linear-gradient(to bottom, transparent 40%, rgba(0, 255, 0, 0.4) 40%, rgba(0, 255, 0, 0.4) 60%, transparent 60%);
     top: 50%;
     left: 50%;
     animation-duration: 30s;
@@ -145,17 +165,16 @@ body {
 
 /* Central Content Wrapper (for layout of main search and sidebar) */
 .central-content-wrapper {
-    display: flex; /* Použijeme flexbox pro hlavní layout */
-    flex-direction: column; /* Změna na column pro mobilní zařízení */
-    justify-content: center;
-    align-items: center; /* Vycentrování obsahu */
-    gap: 40px; /* Mezera mezi hlavním a postranním obsahem */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Zarovnáme na začátek, aby se obsah tlačil nahoru */
+    align-items: center;
+    gap: 40px;
     z-index: 1;
     width: 100%;
-    max-width: 1200px; /* Větší šířka pro flexibilní layout */
-    padding: 40px 20px; /* Přidán horizontální padding pro menší obrazovky */
+    max-width: 1200px;
+    padding: 40px 20px;
     box-sizing: border-box;
-    /* Odstranění background, border a shadow - vše splývá s pozadím */
     background-color: transparent;
     border: none;
     box-shadow: none;
@@ -167,38 +186,55 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
-    flex-grow: 1; /* Zabere co nejvíce místa */
-    width: 100%; /* Důležité pro responzivitu */
-    max-width: 850px; /* Zvýšeno z 700px na 850px - POZOR ZDE! Více prostoru pro tlačítka */
+    gap: 25px; /* Mezera mezi sekcemi */
+    flex-grow: 1;
+    width: 100%;
+    max-width: 850px;
     text-align: center;
-    background-color: transparent; /* Bez vlastního pozadí */
+    background-color: transparent;
+}
+
+/* Main Heading Container s ikonou trofeje */
+.main-heading-container {
+    display: flex;
+    flex-direction: column; /* Trofej nad textem */
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Menší mezera mezi ikonou a nadpisem */
+    margin-bottom: 20px;
+}
+
+.trophy-icon {
+    font-size: 7em; /* Velká ikona trofeje */
+    color: var(--gold-trophy-color); /* Zlatá barva */
+    line-height: 1;
+    margin-bottom: 10px; /* Přidáme trochu místa pod trofej */
 }
 
 h1 {
-    color: var(--accent-color); /* Použije modrou barvu z proměnné */
-    margin-bottom: 20px;
-    font-size: 3em; /* Zvětšeno pro výraznější efekt */
+    color: var(--accent-color);
+    margin: 0;
+    font-size: 3em;
     letter-spacing: 0.02em;
     font-weight: 700;
-    word-break: break-word; /* Zabrání přetečení dlouhého textu */
-    padding: 0 10px; /* Trocha paddingu pro mobily */
+    word-break: break-word;
+    padding: 0 10px;
 }
 
 /* Search Input Area */
 .search-input-area {
     display: flex;
-    flex-direction: column; /* Tlačítko pod inputem na mobilu */
+    flex-direction: column;
     gap: 12px;
     width: 100%;
     justify-content: center;
-    align-items: center; /* Vycentruje položky */
-    padding: 0 10px; /* Trocha paddingu */
+    align-items: center;
+    padding: 0 10px;
 }
 
 #gameSearchInput {
-    width: 100%; /* Změna flex-grow na pevnou šířku 100% */
-    max-width: 500px; /* Maximální šířka pro input */
+    width: 100%;
+    max-width: 500px;
     padding: 16px 20px;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-main);
@@ -208,7 +244,7 @@ h1 {
     outline: none;
     transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
-    box-shadow: 0 2px 8px var(--shadow-color); /* Jemný stín pro input */
+    box-shadow: 0 2px 8px var(--shadow-color);
 }
 
 #gameSearchInput::placeholder {
@@ -222,8 +258,8 @@ h1 {
 
 /* Search button next to input */
 #searchBtn {
-    width: 100%; /* Tlačítko zabere celou šířku pod inputem */
-    max-width: 500px; /* Stejná max-šířka jako input */
+    width: 100%;
+    max-width: 500px;
     background-color: var(--accent-color);
     color: #ffffff;
     border: none;
@@ -233,7 +269,7 @@ h1 {
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px var(--shadow-color); /* Stín pro tlačítko */
+    box-shadow: 0 4px 10px var(--shadow-color);
     white-space: nowrap;
 }
 
@@ -243,32 +279,32 @@ h1 {
     box-shadow: 0 6px 15px var(--shadow-color);
 }
 
-/* Nový kontejner pro obě skupiny tlačítek - nyní jako flexbox, vertikálně */
+/* Kontejner pro všechny kategorie typů vyhledávání */
 .search-options-grid {
-    display: flex; /* Změna z grid na flex */
-    flex-direction: column; /* Sekce pod sebou */
-    gap: 40px; /* Mezera mezi sekcemi Search Type a Search Source */
+    display: flex;
+    flex-direction: column; /* Udržuje kategorie nad sebou */
+    gap: 40px; /* Mezera mezi jednotlivými kategoriemi (Main, Advanced, Endings atd.) */
     width: 100%;
-    max-width: 900px; /* Omezíme celkovou šířku */
-    margin-top: 30px; /* Mezera nad gridem od vyhledávače */
-    align-items: center; /* Vycentruje sekce uprostřed */
-    padding: 0 10px; /* Přidán horizontální padding */
+    max-width: 900px;
+    margin-top: 30px;
+    align-items: center;
+    padding: 0 10px;
     box-sizing: border-box;
 }
 
-/* Sekce pro typy a zdroje vyhledávání - Bez ohraničení */
-.search-type-section, .search-source-section {
+/* Sekce pro typy a zdroje vyhledávání */
+.search-type-category, .search-source-section {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Vycentruje h3 a tlačítka uvnitř sekce */
-    gap: 15px; /* Mezera mezi h3 a tlačítky */
-    width: 100%; /* Vyplní svůj kontejner */
+    flex-direction: column; /* H3 nad tlačítky */
+    align-items: center;
+    gap: 15px; /* Mezera mezi H3 a tlačítky */
+    width: 100%;
     text-align: center;
     padding: 0;
 }
 
 /* Nadpisy H3 v sekcích typů a zdrojů */
-.search-type-section h3, .search-source-section h3 {
+.search-type-category h3, .search-source-section h3 {
     color: var(--text-color);
     margin-bottom: 0;
     font-size: 1.2em;
@@ -276,112 +312,138 @@ h1 {
     opacity: 0.95;
 }
 
-/* Kontejnery pro tlačítka (flex pro rozložení uvnitř) */
-.search-type-buttons, .search-source-buttons {
+/* Kontejnery pro tlačítka typů - rozložení vedle sebe s obtékáním */
+.search-type-buttons {
     display: flex;
-    flex-wrap: wrap; /* Zalamování tlačítek pro vytvoření "mřížky" */
-    justify-content: center; /* Vycentrovat tlačítka */
-    gap: 15px; /* Mezera mezi jednotlivými "čtverci" tlačítek */
-    width: 100%; /* Důležité, aby se tlačítka správně zalomila */
-    max-width: 780px; /* Zpět na 780px, ale hlavní změna je v main-search-area */
+    flex-wrap: wrap; /* Tlačítka se budou obtékat do dalšího řádku */
+    justify-content: center; /* Centrování tlačítek v řadě */
+    gap: 15px; /* Mezera mezi tlačítky */
+    width: 100%;
+    max-width: 800px; /* Omezení šířky kontejneru pro lepší kontrolu obtékání */
 }
 
-/* Styly pro samotná tlačítka - ZMENŠENÁ VELIKOST */
+/* Styly pro samotná tlačítka */
 .search-type-btn, .search-source-btn {
     background-color: var(--button-bg);
     color: var(--text-color);
     border: none;
     border-radius: var(--border-radius-main);
     cursor: pointer;
-    font-size: 1em; /* Zmenšen font-size */
+    font-size: 0.9em;
     font-weight: 600;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px var(--shadow-color);
 
-    min-width: 100px; /* Zmenšeno z 130px */
-    height: 100px; /* Zmenšeno z 130px */
+    width: 140px; /* Pevná šířka pro tlačítko, aby se správně zalomilo */
+    height: 90px; /* Pevná výška */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Mírně zmenšen gap */
+    gap: 6px;
     text-align: center;
     flex-shrink: 0;
-    flex-basis: calc(16.666% - 13px); /* 6 sloupců - upraveno pro více tlačítek v řadě */
-    max-width: 130px; /* Zmenšeno z 160px */
+    padding: 5px;
 }
 
 .search-type-btn:hover, .search-source-btn:hover {
     background-color: var(--button-hover-bg);
-    transform: translateY(-3px); /* Větší posun při najetí */
-    box-shadow: 0 8px 20px var(--shadow-color); /* Výraznější stín při najetí */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 .search-type-btn.active, .search-source-btn.active {
     background-color: var(--accent-color);
     color: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* Výraznější stín u aktivního tlačítka */
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5);
     transform: translateY(0);
 }
 
-.search-type-btn img, .search-source-btn img {
-    height: 35px; /* Zmenšeno z 40px */
-    width: 35px; /* Zmenšeno z 40px */
-}
-
-
-/* Utility sections (Language & Theme) */
-.bottom-left-utility {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
+/* Kontejnery pro tlačítka zdrojů - zůstanou v řadě */
+.search-source-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    z-index: 10;
-    font-size: 0.95em;
-    color: var(--text-color);
-    background-color: transparent;
-    padding: 0;
+    flex-wrap: wrap; /* Umožní zalomení, pokud se nevejdou */
+    justify-content: center;
+    gap: 10px; /* Mezera mezi tlačítky */
+    width: 100%;
+    max-width: 780px; /* Lze upravit dle potřeby */
 }
 
-.utility-group {
+/* Styly pro Google Icons */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.search-type-btn .material-symbols-outlined,
+.search-source-btn .material-symbols-outlined {
+    font-size: 28px;
+    line-height: 1;
+}
+
+/* Nova pevná lišta pro jazyk a motiv */
+.bottom-fixed-utility {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--bottom-bar-height);
+    background-color: var(--bottom-bar-actual-bg);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 100;
+    box-shadow: var(--bottom-bar-actual-shadow);
+    transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.language-selection, .theme-selection {
+.bottom-fixed-utility .utility-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    color: var(--bottom-bar-actual-text-color);
+}
+
+.bottom-fixed-utility .language-selection,
+.bottom-fixed-utility .theme-selection {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
-    justify-content: flex-start;
 }
 
-.lang-btn, .theme-btn {
+.bottom-fixed-utility .lang-btn,
+.bottom-fixed-utility .theme-btn {
     background-color: var(--button-bg);
-    color: var(--text-color);
+    color: var(--bottom-bar-actual-text-color);
     border: none;
-    padding: 10px 18px;
+    padding: 8px 15px;
     border-radius: var(--border-radius-button);
-    cursor: pointer;
     font-size: 0.9em;
     font-weight: 400;
+    cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 2px 5px var(--shadow-color);
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
-.lang-btn:hover, .theme-btn:hover {
+.bottom-fixed-utility .lang-btn:hover,
+.bottom-fixed-utility .theme-btn:hover {
     background-color: var(--button-hover-bg);
     transform: translateY(-1px);
     box-shadow: 0 3px 8px var(--shadow-color);
 }
 
-.lang-btn.active, .theme-btn.active {
+.bottom-fixed-utility .lang-btn.active,
+.bottom-fixed-utility .theme-btn.active {
     background-color: var(--accent-color);
     color: #ffffff;
     box-shadow: 0 1px 4px rgba(0, 123, 255, 0.3);
@@ -404,17 +466,13 @@ h1 {
     background-color: #ffffff;
 }
 
-/* Footer */
-.bottom-right-footer {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
+/* Footer - nyní uvnitř bottom-fixed-utility */
+.bottom-fixed-utility .bottom-right-footer {
+    position: static;
     font-size: 0.9em;
-    color: var(--text-color);
+    color: var(--bottom-bar-actual-text-color);
     opacity: 0.7;
-    z-index: 10;
-    background-color: transparent;
-    padding: 0;
+    margin-left: auto;
 }
 
 /* Responsive adjustments */
@@ -423,16 +481,26 @@ h1 {
         flex-direction: column;
         align-items: center;
         gap: 30px;
-        padding: 25px 15px; /* Menší horizontální padding */
+        padding: 25px 15px;
     }
 
     .main-search-area {
-        max-width: 100%; /* Umožní plné využití šířky */
+        max-width: 100%;
         padding: 0;
     }
 
+    .main-heading-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .trophy-icon {
+        font-size: 5em;
+        margin-bottom: 5px;
+    }
+
     h1 {
-        font-size: 2.2em; /* Zmenšeno */
+        font-size: 2.2em;
         padding: 0;
     }
 
@@ -441,55 +509,71 @@ h1 {
     }
 
     #gameSearchInput, #searchBtn {
-        max-width: 100%; /* Plná šířka na menších obrazovkách */
+        max-width: 100%;
     }
 
     .search-options-grid {
-        gap: 25px; /* Mírně menší mezera */
+        gap: 25px;
         max-width: 100%;
         padding: 0;
     }
 
-    .search-type-buttons, .search-source-buttons {
+    .search-type-buttons {
+        gap: 10px; /* Menší mezera na menších obrazovkách */
+        max-width: 100%; /* Umožní využití celé šířky */
+    }
+
+    .search-type-btn {
+        width: calc(33.333% - 10px); /* Tři tlačítka na řádek s mezerami */
+        height: 80px; /* Stejná výška */
+        font-size: 0.85em; /* Mírné zmenšení fontu */
+    }
+
+    .search-type-btn .material-symbols-outlined {
+        font-size: 25px;
+    }
+
+    .search-source-buttons {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .bottom-fixed-utility {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 15px;
+        gap: 15px;
+    }
+
+    .bottom-fixed-utility .utility-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .bottom-fixed-utility .language-selection,
+    .bottom-fixed-utility .theme-selection {
         flex-wrap: wrap;
         justify-content: center;
-        max-width: 500px; /* Zmenšeno pro lepší zalomení na tabletech */
-        gap: 10px;
     }
 
-    .search-type-btn, .search-source-btn {
-        min-width: 90px; /* Zmenšeno */
-        height: 90px; /* Zmenšeno */
-        font-size: 0.9em; /* Zmenšen font */
-        padding: 6px; /* Menší padding */
-        flex-basis: calc(33.333% - 10px); /* Tři sloupce na tabletech */
-        max-width: unset;
+    .bottom-fixed-utility .bottom-right-footer {
+        margin-left: 0;
     }
 
-    .search-type-btn img, .search-source-btn img {
-        height: 30px; /* Zmenšeno */
-        width: 30px; /* Zmenšeno */
-    }
-
-    /* Utility a footer na menších obrazovkách */
-    .bottom-left-utility, .bottom-right-footer {
-        position: static;
-        margin: 15px auto;
-        text-align: center;
-        width: 90%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
+    body {
+        padding-bottom: auto; /* Zrušíme pevnou výšku, když je footer flex-direction: column */
     }
 }
 
 @media (max-width: 600px) { /* Menší telefony */
+    .trophy-icon {
+        font-size: 4em;
+    }
     h1 {
-        font-size: 2em; /* Další zmenšení */
+        font-size: 1.8em;
     }
     h3 {
-        font-size: 1em; /* Další zmenšení */
+        font-size: 0.9em;
     }
     .search-input-area {
         flex-direction: column;
@@ -497,45 +581,46 @@ h1 {
     }
     #searchBtn {
         width: 100%;
-        padding: 14px 20px;
+        padding: 12px 18px;
+        font-size: 1em;
     }
-    .search-type-btn, .search-source-btn {
-        min-width: 80px; /* Ještě menší tlačítka */
-        height: 80px; /* Ještě menší tlačítka */
-        font-size: 0.8em; /* Ještě menší font */
-        gap: 6px;
-        flex-basis: calc(50% - 10px); /* Dva sloupce na malých telefonech */
+    .search-type-btn {
+        width: calc(50% - 10px); /* Dvě tlačítka na řádek s mezerami */
+        height: 70px; /* Zmenšená výška */
+        font-size: 0.75em; /* Ještě menší font */
+        gap: 5px;
     }
-    .search-type-btn img, .search-source-btn img {
-        height: 25px; /* Ještě menší ikony */
-        width: 25px;
+    .search-type-btn .material-symbols-outlined {
+        font-size: 22px;
     }
-    .language-selection, .theme-selection {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .utility-group {
-        align-items: center;
+
+    .bottom-fixed-utility {
+        height: auto;
+        padding: 10px 10px;
     }
 }
 
 @media (max-width: 400px) {
+    .trophy-icon {
+        font-size: 3.5em;
+    }
     h1 {
-        font-size: 1.6em;
+        font-size: 1.4em;
     }
     #gameSearchInput {
-        padding: 12px 15px;
+        padding: 10px 12px;
+        font-size: 0.8em;
+    }
+    #searchBtn {
+        padding: 10px 15px;
         font-size: 0.9em;
     }
-    .search-type-btn, .search-source-btn {
-        min-width: 70px; /* Ultimativní zmenšení */
-        height: 70px;
+    .search-type-btn {
+        width: calc(100% - 10px); /* Jedno tlačítko na řádek na nejmenších telefonech */
+        height: 60px; /* Další zmenšení výšky */
         font-size: 0.7em;
-        flex-basis: calc(50% - 8px); /* Stále dva sloupce */
     }
-    .search-type-btn img, .search-source-btn img {
-        height: 20px;
-        width: 20px;
+    .search-type-btn .material-symbols-outlined {
+        font-size: 18px;
     }
 }
