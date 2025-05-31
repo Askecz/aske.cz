@@ -472,6 +472,27 @@ body.light-theme .copyright-info {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
 }
 
+/* New style for disabled buttons */
+.search-type-btn.disabled-button {
+    opacity: 0.5;
+    cursor: not-allowed;
+    text-decoration: line-through; /* Přeškrtne text */
+    background-color: var(--button-bg); /* Keep original background, but dimmed */
+    color: var(--text-color); /* Keep original text color, but dimmed */
+    border-color: var(--border-color); /* Keep original border, but dimmed */
+}
+
+.search-type-btn.disabled-button:hover {
+    background-color: var(--button-bg); /* No hover effect when disabled */
+    transform: none; /* No transform when disabled */
+}
+
+body.light-theme .search-type-btn.disabled-button {
+    background-color: var(--light-button-bg);
+    color: var(--light-text-color);
+    border-color: var(--light-border-color);
+}
+
 /* Utility corners */
 .corner-utility-left,
 .corner-utility-right {

@@ -152,6 +152,37 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector(`.theme-btn[data-theme="${theme}"]`).classList.add('active');
     };
 
+    const toggleSearchTypeButtons = (disable) => {
+        searchTypeButtons.forEach(button => {
+            if (disable) {
+                button.classList.add('disabled-button');
+                button.setAttribute('disabled', 'true');
+                button.removeEventListener('click', handleSearchTypeClick); // Remove event listener
+            } else {
+                button.classList.remove('disabled-button');
+                button.removeAttribute('disabled');
+                button.addEventListener('click', handleSearchTypeClick); // Re-add event listener
+            }
+        });
+        // Deselect any active search type button when disabled
+        if (disable) {
+            searchTypeButtons.forEach(btn => btn.classList.remove('active'));
+        } else {
+            // Re-select the default if nothing is active (or set to 'Trophy Guide')
+            if (!document.querySelector('.search-type-btn.active')) {
+                document.querySelector('[data-search-term="Trophy Guide"]').classList.add('active');
+                currentSearchTerm = 'Trophy Guide';
+            }
+        }
+    };
+
+    const handleSearchTypeClick = (event) => {
+        searchTypeButtons.forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        currentSearchTerm = event.currentTarget.dataset.searchTerm;
+    };
+
+
     const performSearch = (source) => {
         const query = gameSearchInput.value.trim();
         if (query) {
@@ -188,6 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTranslations(currentLanguage);
     document.querySelector(`.lang-btn[data-lang="${currentLanguage}"]`).classList.add('active');
 
+    // Initially set Trophy Guide as active
+    document.querySelector('[data-search-term="Trophy Guide"]').classList.add('active');
+    toggleSearchTypeButtons(false); // Ensure they are enabled by default
+
     langButtons.forEach(button => {
         button.addEventListener('click', () => {
             langButtons.forEach(btn => btn.classList.remove('active'));
@@ -204,18 +239,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Attach event listeners for search type buttons using the new handler
     searchTypeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            searchTypeButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            currentSearchTerm = button.dataset.searchTerm;
-        });
+        button.addEventListener('click', handleSearchTypeClick);
     });
 
     searchSourceButtons.forEach(button => {
         button.addEventListener('click', () => {
             searchSourceButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
+            const selectedSource = button.dataset.source;
+
+            if (selectedSource === 'psnprofiles' || selectedSource === 'truetrophies') {
+                toggleSearchTypeButtons(true);
+            } else {
+                toggleSearchTypeButtons(false);
+            }
         });
     });
 
