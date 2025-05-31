@@ -41,7 +41,7 @@ body {
     background-color: var(--primary-bg);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Důležité pro zabránění horizontálního scrollu */
     position: relative;
 }
 
@@ -403,7 +403,7 @@ body.light-theme .icon-button {
 
 .main-types-row .search-type-buttons {
     display: flex;
-    flex-wrap: wrap; /* Ponech�no pro responzivitu na men��ch obrazovk�ch */
+    flex-wrap: wrap; /* Ponecháno pro responzivitu na menších obrazovkách */
     gap: 10px;
     justify-content: center;
     flex-direction: row;
@@ -412,7 +412,7 @@ body.light-theme .icon-button {
     display: flex;
     align-items: center;
     gap: 8px;
-    width: auto; /* Nastav pevnou ���ku, nebo ponech min-width pokud chce�, aby se mohla rozt�hnout jen o n�co v�ce */
+    width: auto; /* Nastav pevnou šířku, nebo ponech min-width pokud chceš, aby se mohla roztáhnout jen o něco více */
     max-width: 100%;
     justify-content: center;
     padding: 12px 20px;
@@ -507,7 +507,7 @@ body.light-theme .icon-button {
 .search-type-btn.disabled-button {
     opacity: 0.5;
     cursor: not-allowed;
-    text-decoration: line-through; /* P�e�krtne text */
+    text-decoration: line-through; /* Přeškrtne text */
     background-color: var(--button-bg); /* Keep original background, but dimmed */
     color: var(--text-color); /* Keep original text color, but dimmed */
     border-color: var(--border-color); /* Keep original border, but dimmed */
@@ -766,4 +766,218 @@ body.light-theme .copyright-info {
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid rgba(200, 200, 200, 0.5);
     color: var(--light-placeholder-color);
+}
+
+
+/* Responsive design adjustments */
+@media (max-width: 1024px) {
+    .central-content-wrapper {
+        padding: 30px;
+        width: 95%;
+    }
+
+    .main-heading-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-options-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-heading {
+        font-size: 2em;
+    }
+
+    .logo-placeholder {
+        font-size: 1.5em;
+    }
+
+    .central-content-wrapper {
+        padding: 20px;
+    }
+
+    .search-input-area {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #gameSearchInput {
+        max-width: none;
+    }
+
+    .action-button {
+        width: 100%;
+    }
+
+    .search-source-buttons,
+    .main-types-row .search-type-buttons {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .search-source-btn,
+    .main-types-row .search-type-btn {
+        min-width: unset;
+        flex: 1 1 45%;
+        font-size: 0.85em;
+        padding: 8px 10px;
+    }
+
+    .search-options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .corner-utility-left,
+    .corner-utility-right {
+        position: static;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 15px auto;
+        padding: 0 20px;
+    }
+
+    .utility-group {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        font-size: 0.8em;
+    }
+
+    .lang-btn,
+    .theme-btn {
+        padding: 6px 10px;
+        font-size: 0.75em;
+    }
+
+    .copyright-info {
+        padding: 8px 12px;
+        font-size: 0.7em;
+        text-align: center;
+        width: fit-content;
+        margin: 0 auto 15px auto;
+    }
+
+    body {
+        min-height: unset;
+        padding-bottom: 20px;
+        display: block;
+    }
+
+    /* History on small screens */
+    .history-item {
+        flex-direction: column; /* Stack details and actions */
+        align-items: flex-start;
+        gap: 8px; /* Gap between details and actions */
+    }
+
+    .history-details {
+        flex-direction: column; /* Stack query, type, source, time vertically */
+        gap: 2px; /* Smaller gap between lines in details */
+        width: 100%;
+    }
+
+    .history-actions {
+        flex-direction: row; /* Keep buttons in a row */
+        width: 100%;
+        justify-content: space-between;
+        margin-left: 0;
+    }
+    .history-research-btn,
+    .history-delete-btn {
+        flex-grow: 1; /* Allow buttons to take available space */
+        justify-content: center; /* Center content within buttons */
+    }
+    .history-research-btn .button-text {
+        display: inline; /* Ensure text is visible on these screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-heading-container img {
+        width: 70px;
+        height: 80px;
+    }
+
+    .logo-placeholder {
+        font-size: 1.8em; /* Upravená velikost loga pro menší obrazovky */
+    }
+
+    .central-content-wrapper {
+        padding: 15px; /* Snížený padding pro velmi malé obrazovky */
+        width: 98%; /* Malé rozšíření šířky */
+    }
+
+    .search-input-area {
+        gap: 10px; /* Menší mezera mezi inputem a tlačítky */
+    }
+
+    #gameSearchInput {
+        padding: 12px 15px; /* Lehce menší padding pro input */
+        font-size: 1em; /* Mírně menší font */
+    }
+
+    .action-button {
+        padding: 12px 20px; /* Upravený padding pro tlačítka */
+        font-size: 1em; /* Mírně menší font */
+    }
+
+    .search-source-btn,
+    .main-types-row .search-type-btn {
+        flex: 1 1 100%; /* Roztažení tlačítek na celou šířku */
+        font-size: 0.85em;
+        padding: 8px 12px;
+    }
+
+    .search-type-btn { /* Pro tlačítka v kategoriích (pokud je mřížka) */
+        font-size: 0.85em;
+        padding: 8px 12px;
+    }
+
+    /* Nadpisy kategorií a sekcí */
+    .search-source-section h3,
+    .search-type-category h3,
+    .search-history-container h3 {
+        font-size: 1.1em;
+    }
+
+    .corner-utility-left,
+    .corner-utility-right {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 10px auto;
+        padding: 0 10px;
+    }
+
+    .utility-group {
+        flex-direction: column;
+        gap: 6px;
+        padding: 6px 10px;
+    }
+
+    .copyright-info {
+        margin-bottom: 10px;
+    }
+
+    .history-item {
+        padding: 10px;
+    }
+    .history-research-btn .button-text {
+        display: none; /* Skryje text na nejmenších obrazovkách pro tlačítko "Research" */
+    }
+    .history-research-btn .material-symbols-outlined {
+        font-size: 1.2em; /* Zajistí viditelnost ikony */
+        margin: 0; /* Odstraní případné marginy */
+    }
+    .history-research-btn {
+        padding: 6px 8px; /* Menší padding */
+        gap: 0; /* Bez mezery, když je text skryt */
+    }
 }
