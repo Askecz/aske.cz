@@ -156,7 +156,7 @@ body.light-theme .icon-button {
 
 .shape {
     position: absolute;
-    opacity: 0.15;
+    opacity: 1;
     background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.2));
     animation: float 20s infinite ease-in-out;
 }
@@ -164,30 +164,30 @@ body.light-theme .icon-button {
 .triangle {
     width: 0;
     height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-bottom: 260px solid; /* color set by .shape */
-    top: 10%;
-    left: 15%;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    border-bottom: 130px solid; /* color set by .shape */
+    top: 3%;
+    left: 19%;
     animation-duration: 25s;
     animation-delay: 1s;
 }
 
 .square {
-    width: 180px;
-    height: 180px;
-    top: 60%;
-    left: 80%;
+    width: 90px;
+    height: 90px;
+    top: 4%;
+    left: 65%;
     animation-duration: 22s;
     animation-delay: 2s;
 }
 
 .circle {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    top: 30%;
-    left: 5%;
+    top: 3%;
+    left: 30%;
     animation-duration: 28s;
     animation-delay: 0s;
 }
@@ -197,8 +197,8 @@ body.light-theme .icon-button {
     height: 100px;
     background: transparent;
     position: relative;
-    top: 80%;
-    left: 30%;
+    top: 3%;
+    left: 75%;
     transform: rotate(45deg);
     animation-duration: 20s;
     animation-delay: 3s;
