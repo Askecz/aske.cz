@@ -34,7 +34,8 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Důležité pro zarovnání obsahu odshora dolů */
+    justify-content: flex-start; /* Obsah se začíná odshora */
     align-items: center;
     min-height: 100vh;
     color: var(--text-color);
@@ -292,7 +293,8 @@ body.dark-theme {
     box-sizing: border-box;
 }
 
-.bottom-fixed-utility {
+/* Původní bottom-fixed-utility (nyní zakomentovaný/odstraněný v HTML) */
+/* .bottom-fixed-utility {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -305,23 +307,58 @@ body.dark-theme {
     align-items: center;
     z-index: 100;
     flex-wrap: wrap;
+} */
+
+/* Nový kontejner pro jazyk a počítadlo v levém dolním rohu stránky */
+.corner-utility-left {
+    /* Změna pozice z fixed na relative (výchozí) nebo block */
+    position: relative; /* Změna z 'fixed' */
+    margin-top: 40px; /* Přidá mezeru od předchozího obsahu */
+    margin-bottom: 20px; /* Mezeru od spodní části body */
+    margin-left: 20px; /* Zarovnání doleva */
+    /* bottom, left, z-index - tyto vlastnosti již nejsou potřeba pro position: relative */
+    /* bottom: 10px; */
+    /* left: 10px; */
+    /* z-index: 101; */
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    background-color: rgba(26, 26, 26, 0.7);
+    padding: 10px 15px;
+    border-radius: var(--border-radius-main);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    width: fit-content; /* Přizpůsobí šířku obsahu */
+    max-width: calc(100% - 40px); /* Aby se vešel na malé obrazovky */
 }
 
-.utility-group {
+/* Styly pro utility-group v novém rohovém kontejneru */
+.corner-utility-left .utility-group {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin: 5px 0;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
+    margin: 0;
 }
 
-.language-selection {
+/* Styly pro language-selection uvnitř nového rohového kontejneru */
+.corner-utility-left .language-selection {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
 }
+
+/* Styly pro TOPlist kontejner */
+.toplist-container {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
 
 .lang-btn {
     padding: 8px 15px;
@@ -349,16 +386,17 @@ body.dark-theme {
     z-index: 101;
 }
 
-/* ODSTRANĚNÍ EFEKTU HOVER PRO VŠECHNA TLAČÍTKA */
+/* --- HOVER EFFECTS --- */
+/* Zde ponechávám to, co jsme nastavili dříve pro odstranění efektů */
 .action-button:hover {
-    /* transform: scale(1.02); */ /* Odstraněno */
-    /* box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); */ /* Odstraněno */
+    /* transform: scale(1.02); */
+    /* box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); */
 }
 
 .search-type-btn:hover, .search-source-btn:hover {
-    /* transform: scale(1.05); */ /* Odstraněno */
-    /* background-color: rgba(0, 123, 255, 0.15); */ /* Můžeš si nechat nebo odstranit */
-    /* box-shadow: 0 12px 20px rgba(0, 123, 255, 0.2); */ /* Odstraněno */
+    /* transform: scale(1.05); */
+    background-color: rgba(0, 123, 255, 0.15);
+    /* box-shadow: 0 12px 20px rgba(0, 123, 255, 0.2); */
 }
 
 #searchBtn {
@@ -376,4 +414,74 @@ body.dark-theme {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .main-heading {
+        font-size: 2em;
+    }
+
+    .logo-placeholder {
+        font-size: 1.5em;
+    }
+
+    .central-content-wrapper {
+        padding: 20px;
+    }
+
+    .search-input-area {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #gameSearchInput {
+        max-width: none;
+    }
+
+    .action-button {
+        width: 100%;
+    }
+
+    .search-source-buttons,
+    .search-type-buttons {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .search-source-btn,
+    .search-type-btn {
+        min-width: unset;
+        flex: 1 1 45%; /* Adjusted for better wrapping on smaller screens */
+        font-size: 0.85em;
+        padding: 8px 10px;
+    }
+
+    .search-options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .corner-utility-left {
+        /* Pro malé obrazovky také použijeme marginy */
+        margin-left: 10px;
+        margin-right: 10px; /* Případně, pokud by se měl zarovnat na střed */
+        padding: 8px 12px;
+        gap: 8px;
+        width: auto; /* Zrušíme fixní šířku */
+        max-width: unset; /* Zrušíme max-width */
+    }
+
+    .corner-utility-left .utility-group {
+        gap: 10px;
+    }
+
+    .lang-btn {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+
+    .toplist-container {
+        justify-content: flex-start; /* Na malých obrazovkách se zarovná na začátek */
+    }
+
 }

@@ -19,25 +19,21 @@
     <div class="central-content-wrapper glass-card">
         <div class="main-search-area">
             <div class="main-heading-container">
-<img src="logo.png" alt="PS5 Trofej" width="90" height="100">
+                <img src="logo.png" alt="PS5 Trofej" width="90" height="100">
                 <div class="logo-placeholder">FAST TROPHY SEARCH</div>
             </div>
 
             <div class="search-input-area">
                 <input type="text" id="gameSearchInput" placeholder="" data-lang-key="searchInputPlaceholder">
-                <button id="searchBtn" class="action-button" data-lang-key="searchButtonText"></button>
+                <button id="searchBtn" class="action-button" data-lang-key="searchButtonText">Search</button>
             </div>
 
             <div class="search-source-section">
-                <h3><span data-lang-key="selectSearchSource"></span></h3>
+                <h3 data-lang-key="selectSearchSource">Select Search Source:</h3>
                 <div class="search-source-buttons">
-                    <button class="search-source-btn google" data-source="google">
+                    <button class="search-source-btn active" data-source="google">
                         <span class="material-symbols-outlined">travel_explore</span>
                         <span>Google</span>
-                    </button>
-                    <button class="search-source-btn" data-source="youtube">
-                        <span class="material-symbols-outlined">play_circle</span>
-                        <span>YouTube</span>
                     </button>
                     <button class="search-source-btn" data-source="psnprofiles">
                         <span class="material-symbols-outlined">sports_esports</span>
@@ -51,204 +47,208 @@
                         <span class="material-symbols-outlined">verified</span>
                         <span>TrueTrophies</span>
                     </button>
+                    <button class="search-source-btn" data-source="youtube">
+                        <span class="material-symbols-outlined">play_circle</span>
+                        <span>YouTube</span>
+                    </button>
                 </div>
             </div>
 
             <div class="search-options-grid">
                 <div class="search-type-category">
-                    <h3><span data-lang-key="mainTypesHeading"></span></h3>
+                    <h3 data-lang-key="mainTypesHeading">Main Search Types:</h3>
                     <div class="search-type-buttons">
-                        <button class="search-type-btn active" data-search-term="Trophy Guide">
+                        <button class="search-type-btn" data-search-term="Trophy Guide" data-lang-key="guideBtn">
                             <span class="material-symbols-outlined">military_tech</span>
-                            <span data-lang-key="guideBtn"></span>
+                            <span>Trophy Guide</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="Roadmap">
+                        <button class="search-type-btn" data-search-term="Roadmap" data-lang-key="roadmapBtn">
                             <span class="material-symbols-outlined">map</span>
-                            <span data-lang-key="roadmapBtn"></span>
+                            <span>Roadmap</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="Full Map">
+                        <button class="search-type-btn" data-search-term="Full Map" data-lang-key="mapBtn">
                             <span class="material-symbols-outlined">satellite</span>
-                            <span data-lang-key="mapBtn"></span>
+                            <span>Maps</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All collectibles">
+                        <button class="search-type-btn" data-search-term="All collectibles" data-lang-key="collectiblesBtn">
                             <span class="material-symbols-outlined">diamond</span>
-                            <span data-lang-key="collectiblesBtn"></span>
+                            <span>Collectibles</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="search-type-category">
-                    <h3><span data-lang-key="advancedTypesHeading"></span></h3>
+                    <h3 data-lang-key="advancedTypesHeading">Advanced Search Types:</h3>
                     <div class="search-type-buttons">
-                        <button class="search-type-btn" data-search-term="All puzzles">
+                        <button class="search-type-btn" data-search-term="All puzzles" data-lang-key="puzzlesBtn">
                             <span class="material-symbols-outlined">extension</span>
-                            <span data-lang-key="puzzlesBtn"></span>
+                            <span>All Puzzles</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All challenges">
+                        <button class="search-type-btn" data-search-term="All challenges" data-lang-key="challengesBtn">
                             <span class="material-symbols-outlined">sports_martial_arts</span>
-                            <span data-lang-key="challengesBtn"></span>
+                            <span>All Challenges</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="Speedrun">
+                        <button class="search-type-btn" data-search-term="Speedrun" data-lang-key="speedrunBtn">
                             <span class="material-symbols-outlined">timer</span>
-                            <span data-lang-key="speedrunBtn"></span>
+                            <span>Speedrun</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All bosses">
+                        <button class="search-type-btn" data-search-term="All bosses" data-lang-key="bossesBtn">
                             <span class="material-symbols-outlined">skull</span>
-                            <span data-lang-key="bossesBtn"></span>
+                            <span>All Bosses</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All minigames">
+                        <button class="search-type-btn" data-search-term="All minigames" data-lang-key="minigamesBtn">
                             <span class="material-symbols-outlined">casino</span>
-                            <span data-lang-key="minigamesBtn"></span>
+                            <span>All Minigames</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="Hardest difficulty run">
+                        <button class="search-type-btn" data-search-term="Hardest difficulty run" data-lang-key="hardestDifficultyBtn">
                             <span class="material-symbols-outlined">gpp_bad</span>
-                            <span data-lang-key="hardestDifficultyBtn"></span>
+                            <span>Hardest Difficulty Run</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All main quest">
+                        <button class="search-type-btn" data-search-term="All main quest" data-lang-key="mainQuestBtn">
                             <span class="material-symbols-outlined">auto_stories</span>
-                            <span data-lang-key="mainQuestBtn"></span>
+                            <span>All Main Quests</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All side quest">
+                        <button class="search-type-btn" data-search-term="All side quest" data-lang-key="sideQuestBtn">
                             <span class="material-symbols-outlined">menu_book</span>
-                            <span data-lang-key="sideQuestBtn"></span>
+                            <span>All Side Quests</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All secrets">
+                        <button class="search-type-btn" data-search-term="All secrets" data-lang-key="secretsBtn">
                             <span class="material-symbols-outlined">visibility_off</span>
-                            <span data-lang-key="secretsBtn"></span>
+                            <span>All Secrets</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="search-type-category">
-                    <h3><span data-lang-key="endingsHeading"></span></h3>
+                    <h3 data-lang-key="endingsHeading">Endings:</h3>
                     <div class="search-type-buttons">
-                        <button class="search-type-btn" data-search-term="All endings">
+                        <button class="search-type-btn" data-search-term="All endings" data-lang-key="allEndingsBtn">
                             <span class="material-symbols-outlined">movie_filter</span>
-                            <span data-lang-key="allEndingsBtn"></span>
+                            <span>All Endings</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="Good ending">
+                        <button class="search-type-btn" data-search-term="Good ending" data-lang-key="goodEndingBtn">
                             <span class="material-symbols-outlined">sentiment_satisfied</span>
-                            <span data-lang-key="goodEndingBtn"></span>
+                            <span>Good Ending</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="Bad ending">
+                        <button class="search-type-btn" data-search-term="Bad ending" data-lang-key="badEndingBtn">
                             <span class="material-symbols-outlined">sentiment_dissatisfied</span>
-                            <span data-lang-key="badEndingBtn"></span>
+                            <span>Bad Ending</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="Secret ending">
+                        <button class="search-type-btn" data-search-term="Secret ending" data-lang-key="secretEndingBtn">
                             <span class="material-symbols-outlined">encrypted</span>
-                            <span data-lang-key="secretEndingBtn"></span>
+                            <span>Secret Ending</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="search-type-category">
-                    <h3><span data-lang-key="charGearHeading"></span></h3>
+                    <h3 data-lang-key="charGearHeading">Character / Gear:</h3>
                     <div class="search-type-buttons">
-                        <button class="search-type-btn" data-search-term="All characters">
+                        <button class="search-type-btn" data-search-term="All characters" data-lang-key="charactersBtn">
                             <span class="material-symbols-outlined">person</span>
-                            <span data-lang-key="charactersBtn"></span>
+                            <span>All Characters</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All weapon upgrade">
+                        <button class="search-type-btn" data-search-term="All weapon upgrade" data-lang-key="weaponUpgradeBtn">
                             <span class="material-symbols-outlined">swords</span>
-                            <span data-lang-key="weaponUpgradeBtn"></span>
+                            <span>Weapon Upgrades</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All character upgrades">
+                        <button class="search-type-btn" data-search-term="All character upgrades" data-lang-key="characterUpgradeBtn">
                             <span class="material-symbols-outlined">person_add</span>
-                            <span data-lang-key="characterUpgradeBtn"></span>
+                            <span>Character Upgrades</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All ability upgrades">
+                        <button class="search-type-btn" data-search-term="All ability upgrades" data-lang-key="abilityUpgradeBtn">
                             <span class="material-symbols-outlined">neurology</span>
-                            <span data-lang-key="abilityUpgradeBtn"></span>
+                            <span>Ability Upgrades</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All health upgrades">
+                        <button class="search-type-btn" data-search-term="All health upgrades" data-lang-key="healthUpgradeBtn">
                             <span class="material-symbols-outlined">favorite</span>
-                            <span data-lang-key="healthUpgradeBtn"></span>
+                            <span>Health Upgrades</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All energy upgrades">
+                        <button class="search-type-btn" data-search-term="All energy upgrades" data-lang-key="energyUpgradeBtn">
                             <span class="material-symbols-outlined">battery_charging_full</span>
-                            <span data-lang-key="energyUpgradeBtn"></span>
+                            <span>Energy Upgrades</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All costumes">
+                        <button class="search-type-btn" data-search-term="All costumes" data-lang-key="costumesBtn">
                             <span class="material-symbols-outlined">apparel</span>
-                            <span data-lang-key="costumesBtn"></span>
+                            <span>All Costumes</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All skins">
+                        <button class="search-type-btn" data-search-term="All skins" data-lang-key="skinsBtn">
                             <span class="material-symbols-outlined">layers</span>
-                            <span data-lang-key="skinsBtn"></span>
+                            <span>All Skins</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="search-type-category">
-                    <h3><span data-lang-key="collectiblesHeading"></span></h3>
+                    <h3 data-lang-key="collectiblesHeading">Collectibles:</h3>
                     <div class="search-type-buttons">
-                        <button class="search-type-btn" data-search-term="All diaries">
+                        <button class="search-type-btn" data-search-term="All diaries" data-lang-key="diariesBtn">
                             <span class="material-symbols-outlined">book</span>
-                            <span data-lang-key="diariesBtn"></span>
+                            <span>All Diaries</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All musics">
+                        <button class="search-type-btn" data-search-term="All musics" data-lang-key="musicsBtn">
                             <span class="material-symbols-outlined">music_note</span>
-                            <span data-lang-key="musicsBtn"></span>
+                            <span>All Musics</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All audio logs">
+                        <button class="search-type-btn" data-search-term="All audio logs" data-lang-key="audioLogsBtn">
                             <span class="material-symbols-outlined">audiotrack</span>
-                            <span data-lang-key="audioLogsBtn"></span>
+                            <span>All Audio Logs</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All recordings">
+                        <button class="search-type-btn" data-search-term="All recordings" data-lang-key="recordingsBtn">
                             <span class="material-symbols-outlined">mic</span>
-                            <span data-lang-key="recordingsBtn"></span>
+                            <span>All Recordings</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All statues">
-                            <span class="material-symbols-outlined">person_celebrate</span>
-                            <span data-lang-key="statuesBtn"></span>
+                        <button class="search-type-btn" data-search-term="All statues" data-lang-key="statuesBtn">
+                            <span class="material-symbols-outlined">sculpture</span>
+                            <span>All Statues</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All pictures">
+                        <button class="search-type-btn" data-search-term="All pictures" data-lang-key="picturesBtn">
                             <span class="material-symbols-outlined">image</span>
-                            <span data-lang-key="picturesBtn"></span>
+                            <span>All Pictures</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All documents">
+                        <button class="search-type-btn" data-search-term="All documents" data-lang-key="documentsBtn">
                             <span class="material-symbols-outlined">description</span>
-                            <span data-lang-key="documentsBtn"></span>
+                            <span>All Documents</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All photos">
+                        <button class="search-type-btn" data-search-term="All photos" data-lang-key="photosBtn">
                             <span class="material-symbols-outlined">camera</span>
-                            <span data-lang-key="photosBtn"></span>
+                            <span>All Photos</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All treasures">
+                        <button class="search-type-btn" data-search-term="All treasures" data-lang-key="treasuresBtn">
                             <span class="material-symbols-outlined">diamond</span>
-                            <span data-lang-key="treasuresBtn"></span>
+                            <span>All Treasures</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All intel">
+                        <button class="search-type-btn" data-search-term="All intel" data-lang-key="intelBtn">
                             <span class="material-symbols-outlined">lightbulb</span>
-                            <span data-lang-key="intelBtn"></span>
+                            <span>All Intel</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All echos">
+                        <button class="search-type-btn" data-search-term="All echos" data-lang-key="echosBtn">
                             <span class="material-symbols-outlined">spatial_audio</span>
-                            <span data-lang-key="echosBtn"></span>
+                            <span>All Echos</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All relics">
+                        <button class="search-type-btn" data-search-term="All relics" data-lang-key="relicsBtn">
                             <span class="material-symbols-outlined">bookmark</span>
-                            <span data-lang-key="relicsBtn"></span>
+                            <span>All Relics</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All fish">
+                        <button class="search-type-btn" data-search-term="All fish" data-lang-key="fishBtn">
                             <span class="material-symbols-outlined">phishing</span>
-                            <span data-lang-key="fishBtn"></span>
+                            <span>All Fish</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All animals">
+                        <button class="search-type-btn" data-search-term="All animals" data-lang-key="animalsBtn">
                             <span class="material-symbols-outlined">pets</span>
-                            <span data-lang-key="animalsBtn"></span>
+                            <span>All Animals</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All keys">
+                        <button class="search-type-btn" data-search-term="All keys" data-lang-key="keysBtn">
                             <span class="material-symbols-outlined">key</span>
-                            <span data-lang-key="keysBtn"></span>
+                            <span>All Keys</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All blueprints">
+                        <button class="search-type-btn" data-search-term="All blueprints" data-lang-key="blueprintsBtn">
                             <span class="material-symbols-outlined">widgets</span>
-                            <span data-lang-key="blueprintsBtn"></span>
+                            <span>All Blueprints</span>
                         </button>
-                        <button class="search-type-btn" data-search-term="All emails">
+                        <button class="search-type-btn" data-search-term="All emails" data-lang-key="emailsBtn">
                             <span class="material-symbols-outlined">email</span>
-                            <span data-lang-key="emailsBtn"></span>
+                            <span>All Emails</span>
                         </button>
                     </div>
                 </div>
@@ -256,13 +256,24 @@
         </div>
     </div>
 
-    <div class="bottom-fixed-utility">
+    <div class="corner-utility-left">
         <div class="utility-group">
             <span data-lang-key="languageSelector"></span>
             <div class="language-selection">
                 <button class="lang-btn" data-lang="en">ENG</button>
                 <button class="lang-btn" data-lang="cs">CS</button>
             </div>
+        </div>
+        <div class="toplist-container">
+            <a href="https://www.toplist.cz" id="toplistcz1839753" title="TOPlist">
+                <noscript><img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&njs=1" border="0" alt="TOPlist" width="80" height="15"/></noscript>
+                <script language="JavaScript">
+                    (function(d,e,s) {
+                        d.getElementById('toplistcz1839753').innerHTML='<img src="https://toplist.cz/count.asp?id=1839753&logo=btn&start=250000&njs=1" border="0" '
+                        + 'alt="TOPlist" width="80" height="15"/>';
+                    }(document,screen,'https://toplist.cz/'));
+                </script>
+            </a>
         </div>
     </div>
 
