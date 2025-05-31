@@ -49,27 +49,6 @@ body.dark-theme {
     --bottom-bar-actual-shadow: var(--bottom-bar-shadow);
 }
 
-/* Removed light-theme specific styling as it's no longer switchable */
-/* body.light-theme {
-    --primary-bg: var(--light-primary-bg);
-    --secondary-bg: var(--light-secondary-bg);
-    --text-color: var(--light-text-color);
-    --accent-color: var(--light-accent-color);
-    --button-bg: var(--light-button-bg);
-    --button-hover-bg: var(--light-button-hover-bg);
-    --input-bg: var(--light-input-bg);
-    --input-text-color: var(--light-input-text-color);
-    --placeholder-color: var(--light-placeholder-color);
-    --border-color: var(--light-border-color);
-    --shadow-color: var(--light-shadow-color);
-    --border-radius-main: 10px;
-    --border-radius-button: 6px;
-
-    --bottom-bar-actual-bg: var(--bottom-bar-light-bg);
-    --bottom-bar-actual-text-color: var(--bottom-bar-light-text-color);
-    --bottom-bar-actual-shadow: var(--bottom-bar-light-shadow);
-} */
-
 body {
     font-family: 'Arial', sans-serif;
     background-color: var(--primary-bg);
@@ -331,7 +310,7 @@ h1 {
     cursor: pointer;
     font-size: 0.9em;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out; /* Zkrácená a upravená transition */
     box-shadow: 0 4px 10px var(--shadow-color);
 
     width: 130px; /* Pevná šířka pro tlačítko, aby se správně zalomilo */
@@ -346,17 +325,20 @@ h1 {
     padding: 5px;
 }
 
+/* Odstranění transformace a upravení box-shadow pro hover u všech tlačítek */
 .search-type-btn:hover, .search-source-btn:hover {
     background-color: var(--button-hover-bg);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px var(--shadow-color);
+    box-shadow: 0 6px 15px var(--shadow-color); /* Decentnější stín */
+    transform: none; /* Zajistí, že se nic neposune ani nezmění velikost */
 }
+
 
 .search-type-btn.active, .search-source-btn.active {
     background-color: var(--accent-color);
     color: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5);
-    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4); /* Mírně výraznější, ale ne přehnaný stín */
+    transform: none; /* Zajistí, že se nic neposune ani nezmění velikost */
+    transition: background-color 0.05s ease-out, box-shadow 0.05s ease-out; /* Velmi krátká transition pro aktivní stav */
 }
 
 /* Kontejnery pro tlačítka zdrojů - zůstanou v řadě */
@@ -412,15 +394,15 @@ h1 {
     font-size: 0.9em;
     font-weight: 400;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out; /* Upravená transition */
     box-shadow: 0 2px 5px var(--shadow-color);
 }
 
 .bottom-fixed-utility .lang-btn:hover,
 .bottom-fixed-utility .theme-btn:hover {
     background-color: var(--button-hover-bg);
-    transform: translateY(-1px);
     box-shadow: 0 3px 8px var(--shadow-color);
+    transform: none; /* Zajistí, že se nic neposune ani nezmění velikost */
 }
 
 .bottom-fixed-utility .lang-btn.active,
@@ -428,8 +410,10 @@ h1 {
     background-color: var(--accent-color);
     color: #ffffff;
     box-shadow: 0 1px 4px rgba(0, 123, 255, 0.3);
-    transform: translateY(0);
+    transform: none; /* Zajistí, že se nic neposune ani nezmění velikost */
+    transition: background-color 0.05s ease-out, box-shadow 0.05s ease-out; /* Velmi krátká transition pro aktivní stav */
 }
+
 
 /* Removed color boxes as theme selection is removed */
 /* .color-box {
@@ -532,11 +516,6 @@ h1 {
         justify-content: center;
     }
 
-    /* Removed this as it's no longer inside bottom-fixed-utility */
-    /* .bottom-fixed-utility .bottom-right-footer {
-        margin-left: 0;
-    } */
-
     body {
         padding-bottom: var(--bottom-bar-height); /* Keep padding for the language bar */
     }
@@ -622,14 +601,15 @@ body {
     border: 1px solid rgba(255,255,255,0.1);
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
+    transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out; /* Sjednocená a upravená transition */
     box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Upraveno pro odstranění transformace a upravený box-shadow pro všechna tlačítka při hover */
 .search-type-btn:hover, .search-source-btn:hover {
-    transform: scale(1.05);
-    background-color: rgba(0, 123, 255, 0.15);
-    box-shadow: 0 12px 20px rgba(0, 123, 255, 0.2);
+    background-color: var(--button-hover-bg); /* Používáme proměnnou pro konzistenci */
+    box-shadow: 0 6px 15px var(--shadow-color); /* Decentnější stín */
+    transform: none; /* Odstranění jakékoliv transformace */
 }
 
 #searchBtn {
@@ -639,7 +619,7 @@ body {
 }
 
 #searchBtn:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Ponecháno pro hlavní vyhledávací tlačítko */
     background: linear-gradient(135deg, #005eff, #00aaff);
 }
 
