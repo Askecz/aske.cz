@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const translations = {
         en: {
-            pageTitle: "PLAYSTATION TROPHY SEARCH",
-            mainHeading: "PLAYSTATION TROPHY SEARCH",
+            pageTitle: "Fast Guide Search",
+            mainHeading: "Fast Guide Search",
             searchInputPlaceholder: "Enter game title or trophy name...",
             selectSearchSource: "Select Search Source:",
             searchButtonText: "Search",
@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
             themeSelector: "Theme:"
         },
         cs: {
-            pageTitle: "VYHLEDÁVÁNÍ PS TROFEJÍ",
-            mainHeading: "VYHLEDÁVÁNÍ PS TROFEJÍ",
+            pageTitle: "Fast Guide Search",
+            mainHeading: "Fast Guide Search",
             searchInputPlaceholder: "Zadejte název hry nebo trofeje...",
             selectSearchSource: "Vyberte zdroj vyhledávání:",
             searchButtonText: "Hledat",
