@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchTypeButtons = document.querySelectorAll('.search-type-btn');
     const searchSourceButtons = document.querySelectorAll('.search-source-btn');
     const langButtons = document.querySelectorAll('.lang-btn');
-    const themeButtons = document.querySelectorAll('.theme-btn');
+    // const themeButtons = document.querySelectorAll('.theme-btn'); // Removed theme buttons
     const searchButton = document.getElementById('searchBtn');
 
     let currentSearchTerm = 'Trophy Guide'; // Výchozí vyhledávací termín
     let currentLanguage = 'en'; // Výchozí jazyk
-    let currentTheme = 'dark'; // Výchozí motiv
+    // let currentTheme = 'dark'; // Removed theme variable
 
     // Object for translations
     const translations = {
@@ -435,10 +435,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.lang-btn[data-lang="cs"]').textContent = "CS";
     }
 
-    function applyTheme(theme) {
-        document.body.classList.remove('dark-theme', 'light-theme');
-        document.body.classList.add(`${theme}-theme`);
-    }
+    // function applyTheme(theme) { // Removed theme function
+    //     document.body.classList.remove('dark-theme', 'light-theme');
+    //     document.body.classList.add(`${theme}-theme`);
+    // }
 
     // --- Initial Setup ---
     // Načtení jazyka z localStorage
@@ -458,22 +458,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     applyTranslations(currentLanguage); // Volání applyTranslations po načtení jazyka
 
-    // Načtení motivu z localStorage
-    const savedTheme = localStorage.getItem('selectedTheme');
-    if (savedTheme) {
-        currentTheme = savedTheme;
-    } else {
-        currentTheme = 'dark'; // Výchozí je tmavý
-        localStorage.setItem('selectedTheme', currentTheme);
-    }
-    applyTheme(currentTheme);
-    themeButtons.forEach(btn => {
-        if (btn.dataset.theme === currentTheme) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
+    // Načtení motivu z localStorage - NOT NEEDED ANYMORE, SET TO DARK BY DEFAULT IN HTML
+    // const savedTheme = localStorage.getItem('selectedTheme');
+    // if (savedTheme) {
+    //     currentTheme = savedTheme;
+    // } else {
+    //     currentTheme = 'dark'; // Výchozí je tmavý
+    //     localStorage.setItem('selectedTheme', currentTheme);
+    // }
+    // applyTheme(currentTheme);
+    // themeButtons.forEach(btn => {
+    //     if (btn.dataset.theme === currentTheme) {
+    //         btn.classList.add('active');
+    //     } else {
+    //         btn.classList.remove('active');
+    //     }
+    // });
 
     // Nastavení výchozího aktivního tlačítka pro typ hledání (Trophy Guide) a zdroj (Google)
     document.querySelector('.search-type-btn[data-search-term="Trophy Guide"]').classList.add('active');
@@ -491,15 +491,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    themeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            themeButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            currentTheme = button.dataset.theme;
-            localStorage.setItem('selectedTheme', currentTheme);
-            applyTheme(currentTheme);
-        });
-    });
+    // Removed theme button event listener
+    // themeButtons.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //         themeButtons.forEach(btn => btn.classList.remove('active'));
+    //         button.classList.add('active');
+    //         currentTheme = button.dataset.theme;
+    //         localStorage.setItem('selectedTheme', currentTheme);
+    //         applyTheme(currentTheme);
+    //     });
+    // });
 
     searchTypeButtons.forEach(button => {
         button.addEventListener('click', () => {

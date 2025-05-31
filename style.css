@@ -16,7 +16,7 @@
     --border-radius-main: 10px;
     --border-radius-button: 6px;
 
-    /* Pure White Theme */
+    /* Pure White Theme - Kept for reference but not actively used for theme switching */
     --light-primary-bg: #f0f0f0;
     --light-secondary-bg: #e0e0e0;
     --light-text-color: #333333;
@@ -42,14 +42,15 @@
     --gold-trophy-color: #FFD700; /* Zlatá barva */
 }
 
-/* Apply theme variables based on body class */
+/* Apply theme variables based on body class - now only dark-theme is relevant */
 body.dark-theme {
     --bottom-bar-actual-bg: var(--bottom-bar-bg);
     --bottom-bar-actual-text-color: var(--bottom-bar-text-color);
     --bottom-bar-actual-shadow: var(--bottom-bar-shadow);
 }
 
-body.light-theme {
+/* Removed light-theme specific styling as it's no longer switchable */
+/* body.light-theme {
     --primary-bg: var(--light-primary-bg);
     --secondary-bg: var(--light-secondary-bg);
     --text-color: var(--light-text-color);
@@ -64,11 +65,10 @@ body.light-theme {
     --border-radius-main: 10px;
     --border-radius-button: 6px;
 
-    /* Sticky Footer variables for light theme */
     --bottom-bar-actual-bg: var(--bottom-bar-light-bg);
     --bottom-bar-actual-text-color: var(--bottom-bar-light-text-color);
     --bottom-bar-actual-shadow: var(--bottom-bar-light-shadow);
-}
+} */
 
 body {
     font-family: 'Arial', sans-serif;
@@ -84,7 +84,7 @@ body {
     position: relative;
     transition: background-color 0.4s ease, color 0.4s ease;
     box-sizing: border-box;
-    padding-bottom: var(--bottom-bar-height);
+    padding-bottom: var(--bottom-bar-height); /* Keep padding for the language bar */
 }
 
 /* Background shapes */
@@ -386,26 +386,7 @@ h1 {
     line-height: 1;
 }
 
-/* Nova pevná lišta pro jazyk a motiv */
-.bottom-fixed-utility {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: var(--bottom-bar-height);
-    background-color: var(--bottom-bar-actual-bg);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    padding: 0 20px;
-    box-sizing: border-box;
-    z-index: 100;
-    box-shadow: var(--bottom-bar-actual-shadow);
-    transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
-}
+
 
 .bottom-fixed-utility .utility-group {
     display: flex;
@@ -416,13 +397,13 @@ h1 {
 }
 
 .bottom-fixed-utility .language-selection,
-.bottom-fixed-utility .theme-selection {
+.bottom-fixed-utility .theme-selection { /* Kept for language, but theme is removed */
     display: flex;
     gap: 10px;
 }
 
 .bottom-fixed-utility .lang-btn,
-.bottom-fixed-utility .theme-btn {
+.bottom-fixed-utility .theme-btn { /* theme-btn not used anymore but kept in case */
     background-color: var(--button-bg);
     color: var(--bottom-bar-actual-text-color);
     border: none;
@@ -450,8 +431,8 @@ h1 {
     transform: translateY(0);
 }
 
-/* Color boxes for themes */
-.color-box {
+/* Removed color boxes as theme selection is removed */
+/* .color-box {
     width: 18px;
     height: 18px;
     border-radius: 4px;
@@ -464,15 +445,11 @@ h1 {
 
 .light-box {
     background-color: #ffffff;
-}
+} */
 
-/* Footer - nyní uvnitř bottom-fixed-utility */
+/* Footer - removed from bottom-fixed-utility */
 .bottom-fixed-utility .bottom-right-footer {
-    position: static;
-    font-size: 0.9em;
-    color: var(--bottom-bar-actual-text-color);
-    opacity: 0.7;
-    margin-left: auto;
+    display: none; /* Hide this element as copyright is moved */
 }
 
 /* Responsive adjustments */
@@ -550,18 +527,18 @@ h1 {
         gap: 8px;
     }
 
-    .bottom-fixed-utility .language-selection,
-    .bottom-fixed-utility .theme-selection {
+    .bottom-fixed-utility .language-selection {
         flex-wrap: wrap;
         justify-content: center;
     }
 
-    .bottom-fixed-utility .bottom-right-footer {
+    /* Removed this as it's no longer inside bottom-fixed-utility */
+    /* .bottom-fixed-utility .bottom-right-footer {
         margin-left: 0;
-    }
+    } */
 
     body {
-        padding-bottom: auto; /* Zrušíme pevnou výšku, když je footer flex-direction: column */
+        padding-bottom: var(--bottom-bar-height); /* Keep padding for the language bar */
     }
 }
 
@@ -623,4 +600,92 @@ h1 {
     .search-type-btn .material-symbols-outlined {
         font-size: 18px;
     }
+}
+
+/* --- Custom Glassmorphism & Cool 2025 Theme --- */
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+    padding: 50px;
+    margin: 40px auto;
+}
+
+.search-type-btn, .search-source-btn {
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.search-type-btn:hover, .search-source-btn:hover {
+    transform: scale(1.05);
+    background-color: rgba(0, 123, 255, 0.15);
+    box-shadow: 0 12px 20px rgba(0, 123, 255, 0.2);
+}
+
+#searchBtn {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+#searchBtn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #005eff, #00aaff);
+}
+
+
+
+/* --- RANDOMIZED FUTURISTIC DESIGN --- */
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background-size: 400% 400%;
+    animation: gradientShift 30s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.logo-placeholder {
+    font-size: 3.5em;
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffff;
+    letter-spacing: 4px;
+    text-shadow: 0 0 15px #00ffff, 0 0 30px #007bff;
+    animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    45% { opacity: 0.7; }
+    55% { opacity: 0.5; }
+    70% { opacity: 0.9; }
+    100% { opacity: 1; }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+
+
+.corner-footer {
+    position: fixed;
+    bottom: 15px;
+    right: 20px;
+    font-size: 0.9em;
+    color: #ffffff;
+    opacity: 0.6;
+    z-index: 10;
+    font-family: 'Inter', sans-serif;
 }
