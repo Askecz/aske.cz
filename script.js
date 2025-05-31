@@ -5,12 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchTypeButtons = document.querySelectorAll('.search-type-btn');
     const searchSourceButtons = document.querySelectorAll('.search-source-btn');
     const langButtons = document.querySelectorAll('.lang-btn');
+    const themeButtons = document.querySelectorAll('.theme-btn');
     const searchButton = document.getElementById('searchBtn');
 
-    let currentSearchTerm = 'Trophy Guide'; // Výchozí vyhledávací termín
-    let currentLanguage = 'en'; // Výchozí jazyk
+    let currentSearchTerm = 'Trophy Guide';
+    let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    let currentTheme = localStorage.getItem('selectedTheme') || 'dark';
 
-    // Object for translations
     const translations = {
         en: {
             pageTitle: "PLAYSTATION TROPHY SEARCH",
@@ -22,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             guideBtn: "Trophy Guide",
             roadmapBtn: "Roadmap",
             mapBtn: "Maps",
-            collectiblesBtn: "Collectibles",
-            advancedTypesHeading: "Advanced Search Types:",
+            allCollectiblesBtn: "All Collectibles",
+            variousTypesHeading: "Various:",
             puzzlesBtn: "All Puzzles",
             challengesBtn: "All Challenges",
             speedrunBtn: "Speedrun",
@@ -66,37 +67,35 @@ document.addEventListener('DOMContentLoaded', () => {
             blueprintsBtn: "All Blueprints",
             emailsBtn: "All Emails",
             languageSelector: "Language:",
-            themeSelector: "Theme:",
-            darkThemeText: "Dark",
-            lightThemeText: "Light"
+            themeSelector: "Theme:"
         },
         cs: {
-            pageTitle: "Vyhledávač PlayStation trofejí",
-            mainHeading: "Vyhledávač PlayStation trofejí",
+            pageTitle: "VYHLEDÁVÁNÍ PS TROFEJÍ",
+            mainHeading: "VYHLEDÁVÁNÍ PS TROFEJÍ",
             searchInputPlaceholder: "Zadejte název hry nebo trofeje...",
-            selectSearchSource: "Vyberte zdroj hledání:",
-            searchButtonText: "Vyhledat",
+            selectSearchSource: "Vyberte zdroj vyhledávání:",
+            searchButtonText: "Hledat",
             mainTypesHeading: "Hlavní typy hledání:",
             guideBtn: "Průvodce trofejemi",
             roadmapBtn: "Cestovní mapa",
             mapBtn: "Mapy",
-            collectiblesBtn: "Sběratelské předměty",
-            advancedTypesHeading: "Pokročilé typy hledání:",
-            puzzlesBtn: "Všechny skládanky",
+            allCollectiblesBtn: "Všechny sběratelské předměty",
+            variousTypesHeading: "Různé:",
+            puzzlesBtn: "Všechny hádanky",
             challengesBtn: "Všechny výzvy",
             speedrunBtn: "Speedrun",
             bossesBtn: "Všichni bossové",
             minigamesBtn: "Všechny minihry",
-            hardestDifficultyBtn: "Běh na nejtěžší obtížnost",
+            hardestDifficultyBtn: "Průchod na nejtěžší obtížnost",
             mainQuestBtn: "Všechny hlavní úkoly",
             sideQuestBtn: "Všechny vedlejší úkoly",
             secretsBtn: "Všechna tajemství",
-            endingsHeading: "Konce:",
+            endingsHeading: "Konce hry:",
             allEndingsBtn: "Všechny konce",
             goodEndingBtn: "Dobrý konec",
             badEndingBtn: "Špatný konec",
             secretEndingBtn: "Tajný konec",
-            charGearHeading: "Postava / Výbava:",
+            charGearHeading: "Postavy / Výbava:",
             charactersBtn: "Všechny postavy",
             weaponUpgradeBtn: "Vylepšení zbraní",
             characterUpgradeBtn: "Vylepšení postavy",
@@ -104,170 +103,89 @@ document.addEventListener('DOMContentLoaded', () => {
             healthUpgradeBtn: "Vylepšení zdraví",
             energyUpgradeBtn: "Vylepšení energie",
             costumesBtn: "Všechny kostýmy",
-            skinsBtn: "Skiny",
+            skinsBtn: "Všechny skiny",
             collectiblesHeading: "Sběratelské předměty:",
-            diariesBtn: "Deníky",
-            musicsBtn: "Hudba",
-            audioLogsBtn: "Zvukové záznamy",
-            recordingsBtn: "Nahrávky",
-            statuesBtn: "Sošky",
-            picturesBtn: "Obrazy",
-            documentsBtn: "Dokumenty",
-            photosBtn: "Fotky",
-            treasuresBtn: "Poklady",
-            intelBtn: "Intel",
-            echosBtn: "Echa",
-            relicsBtn: "Relikvie",
+            diariesBtn: "Všechny deníky",
+            musicsBtn: "Všechna hudba",
+            audioLogsBtn: "Všechny audiozáznamy",
+            recordingsBtn: "Všechny nahrávky",
+            statuesBtn: "Všechny sochy",
+            picturesBtn: "Všechny obrázky",
+            documentsBtn: "Všechny dokumenty",
+            photosBtn: "Všechny fotky",
+            treasuresBtn: "Všechny poklady",
+            intelBtn: "Všechny informace",
+            echosBtn: "Všechny ozvěny",
+            relicsBtn: "Všechny relikvie",
             fishBtn: "Všechny ryby",
             animalsBtn: "Všechna zvířata",
             keysBtn: "Všechny klíče",
-            blueprintsBtn: "Všechny blueprinty",
-            emailsBtn: "Emaily",
+            blueprintsBtn: "Všechny plány",
+            emailsBtn: "Všechny e-maily",
             languageSelector: "Jazyk:",
-            themeSelector: "Motiv:",
-            darkThemeText: "Tmavý",
-            lightThemeText: "Světlý"
+            themeSelector: "Téma:"
         }
     };
 
-    function performSearch(source) {
-        const query = gameSearchInput.value.trim();
-        let url = '';
-
-        if (!query) {
-            alert(translations[currentLanguage].searchInputPlaceholder);
-            return;
-        }
-
-        let fullSearchTerm = currentSearchTerm;
-
-        // Logika pro různé zdroje vyhledávání
-        switch (source) {
-            case 'google':
-                url = `https://www.google.com/search?q=${encodeURIComponent(query + ' ' + fullSearchTerm)}`;
-                break;
-            case 'youtube':
-                // Pro YouTube přidáváme "Trophy" k vyhledávání, pokud se nejedná o obecné termíny
-                if (!['Trophy Guide', 'Roadmap', 'Full Map', 'All collectibles', 'All puzzles', 'All challenges', 'Speedrun', 'All bosses', 'All minigames', 'Hardest difficulty run', 'All main quest', 'All side quest', 'All secrets', 'All endings', 'Good ending', 'Bad ending', 'Secret ending', 'All characters', 'All weapon upgrade', 'All character upgrades', 'All ability upgrades', 'All health upgrades', 'All energy upgrades', 'All costumes', 'All skins', 'All diaries', 'All musics', 'All audio logs', 'All recordings', 'All statues', 'All pictures', 'All documents', 'All photos', 'All treasures', 'All intel', 'All echos', 'All relics', 'All fish', 'All animals', 'All keys', 'All blueprints', 'All emails'].includes(currentSearchTerm)) {
-                    fullSearchTerm = currentSearchTerm + " Trophy";
-                }
-                url = `https://www.youtube.com/results?search_query=${encodeURIComponent(query + ' ' + fullSearchTerm)}`;
-                break;
-            case 'psnprofiles':
-                url = `https://psnprofiles.com/search/games?q=${encodeURIComponent(query)}`;
-                break;
-            case 'powerpyx':
-                url = `https://www.powerpyx.com/?s=${encodeURIComponent(query)}`;
-                break;
-            case 'truetrophies':
-                url = `https://www.truetrophies.com/searchresults.aspx?search=${encodeURIComponent(query)}`;
-                break;
-            default:
-                url = `https://www.google.com/search?q=${encodeURIComponent(query + ' Trophy')}`;
-                break;
-        }
-        window.open(url, '_blank');
-    }
-
-    function applyTranslations(lang) {
+    const applyTranslations = (lang) => {
         document.querySelectorAll('[data-lang-key]').forEach(element => {
             const key = element.dataset.langKey;
             if (translations[lang] && translations[lang][key]) {
-                if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
-                    element.setAttribute('placeholder', translations[lang][key]);
-                } else if (element.tagName === 'SPAN' || element.tagName === 'BUTTON' || element.tagName === 'H1' || element.tagName === 'H3') {
-                    if (element.classList.contains('color-box')) {
-                        return;
-                    }
-                    if (element.classList.contains('material-symbols-outlined')) {
-                        const button = element.closest('.search-type-btn, .search-source-btn');
-                        if (button) {
-                            const searchTerm = button.dataset.searchTerm || button.dataset.source;
-                            switch (searchTerm) {
-                                case 'Trophy Guide': element.textContent = 'military_tech'; break;
-                                case 'Roadmap': element.textContent = 'map'; break;
-                                case 'Full Map': element.textContent = 'satellite'; break;
-                                case 'All collectibles': element.textContent = 'diamond'; break;
-                                case 'All puzzles': element.textContent = 'extension'; break;
-                                case 'All challenges': element.textContent = 'sports_martial_arts'; break;
-                                case 'Speedrun': element.textContent = 'timer'; break;
-                                case 'All bosses': element.textContent = 'skull'; break;
-                                case 'All minigames': element.textContent = 'casino'; break;
-                                case 'Hardest difficulty run': element.textContent = 'gpp_bad'; break;
-                                case 'All main quest': element.textContent = 'auto_stories'; break;
-                                case 'All side quest': element.textContent = 'menu_book'; break;
-                                case 'All secrets': element.textContent = 'visibility_off'; break;
-                                case 'All endings': element.textContent = 'movie_filter'; break;
-                                case 'Good ending': element.textContent = 'sentiment_satisfied'; break;
-                                case 'Bad ending': element.textContent = 'sentiment_dissatisfied'; break;
-                                case 'Secret ending': element.textContent = 'encrypted'; break;
-                                case 'All characters': element.textContent = 'person'; break;
-                                case 'All weapon upgrade': element.textContent = 'swords'; break;
-                                case 'All character upgrades': element.textContent = 'person_add'; break;
-                                case 'All ability upgrades': element.textContent = 'neurology'; break;
-                                case 'All health upgrades': element.textContent = 'favorite'; break;
-                                case 'All energy upgrades': element.textContent = 'battery_charging_full'; break;
-                                case 'All costumes': element.textContent = 'apparel'; break;
-                                case 'All skins': element.textContent = 'layers'; break;
-                                case 'All diaries': element.textContent = 'book'; break;
-                                case 'All musics': element.textContent = 'music_note'; break;
-                                case 'All audio logs': element.textContent = 'audiotrack'; break;
-                                case 'All recordings': element.textContent = 'mic'; break;
-                                case 'All statues': element.textContent = 'sculpture'; break;
-                                case 'All pictures': element.textContent = 'image'; break;
-                                case 'All documents': element.textContent = 'description'; break;
-                                case 'All photos': element.textContent = 'camera'; break;
-                                case 'All treasures': element.textContent = 'diamond'; break;
-                                case 'All intel': element.textContent = 'lightbulb'; break;
-                                case 'All echos': element.textContent = 'spatial_audio'; break;
-                                case 'All relics': element.textContent = 'bookmark'; break;
-                                case 'All fish': element.textContent = 'phishing'; break;
-                                case 'All animals': element.textContent = 'pets'; break;
-                                case 'All keys': element.textContent = 'key'; break;
-                                case 'All blueprints': element.textContent = 'widgets'; break;
-                                case 'All emails': element.textContent = 'email'; break;
-                                case 'google': element.textContent = 'travel_explore'; break;
-                                case 'psnprofiles': element.textContent = 'sports_esports'; break;
-                                case 'powerpyx': element.textContent = 'star'; break;
-                                case 'truetrophies': element.textContent = 'verified'; break;
-                                case 'youtube': element.textContent = 'play_circle'; break;
-                                default: break;
-                            }
-                        } else if (element.classList.contains('trophy-icon')) {
-                            element.textContent = 'trophy';
-                        }
-                    } else {
-                        element.textContent = translations[lang][key];
-                    }
+                // Pokud je element tlačítko a má třídu .button-text, aktualizuj pouze tento span
+                if (element.tagName === 'BUTTON' && element.querySelector('.button-text')) {
+                    element.querySelector('.button-text').textContent = translations[lang][key];
+                } else if (element.tagName === 'INPUT') {
+                    element.placeholder = translations[lang][key];
                 } else {
                     element.textContent = translations[lang][key];
                 }
             }
         });
-        document.querySelector('.lang-btn[data-lang="en"]').textContent = "ENG";
-        document.querySelector('.lang-btn[data-lang="cs"]').textContent = "CS";
-    }
+    };
 
-    // --- Initial Setup ---
-    const savedLanguage = localStorage.getItem('selectedLanguage');
-    if (savedLanguage && translations[savedLanguage]) {
-        currentLanguage = savedLanguage;
-    } else {
-        currentLanguage = 'en';
-        localStorage.setItem('selectedLanguage', currentLanguage);
-    }
-    langButtons.forEach(btn => {
-        if (btn.dataset.lang === currentLanguage) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
+    const applyTheme = (theme) => {
+        document.body.className = ''; // Remove all classes
+        document.body.classList.add(`${theme}-theme`);
+        localStorage.setItem('selectedTheme', theme);
+
+        themeButtons.forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.theme-btn[data-theme="${theme}"]`).classList.add('active');
+    };
+
+    const performSearch = (source) => {
+        const query = gameSearchInput.value.trim();
+        if (query) {
+            let fullSearchTerm = `${query} ${currentSearchTerm}`;
+            let searchUrl = '';
+
+            switch (source) {
+                case 'google':
+                    searchUrl = `https://www.google.com/search?q=${encodeURIComponent(fullSearchTerm)}`;
+                    break;
+                case 'psnprofiles':
+                    searchUrl = `https://psnprofiles.com/search/guides?q=${encodeURIComponent(fullSearchTerm)}`;
+                    break;
+                case 'powerpyx':
+                    searchUrl = `https://www.powerpyx.com/?s=${encodeURIComponent(fullSearchTerm)}`;
+                    break;
+                case 'truetrophies':
+                    searchUrl = `https://www.truetrophies.com/search/results?searchtype=Guides&term=${encodeURIComponent(fullSearchTerm)}`;
+                    break;
+                case 'youtube':
+                    searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(fullSearchTerm)}`;
+                    break;
+                default:
+                    searchUrl = `https://www.google.com/search?q=${encodeURIComponent(fullSearchTerm)}`;
+            }
+            window.open(searchUrl, '_blank');
         }
-    });
+    };
+
+    // Initial setup
+    applyTheme(currentTheme);
     applyTranslations(currentLanguage);
+    document.querySelector(`.lang-btn[data-lang="${currentLanguage}"]`).classList.add('active');
 
-    document.querySelector('.search-type-btn[data-search-term="Trophy Guide"]').classList.add('active');
-
-    // --- Event Listeners ---
     langButtons.forEach(button => {
         button.addEventListener('click', () => {
             langButtons.forEach(btn => btn.classList.remove('active'));
@@ -278,12 +196,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    themeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            applyTheme(button.dataset.theme);
+        });
+    });
+
     searchTypeButtons.forEach(button => {
         button.addEventListener('click', () => {
             searchTypeButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             currentSearchTerm = button.dataset.searchTerm;
-            applyTranslations(currentLanguage);
         });
     });
 

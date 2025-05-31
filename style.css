@@ -16,10 +16,10 @@
     --border-radius-main: 10px;
     --border-radius-button: 6px;
 
-    /* Pure White Theme - Kept for reference but not actively used for theme switching */
+    /* Pure White Theme */
     --light-primary-bg: #f0f0f0;
     --light-secondary-bg: #e0e0e0;
-    --light-text-color: #333333;
+    --light-text-color: #333333; /* Dark text for light theme */
     --light-accent-color: #007bff;
     --light-button-bg: #d0d0d0;
     --light-button-hover-bg: #c0c0c0;
@@ -27,203 +27,239 @@
     --light-input-text-color: #333333;
     --light-placeholder-color: #888888;
     --light-border-color: #cccccc;
-    --light-shadow-color: rgba(0, 0, 0, 0.15);
-
-    /* Sticky Footer variables */
-    --bottom-bar-height: 80px;
-    --bottom-bar-bg: rgba(26, 26, 26, 0.85);
-    --bottom-bar-light-bg: rgba(224, 224, 224, 0.85);
-    --bottom-bar-text-color: #ffffff;
-    --bottom-bar-light-text-color: #333333;
-    --bottom-bar-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
-    --bottom-bar-light-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-
-    /* Barva pro zlatou trofej */
-    --gold-trophy-color: #FFD700; /* Zlatá barva */
-}
-
-/* Apply theme variables based on body class - now only dark-theme is relevant */
-body.dark-theme {
-    --bottom-bar-actual-bg: var(--bottom-bar-bg);
-    --bottom-bar-actual-text-color: var(--bottom-bar-text-color);
-    --bottom-bar-actual-shadow: var(--bottom-bar-shadow);
+    --light-shadow-color: rgba(0, 0, 0, 0.2);
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: var(--primary-bg);
-    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
     position: relative;
-    transition: background-color 0.4s ease, color 0.4s ease;
-    box-sizing: border-box;
-    padding-bottom: var(--bottom-bar-height); /* Keep padding for the language bar */
 }
+
+/* Light theme specific styles */
+body.light-theme {
+    background-color: var(--light-primary-bg);
+    color: var(--light-text-color); /* Set main text color for light theme */
+}
+
+body.light-theme .central-content-wrapper,
+body.light-theme .corner-utility-left .utility-group,
+body.light-theme .corner-utility-right .utility-group {
+    background: rgba(255, 255, 255, 0.7); /* Slightly translucent white */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    box-shadow: 0 8px 32px 0 var(--light-shadow-color);
+}
+
+body.light-theme .search-type-category,
+body.light-theme .search-source-section {
+    background: rgba(240, 240, 240, 0.7);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    box-shadow: 0 5px 15px var(--light-shadow-color);
+}
+
+body.light-theme .search-input-area #gameSearchInput {
+    background: var(--light-input-bg);
+    color: var(--light-input-text-color);
+    border-color: var(--light-border-color);
+}
+
+body.light-theme .search-input-area #gameSearchInput::placeholder {
+    color: var(--light-placeholder-color);
+}
+
+/* Ensure all buttons and text elements adapt color */
+body.light-theme .action-button,
+body.light-theme .search-source-btn,
+body.light-theme .search-type-btn,
+body.light-theme .lang-btn,
+body.light-theme .theme-btn {
+    background-color: var(--light-button-bg);
+    color: var(--light-text-color); /* Ensure dark text on light buttons */
+    border-color: var(--light-border-color);
+}
+
+body.light-theme .action-button:hover,
+body.light-theme .search-source-btn:hover,
+body.light-theme .search-type-btn:hover,
+body.light-theme .lang-btn:hover,
+body.light-theme .theme-btn:hover {
+    background-color: var(--light-button-hover-bg);
+}
+
+body.light-theme .search-source-btn.active,
+body.light-theme .search-type-btn.active,
+body.light-theme .lang-btn.active,
+body.light-theme .theme-btn.active {
+    background-color: var(--light-accent-color);
+    color: #ffffff; /* White text on accent color button */
+    border-color: var(--light-accent-color);
+}
+
+body.light-theme .logo-placeholder,
+body.light-theme .search-source-section h3,
+body.light-theme .search-type-category h3,
+body.light-theme .utility-group span,
+body.light-theme .copyright-info {
+    color: var(--light-text-color); /* Ensure these are also dark in light theme */
+}
+
 
 /* Background shapes */
 .background-shapes {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.1;
+    z-index: -1;
 }
 
 .shape {
     position: absolute;
-    opacity: 0.7;
-    animation: float 25s infinite ease-in-out;
+    opacity: 0.15;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.2));
+    animation: float 20s infinite ease-in-out;
 }
 
-/* Colors for shapes - subtle and contrasting on black */
 .triangle {
     width: 0;
     height: 0;
-    border-left: 70px solid transparent;
-    border-right: 70px solid transparent;
-    border-bottom: 140px solid rgba(255, 0, 0, 0.4);
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 260px solid; /* color set by .shape */
     top: 10%;
     left: 15%;
-    animation-duration: 28s;
+    animation-duration: 25s;
     animation-delay: 1s;
-    transform: rotate(20deg);
 }
 
 .square {
-    width: 100px;
-    height: 100px;
-    background-color: rgba(0, 255, 255, 0.4);
-    border-radius: 10%;
-    top: 30%;
+    width: 180px;
+    height: 180px;
+    top: 60%;
     left: 80%;
     animation-duration: 22s;
-    animation-delay: 3s;
-    transform: rotate(-30deg);
+    animation-delay: 2s;
 }
 
 .circle {
-    width: 120px;
-    height: 120px;
-    background-color: rgba(255, 255, 0, 0.4);
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    top: 70%;
-    left: 20%;
-    animation-duration: 26s;
-    animation-delay: 5s;
+    top: 30%;
+    left: 5%;
+    animation-duration: 28s;
+    animation-delay: 0s;
 }
 
 .cross {
-    width: 110px;
-    height: 110px;
-    background-image: linear-gradient(to right, transparent 40%, rgba(0, 255, 0, 0.4) 40%, rgba(0, 255, 0, 0.4) 60%, transparent 60%),
-                      linear-gradient(to bottom, transparent 40%, rgba(0, 255, 0, 0.4) 40%, rgba(0, 255, 0, 0.4) 60%, transparent 60%);
-    top: 50%;
-    left: 50%;
-    animation-duration: 30s;
-    animation-delay: 0s;
-    transform: rotate(15deg);
+    width: 100px;
+    height: 100px;
+    background: transparent;
+    position: relative;
+    top: 80%;
+    left: 30%;
+    transform: rotate(45deg);
+    animation-duration: 20s;
+    animation-delay: 3s;
+}
+
+.cross::before, .cross::after {
+    content: '';
+    position: absolute;
+    background: inherit;
+}
+
+.cross::before {
+    width: 100%;
+    height: 20%;
+    top: 40%;
+    left: 0;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.2));
+}
+
+.cross::after {
+    width: 20%;
+    height: 100%;
+    top: 0;
+    left: 40%;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.2));
 }
 
 @keyframes float {
-    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-    25% { transform: translate(120px, 70px) rotate(90deg) scale(1.05); }
-    50% { transform: translate(0, 140px) rotate(180deg) scale(1); }
-    75% { transform: translate(-120px, 70px) rotate(270deg) scale(0.95); }
-    100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-20px) rotate(5deg); }
+    50% { transform: translateY(0) rotate(0deg); }
+    75% { transform: translateY(20px) rotate(-5deg); }
 }
 
-/* Central Content Wrapper (for layout of main search and sidebar) */
 .central-content-wrapper {
+    background: rgba(33, 33, 33, 0.7); /* Slightly translucent dark gray */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(68, 68, 68, 0.5);
+    border-radius: var(--border-radius-main);
+    box-shadow: 0 8px 32px 0 var(--shadow-color);
+    padding: 40px;
+    text-align: center;
+    max-width: 1200px;
+    width: 90%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Zarovnáme na začátek, aby se obsah tlačil nahoru */
-    align-items: center;
-    gap: 40px;
-    z-index: 1;
-    width: 100%;
-    max-width: 1200px;
-    padding: 40px 20px;
-    box-sizing: border-box;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    transition: background-color 0.4s ease;
+    gap: 20px;
+    z-index: 10; /* Ensure it's above background shapes */
 }
 
-/* Main Search Area (left side) */
+.main-heading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.logo-placeholder {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--text-color);
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .main-search-area {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 25px; /* Mezera mezi sekcemi */
-    flex-grow: 1;
-    width: 100%;
-    max-width: 850px;
-    text-align: center;
-    background-color: transparent;
+    gap: 20px;
 }
 
-/* Main Heading Container s ikonou trofeje */
-.main-heading-container {
-    display: flex;
-    flex-direction: column; /* Trofej nad textem */
-    align-items: center;
-    justify-content: center;
-    gap: 5px; /* Menší mezera mezi ikonou a nadpisem */
-    margin-bottom: 20px;
-}
-
-.trophy-icon {
-    font-size: 7em; /* Velká ikona trofeje */
-    color: var(--gold-trophy-color); /* Zlatá barva */
-    line-height: 1;
-    margin-bottom: 10px; /* Přidáme trochu místa pod trofej */
-}
-
-h1 {
-    color: var(--accent-color);
-    margin: 0;
-    font-size: 3em;
-    letter-spacing: 0.02em;
-    font-weight: 700;
-    word-break: break-word;
-    padding: 0 10px;
-}
-
-/* Search Input Area */
 .search-input-area {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
+    gap: 15px;
+    margin-bottom: 20px;
     justify-content: center;
-    align-items: center;
-    padding: 0 10px;
 }
 
 #gameSearchInput {
-    width: 100%;
-    max-width: 500px;
-    padding: 16px 20px;
+    flex-grow: 1;
+    max-width: 600px;
+    padding: 15px 20px;
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-main);
-    background-color: var(--input-bg);
+    border-radius: var(--border-radius-button);
+    background: var(--input-bg);
     color: var(--input-text-color);
     font-size: 1.1em;
     outline: none;
-    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    box-sizing: border-box;
-    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #gameSearchInput::placeholder {
@@ -232,440 +268,440 @@ h1 {
 
 #gameSearchInput:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
 }
 
-/* Search button next to input */
-#searchBtn {
-    width: 100%;
-    max-width: 500px;
-    background-color: var(--accent-color);
-    color: #ffffff;
-    border: none;
-    padding: 16px 30px;
-    border-radius: var(--border-radius-main);
+.action-button {
+    padding: 15px 30px;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
     font-size: 1.1em;
     font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px var(--shadow-color);
-    white-space: nowrap;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    white-space: nowrap; /* Prevents text from wrapping */
 }
 
-#searchBtn:hover {
-    background-color: color-mix(in srgb, var(--accent-color) 85%, black);
+.action-button:hover {
+    background-color: var(--button-hover-bg);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px var(--shadow-color);
 }
 
-/* Kontejner pro všechny kategorie typů vyhledávání */
-.search-options-grid {
-    display: flex;
-    flex-direction: column; /* Udržuje kategorie nad sebou */
-    gap: 30px; /* Mezera mezi jednotlivými kategoriemi (Main, Advanced, Endings atd.) */
+/* Material Symbols Icons - Ensure they are filled and colored */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 1; /* Makes icons solid instead of outlined */
+    color: inherit; /* Ensure icons inherit text color from parent button/element */
+}
+
+
+/* Search Source Section */
+.search-source-section {
+    background: rgba(33, 33, 33, 0.7);
+    padding: 20px;
+    border-radius: var(--border-radius-main);
+    border: 1px solid rgba(68, 68, 68, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
     width: 100%;
-    max-width: 900px;
-    margin-top: 30px;
-    align-items: center;
-    padding: 0 10px;
     box-sizing: border-box;
 }
 
-/* Sekce pro typy a zdroje vyhledávání */
-.search-type-category, .search-source-section {
-    display: flex;
-    flex-direction: column; /* H3 nad tlačítky */
-    align-items: center;
-    gap: 15px; /* Mezera mezi H3 a tlačítky */
-    width: 100%;
-    text-align: center;
-    padding: 0;
-}
-
-/* Nadpisy H3 v sekcích typů a zdrojů */
-.search-type-category h3, .search-source-section h3 {
+.search-source-section h3,
+.search-type-category h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
     color: var(--text-color);
-    margin-bottom: 0;
     font-size: 1.2em;
     font-weight: 600;
-    opacity: 0.95;
 }
 
-/* Kontejnery pro tlačítka typů - rozložení vedle sebe s obtékáním */
-.search-type-buttons {
-    display: flex;
-    flex-wrap: wrap; /* Tlačítka se budou obtékat do dalšího řádku */
-    justify-content: center; /* Centrování tlačítek v řadě */
-    gap: 7px; /* Mezera mezi tlačítky */
-    width: 100%;
-    max-width: 900px; /* Omezení šířky kontejneru pro lepší kontrolu obtékání */
-}
-
-/* Styly pro samotná tlačítka */
-.search-type-btn, .search-source-btn {
-    background-color: var(--button-bg);
-    color: var(--text-color);
-    border: none;
-    border-radius: var(--border-radius-main);
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: 600;
-    transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out; /* Zkrácená a upravená transition */
-    box-shadow: 0 4px 10px var(--shadow-color);
-
-    width: 130px; /* Pevná šířka pro tlačítko, aby se správně zalomilo */
-    height: 70px; /* Pevná výška */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    text-align: center;
-    flex-shrink: 0;
-    padding: 5px;
-}
-
-/* Odstranění transformace a upravení box-shadow pro hover u všech tlačítek */
-.search-type-btn:hover, .search-source-btn:hover {
-    background-color: var(--button-hover-bg);
-    box-shadow: 0 6px 15px var(--shadow-color); /* Decentnější stín */
-    transform: none; /* Zajistí, že se nic neposune ani nezmění velikost */
-}
-
-
-.search-type-btn.active, .search-source-btn.active {
-    background-color: var(--accent-color);
-    color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4); /* Mírně výraznější, ale ne přehnaný stín */
-    transform: none; /* Zajistí, že se nic neposune ani nezmění velikost */
-    transition: background-color 0.05s ease-out, box-shadow 0.05s ease-out; /* Velmi krátká transition pro aktivní stav */
-}
-
-/* Kontejnery pro tlačítka zdrojů - zůstanou v řadě */
 .search-source-buttons {
     display: flex;
-    flex-wrap: wrap; /* Umožní zalomení, pokud se nevejdou */
+    flex-wrap: wrap;
+    gap: 10px;
     justify-content: center;
-    gap: 7px; /* Mezera mezi tlačítky */
-    width: 100%;
-    max-width: 780px; /* Lze upravit dle potřeby */
 }
 
-/* Styly pro Google Icons */
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48;
-    font-size: 30px;
-    line-height: 1;
-}
-
-.search-type-btn .material-symbols-outlined,
-.search-source-btn .material-symbols-outlined {
-    font-size: 28px;
-    line-height: 1;
-}
-
-
-
-.bottom-fixed-utility .utility-group {
+.search-source-btn {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 15px;
-    color: var(--bottom-bar-actual-text-color);
+    gap: 8px;
+    padding: 12px 20px;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    flex: 1 1 auto; /* Allows buttons to grow and shrink */
+    min-width: 150px; /* Minimum width for buttons */
+    justify-content: center; /* Center content horizontally */
 }
 
-.bottom-fixed-utility .language-selection,
-.bottom-fixed-utility .theme-selection { /* Kept for language, but theme is removed */
+.search-source-btn .material-symbols-outlined {
+    font-size: 1.2em;
+}
+
+.search-source-btn:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-2px);
+}
+
+.search-source-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+/* Style for Main Search Types (row display) */
+.main-types-row {
+    background: rgba(33, 33, 33, 0.7);
+    padding: 20px;
+    border-radius: var(--border-radius-main);
+    border: 1px solid rgba(68, 68, 68, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.main-types-row .search-type-buttons {
     display: flex;
+    flex-wrap: wrap; /* Ponecháno pro responzivitu na menších obrazovkách */
+    gap: 10px;
+    justify-content: center;
+    flex-direction: row;
+}
+.main-types-row .search-type-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: auto; /* Nastav pevnou šířku, nebo ponech min-width pokud chceš, aby se mohla roztáhnout jen o něco více */
+    max-width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+.main-types-row .search-type-btn .material-symbols-outlined {
+    font-size: 1.2em;
+}
+
+.main-types-row .search-type-btn:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-2px);
+}
+
+.main-types-row .search-type-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+/* Search Options Grid for other categories */
+.search-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+    justify-items: center;
+}
+
+.search-type-category {
+    background: rgba(33, 33, 33, 0.7);
+    padding: 20px;
+    border-radius: var(--border-radius-main);
+    border: 1px solid rgba(68, 68, 68, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-type-category h3 {
+    text-align: center;
+}
+
+.search-type-buttons {
+    display: flex;
+    flex-direction: column; /* Default to column for categories in grid */
     gap: 10px;
 }
 
-.bottom-fixed-utility .lang-btn,
-.bottom-fixed-utility .theme-btn { /* theme-btn not used anymore but kept in case */
+.search-type-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
     background-color: var(--button-bg);
-    color: var(--bottom-bar-actual-text-color);
-    border: none;
-    padding: 8px 15px;
-    border-radius: var(--border-radius-button);
-    font-size: 0.9em;
-    font-weight: 400;
-    cursor: pointer;
-    transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out; /* Upravená transition */
-    box-shadow: 0 2px 5px var(--shadow-color);
-}
-
-.bottom-fixed-utility .lang-btn:hover,
-.bottom-fixed-utility .theme-btn:hover {
-    background-color: var(--button-hover-bg);
-    box-shadow: 0 3px 8px var(--shadow-color);
-    transform: none; /* Zajistí, že se nic neposune ani nezmění velikost */
-}
-
-.bottom-fixed-utility .lang-btn.active,
-.bottom-fixed-utility .theme-btn.active {
-    background-color: var(--accent-color);
-    color: #ffffff;
-    box-shadow: 0 1px 4px rgba(0, 123, 255, 0.3);
-    transform: none; /* Zajistí, že se nic neposune ani nezmění velikost */
-    transition: background-color 0.05s ease-out, box-shadow 0.05s ease-out; /* Velmi krátká transition pro aktivní stav */
-}
-
-
-/* Removed color boxes as theme selection is removed */
-/* .color-box {
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
+    color: var(--text-color);
     border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center; /* Align content to the start (left) */
 }
 
-.dark-box {
-    background-color: #000000;
+.search-type-btn .material-symbols-outlined {
+    font-size: 1.1em;
 }
 
-.light-box {
-    background-color: #ffffff;
-} */
-
-/* Footer - removed from bottom-fixed-utility */
-.bottom-fixed-utility .bottom-right-footer {
-    display: none; /* Hide this element as copyright is moved */
+.search-type-btn:hover {
+    background-color: var(--button-hover-bg);
 }
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
+.search-type-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+/* Utility corners */
+.corner-utility-left,
+.corner-utility-right {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 10;
+    margin: 0 40px;
+}
+
+.corner-utility-left {
+    left: 0;
+    align-items: flex-start;
+}
+
+.corner-utility-right {
+    right: 0;
+    align-items: flex-end;
+}
+
+.utility-group {
+    background: rgba(33, 33, 33, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(68, 68, 68, 0.5);
+    border-radius: var(--border-radius-main);
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+.utility-group span {
+    font-weight: 600;
+}
+
+.language-selection,
+.theme-selection {
+    display: flex;
+    gap: 8px;
+}
+
+.lang-btn,
+.theme-btn {
+    padding: 8px 12px;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.lang-btn:hover,
+.theme-btn:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.lang-btn.active,
+.theme-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.copyright-info {
+    font-size: 0.8em;
+    color: var(--placeholder-color);
+    padding: 10px 15px;
+    background: rgba(33, 33, 33, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(68, 68, 68, 0.5);
+    border-radius: var(--border-radius-main);
+}
+
+body.light-theme .copyright-info {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    color: var(--light-placeholder-color);
+}
+
+
+/* Responsive design adjustments */
+@media (max-width: 1024px) {
     .central-content-wrapper {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-        padding: 25px 15px;
-    }
-
-    .main-search-area {
-        max-width: 100%;
-        padding: 0;
+        padding: 30px;
+        width: 95%;
     }
 
     .main-heading-container {
         flex-direction: column;
-        gap: 5px;
-    }
-
-    .trophy-icon {
-        font-size: 5em;
-        margin-bottom: 5px;
-    }
-
-    h1 {
-        font-size: 2.2em;
-        padding: 0;
-    }
-
-    .search-input-area {
-        padding: 0;
-    }
-
-    #gameSearchInput, #searchBtn {
-        max-width: 100%;
+        gap: 10px;
     }
 
     .search-options-grid {
-        gap: 25px;
-        max-width: 100%;
-        padding: 0;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-heading {
+        font-size: 2em;
     }
 
-    .search-type-buttons {
-        gap: 10px; /* Menší mezera na menších obrazovkách */
-        max-width: 100%; /* Umožní využití celé šířky */
+    .logo-placeholder {
+        font-size: 1.5em;
     }
 
-    .search-type-btn {
-        width: calc(33.333% - 10px); /* Tři tlačítka na řádek s mezerami */
-        height: 80px; /* Stejná výška */
-        font-size: 0.85em; /* Mírné zmenšení fontu */
+    .central-content-wrapper {
+        padding: 20px;
     }
 
-    .search-type-btn .material-symbols-outlined {
-        font-size: 25px;
+    .search-input-area {
+        flex-direction: column;
+        align-items: stretch;
     }
 
-    .search-source-buttons {
+    #gameSearchInput {
+        max-width: none;
+    }
+
+    .action-button {
+        width: 100%;
+    }
+
+    .search-source-buttons,
+    .main-types-row .search-type-buttons {
         justify-content: center;
         gap: 8px;
     }
 
-    .bottom-fixed-utility {
-        flex-direction: column;
-        height: auto;
-        padding: 10px 15px;
-        gap: 15px;
+    .search-source-btn,
+    .main-types-row .search-type-btn {
+        min-width: unset;
+        flex: 1 1 45%;
+        font-size: 0.85em;
+        padding: 8px 10px;
     }
 
-    .bottom-fixed-utility .utility-group {
-        flex-direction: column;
+    .search-options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .corner-utility-left,
+    .corner-utility-right {
+        position: static;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 15px auto;
+        padding: 0 20px;
+    }
+
+    .utility-group {
+        flex-direction: row;
+        align-items: center;
         gap: 8px;
+        padding: 8px 12px;
+        font-size: 0.8em;
     }
 
-    .bottom-fixed-utility .language-selection {
-        flex-wrap: wrap;
-        justify-content: center;
+    .lang-btn,
+    .theme-btn {
+        padding: 6px 10px;
+        font-size: 0.75em;
+    }
+
+    .copyright-info {
+        padding: 8px 12px;
+        font-size: 0.7em;
+        text-align: center;
+        width: fit-content;
+        margin: 0 auto 15px auto;
     }
 
     body {
-        padding-bottom: var(--bottom-bar-height); /* Keep padding for the language bar */
+        min-height: unset;
+        padding-bottom: 20px;
+        display: block;
     }
 }
 
-@media (max-width: 600px) { /* Menší telefony */
-    .trophy-icon {
-        font-size: 4em;
-    }
-    h1 {
-        font-size: 1.8em;
-    }
-    h3 {
-        font-size: 0.9em;
-    }
-    .search-input-area {
-        flex-direction: column;
-        gap: 10px;
-    }
-    #searchBtn {
-        width: 100%;
-        padding: 12px 18px;
-        font-size: 1em;
-    }
-    .search-type-btn {
-        width: calc(50% - 10px); /* Dvě tlačítka na řádek s mezerami */
-        height: 70px; /* Zmenšená výška */
-        font-size: 0.75em; /* Ještě menší font */
-        gap: 5px;
-    }
-    .search-type-btn .material-symbols-outlined {
-        font-size: 22px;
+@media (max-width: 480px) {
+    .main-heading-container img {
+        width: 70px;
+        height: 80px;
     }
 
-    .bottom-fixed-utility {
-        height: auto;
-        padding: 10px 10px;
+    .logo-placeholder {
+        font-size: 1.2em;
     }
-}
 
-@media (max-width: 400px) {
-    .trophy-icon {
-        font-size: 3.5em;
-    }
-    h1 {
-        font-size: 1.4em;
-    }
-    #gameSearchInput {
-        padding: 10px 12px;
+    .search-source-btn,
+    .main-types-row .search-type-btn {
+        flex: 1 1 100%;
         font-size: 0.8em;
+        padding: 6px 8px;
     }
-    #searchBtn {
-        padding: 10px 15px;
-        font-size: 0.9em;
-    }
+
     .search-type-btn {
-        width: calc(100% - 10px); /* Jedno tlačítko na řádek na nejmenších telefonech */
-        height: 60px; /* Další zmenšení výšky */
-        font-size: 0.7em;
+        font-size: 0.85em;
+        padding: 8px 10px;
     }
-    .search-type-btn .material-symbols-outlined {
-        font-size: 18px;
+
+    .corner-utility-left,
+    .corner-utility-right {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 10px auto;
+        padding: 0 10px;
     }
-}
 
-/* --- Custom Glassmorphism & Cool 2025 Theme --- */
+    .utility-group {
+        flex-direction: column;
+        gap: 6px;
+        padding: 6px 10px;
+    }
 
-body {
-    font-family: 'Inter', sans-serif;
-}
-
-.glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border-radius: 20px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
-    padding: 50px;
-    margin: 40px auto;
-}
-
-.search-type-btn, .search-source-btn {
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.05);
-    transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out; /* Sjednocená a upravená transition */
-    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Upraveno pro odstranění transformace a upravený box-shadow pro všechna tlačítka při hover */
-.search-type-btn:hover, .search-source-btn:hover {
-    background-color: var(--button-hover-bg); /* Používáme proměnnou pro konzistenci */
-    box-shadow: 0 6px 15px var(--shadow-color); /* Decentnější stín */
-    transform: none; /* Odstranění jakékoliv transformace */
-}
-
-#searchBtn {
-    background: linear-gradient(135deg, #007bff, #00c6ff);
-    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
-    transition: all 0.3s ease;
-}
-
-#searchBtn:hover {
-    transform: scale(1.05); /* Ponecháno pro hlavní vyhledávací tlačítko */
-    background: linear-gradient(135deg, #005eff, #00aaff);
-}
-
-
-
-/* --- RANDOMIZED FUTURISTIC DESIGN --- */
-body {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    background-size: 400% 400%;
-    animation: gradientShift 30s ease infinite;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.logo-placeholder {
-    font-size: 3.5em;
-    font-family: 'Orbitron', sans-serif;
-    color: #00ffff;
-    letter-spacing: 4px;
-    text-shadow: 0 0 15px #00ffff, 0 0 30px #007bff;
-    animation: flicker 3s infinite alternate;
-}
-
-@keyframes flicker {
-    0% { opacity: 1; }
-    45% { opacity: 0.7; }
-    55% { opacity: 0.5; }
-    70% { opacity: 0.9; }
-    100% { opacity: 1; }
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
-
-
-.corner-footer {
-    position: fixed;
-    bottom: 15px;
-    right: 20px;
-    font-size: 0.9em;
-    color: #ffffff;
-    opacity: 0.6;
-    z-index: 10;
-    font-family: 'Inter', sans-serif;
+    .copyright-info {
+        margin-bottom: 10px;
+    }
 }
