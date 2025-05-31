@@ -163,13 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     searchUrl = `https://www.google.com/search?q=${encodeURIComponent(fullSearchTerm)}`;
                     break;
                 case 'psnprofiles':
-                    searchUrl = `https://psnprofiles.com/search/guides?q=${encodeURIComponent(fullSearchTerm)}`;
+                    // For PSNProfiles, only use the game name (query)
+                    searchUrl = `https://psnprofiles.com/search/guides?q=${encodeURIComponent(query)}`;
                     break;
                 case 'powerpyx':
                     searchUrl = `https://www.powerpyx.com/?s=${encodeURIComponent(fullSearchTerm)}`;
                     break;
                 case 'truetrophies':
-                    searchUrl = `https://www.truetrophies.com/search/results?searchtype=Guides&term=${encodeURIComponent(fullSearchTerm)}`;
+                    // For TrueTrophies, only use the game name (query)
+                    searchUrl = `https://www.truetrophies.com/searchresults.aspx?search=${encodeURIComponent(query)}`;
                     break;
                 case 'youtube':
                     searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(fullSearchTerm)}`;
