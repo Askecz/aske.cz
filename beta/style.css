@@ -39,14 +39,13 @@ body {
     min-height: 100vh;
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    overflow-x: hidden; /* Zamezí horizontálnímu scrollu */
-    position: relative; /* Pro absolutní pozicování footeru */
+    overflow-x: hidden;
+    position: relative;
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     background-size: 400% 400%;
     animation: gradientShift 30s ease infinite;
 }
 
-/* --- THEME SPECIFIC STYLES --- */
 body.dark-theme {
     background-color: var(--primary-bg);
     color: var(--text-color);
@@ -54,21 +53,20 @@ body.dark-theme {
 
 .central-content-wrapper {
     width: 90%;
-    max-width: 1200px; /* Zvýšena maximální šířka pro více obsahu */
+    max-width: 1200px;
     padding: 30px;
     border-radius: var(--border-radius-main);
     box-shadow: 0 10px 30px var(--shadow-color);
     z-index: 10;
-    margin: 20px auto; /* Centrování a vertikální odsazení */
+    margin: 20px auto;
 }
 
 .glass-card {
-    background: rgba(46, 46, 46, 0.8); /* Poloprůhledné pozadí */
-    backdrop-filter: blur(10px); /* Efekt rozostření */
+    background: rgba(46, 46, 46, 0.8);
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(68, 68, 68, 0.3);
 }
 
-/* --- BACKGROUND SHAPES --- */
 .background-shapes {
     position: absolute;
     top: 0;
@@ -153,7 +151,6 @@ body.dark-theme {
     100% { transform: translateY(0px) rotate(0deg); }
 }
 
-/* --- MAIN LAYOUT --- */
 .main-search-area {
     display: flex;
     flex-direction: column;
@@ -164,8 +161,8 @@ body.dark-theme {
     text-align: center;
     margin-bottom: 20px;
     display: flex;
-    flex-direction: column; /* Keep column for consistency */
-    align-items: center; /* Centering content */
+    flex-direction: column;
+    align-items: center;
 }
 
 .main-heading {
@@ -180,16 +177,15 @@ body.dark-theme {
     font-size: 2em;
     font-weight: 700;
     color: var(--text-color);
-    margin-top: 10px; /* Space between logo and text */
+    margin-top: 10px;
 }
-
 
 .search-input-area {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px; /* More space below the search field */
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    justify-content: center; /* Center items in the input area */
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #gameSearchInput {
@@ -202,8 +198,8 @@ body.dark-theme {
     font-size: 1em;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    min-width: 200px; /* Minimum input width */
-    max-width: 100%; /* Ensure it doesn't exceed its container */
+    min-width: 200px;
+    max-width: 100%;
 }
 
 #gameSearchInput::placeholder {
@@ -238,10 +234,10 @@ body.dark-theme {
 .search-source-buttons,
 .search-type-buttons {
     display: flex;
-    flex-wrap: wrap; /* Allow button wrapping */
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
-    justify-content: center; /* Center buttons */
+    justify-content: center;
 }
 
 .search-source-btn,
@@ -255,50 +251,47 @@ body.dark-theme {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-button);
     cursor: pointer;
-    font-size: 0.9em; /* Slightly smaller font */
+    font-size: 0.9em;
     font-weight: 600;
     transition: all 0.3s ease;
-    flex: 1 1 auto; /* Flexible button size */
-    min-width: 120px; /* Minimum button width */
-    max-width: 100%; /* Ensure buttons don't overflow */
-    justify-content: center; /* Center button content */
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: 100%;
+    justify-content: center;
 }
 
 .search-source-btn .material-symbols-outlined,
 .search-type-btn .material-symbols-outlined {
-    font-size: 1.2em; /* Slightly smaller icons */
+    font-size: 1.2em;
 }
 
-
+/* ODSTRANĚNÍ EFEKTU PRO AKTIVNÍ TLAČÍTKA */
 .search-source-btn.active,
 .search-type-btn.active {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
-    transform: translateY(-2px);
+    /* box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4); */ /* Odstraněno */
+    /* transform: translateY(-2px); */ /* Odstraněno */
 }
 
-/* GRID for search categories */
 .search-options-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Flexible columns */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
     margin-top: 20px;
-    justify-items: center; /* Center grid items */
+    justify-items: center;
 }
 
 .search-type-category {
-    background: rgba(33, 33, 33, 0.7); /* Darker background for categories */
+    background: rgba(33, 33, 33, 0.7);
     padding: 20px;
     border-radius: var(--border-radius-main);
     border: 1px solid rgba(68, 68, 68, 0.5);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 100%; /* Ensure it takes full width within its grid column */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    width: 100%;
+    box-sizing: border-box;
 }
 
-
-/* --- UTILITY / FOOTER --- */
 .bottom-fixed-utility {
     position: fixed;
     bottom: 0;
@@ -308,26 +301,26 @@ body.dark-theme {
     padding: 10px 20px;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: center; /* Center items */
+    justify-content: center;
     align-items: center;
     z-index: 100;
-    flex-wrap: wrap; /* Allow wrapping */
+    flex-wrap: wrap;
 }
 
 .utility-group {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin: 5px 0; /* Vertical margin for wrapping */
-    flex-wrap: wrap; /* Allow items within group to wrap */
-    justify-content: center; /* Center items within group */
+    margin: 5px 0;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .language-selection {
     display: flex;
     gap: 8px;
-    flex-wrap: wrap; /* Allow language buttons to wrap */
-    justify-content: center; /* Center language buttons */
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .lang-btn {
@@ -347,7 +340,7 @@ body.dark-theme {
 }
 
 .corner-footer {
-    position: static; /* Change to static so it flows with content on all screens */
+    position: static;
     text-align: center;
     margin-top: 20px;
     padding-bottom: 10px;
@@ -356,18 +349,16 @@ body.dark-theme {
     z-index: 101;
 }
 
-/* --- HOVER EFFECTS --- */
-.action-button:hover,
-.search-type-btn:hover,
-.search-source-btn:hover {
-    transform: scale(1.02); /* Slight enlargement */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+/* ODSTRANĚNÍ EFEKTU HOVER PRO VŠECHNA TLAČÍTKA */
+.action-button:hover {
+    /* transform: scale(1.02); */ /* Odstraněno */
+    /* box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); */ /* Odstraněno */
 }
 
 .search-type-btn:hover, .search-source-btn:hover {
-    transform: scale(1.05);
-    background-color: rgba(0, 123, 255, 0.15);
-    box-shadow: 0 12px 20px rgba(0, 123, 255, 0.2);
+    /* transform: scale(1.05); */ /* Odstraněno */
+    /* background-color: rgba(0, 123, 255, 0.15); */ /* Můžeš si nechat nebo odstranit */
+    /* box-shadow: 0 12px 20px rgba(0, 123, 255, 0.2); */ /* Odstraněno */
 }
 
 #searchBtn {
@@ -381,9 +372,6 @@ body.dark-theme {
     background: linear-gradient(135deg, #005eff, #00aaff);
 }
 
-
-
-/* --- RANDOMIZED FUTURISTIC DESIGN --- */
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }

@@ -5,20 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchTypeButtons = document.querySelectorAll('.search-type-btn');
     const searchSourceButtons = document.querySelectorAll('.search-source-btn');
     const langButtons = document.querySelectorAll('.lang-btn');
-    // const themeButtons = document.querySelectorAll('.theme-btn'); // Removed theme buttons
     const searchButton = document.getElementById('searchBtn');
 
     let currentSearchTerm = 'Trophy Guide'; // Výchozí vyhledávací termín
     let currentLanguage = 'en'; // Výchozí jazyk
-    // let currentTheme = 'dark'; // Removed theme variable
 
-    // Object for translations
     const translations = {
+        // ... (zde ponecháme stávající překlady beze změny)
         en: {
             pageTitle: "PLAYSTATION TROPHY SEARCH",
             mainHeading: "PLAYSTATION TROPHY SEARCH",
             searchInputPlaceholder: "Enter game title or trophy name...",
-            selectSearchSource: "Select Search Source:", // Změněno z selectSearchType na selectSearchSource
+            selectSearchSource: "Select Search Source:",
             searchButtonText: "Search",
             mainTypesHeading: "Main Search Types:",
             guideBtn: "Trophy Guide",
@@ -76,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pageTitle: "Vyhledávač PlayStation trofejí",
             mainHeading: "Vyhledávač PlayStation trofejí",
             searchInputPlaceholder: "Zadejte název hry nebo trofeje...",
-            selectSearchSource: "Vyberte zdroj hledání:", // Změněno z selectSearchType na selectSearchSource
+            selectSearchSource: "Vyberte zdroj hledání:",
             searchButtonText: "Vyhledat",
             mainTypesHeading: "Hlavní typy hledání:",
             guideBtn: "Průvodce trofejemi",
@@ -143,117 +141,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let fullSearchTerm = currentSearchTerm;
 
-        // Speciální úpravy pro YouTube URL
+        // Logika pro YouTube
         if (source === 'youtube') {
-            switch (currentSearchTerm) {
-                case "Trophy Guide":
-                case "Roadmap":
-                case "Full Map":
-                case "All collectibles":
-                case "All puzzles":
-                case "All challenges":
-                case "Speedrun":
-                case "All bosses":
-                case "All minigames":
-                case "Hardest difficulty run":
-                case "All main quest":
-                case "All side quest":
-                case "All secrets":
-                case "All endings":
-                case "Good ending":
-                case "Bad ending":
-                case "Secret ending":
-                case "All characters":
-                case "All weapon upgrade":
-                case "All character upgrades":
-                case "All ability upgrades":
-                case "All health upgrades":
-                case "All energy upgrades":
-                case "All costumes": // Tyto termíny se přidají k dotazu beze změny
-                case "All skins":
-                case "All diaries":
-                case "All musics":
-                case "All audio logs":
-                case "All recordings":
-                case "All statues": // Tyto termíny se přidají k dotazu beze změny
-                case "All pictures":
-                case "All documents":
-                case "All photos":
-                case "All treasures":
-                case "All intel":
-                case "All echos":
-                case "All relics":
-                case "All fish":
-                case "All animals":
-                case "All keys":
-                case "All blueprints":
-                case "All emails":
-                    break;
-                default:
-                    // Pro ostatní případy přidáme "Trophy" k YouTube vyhledávání, pokud není explicitně specifikováno
-                    fullSearchTerm = currentSearchTerm + " Trophy";
-                    break;
-            }
-            url = `https://www.youtube.com/results?search_query=${encodeURIComponent(query + ' ' + fullSearchTerm)}`; // Správná YouTube URL
-        } else { // Standardní Google a ostatní zdroje
-            switch (currentSearchTerm) {
-                // Případy, kde chceme, aby se termín přidal k dotazu
-                case "Trophy Guide":
-                case "Roadmap":
-                case "Full Map":
-                case "All collectibles":
-                case "All puzzles":
-                case "All challenges":
-                case "Speedrun":
-                case "All bosses":
-                case "All minigames":
-                case "Hardest difficulty run":
-                case "All main quest":
-                case "All side quest":
-                case "All secrets":
-                case "All endings":
-                case "Good ending":
-                case "Bad ending":
-                case "Secret ending":
-                case "All characters":
-                case "All weapon upgrade":
-                case "All character upgrades":
-                case "All ability upgrades":
-                case "All health upgrades":
-                case "All energy upgrades":
-                case "All costumes":
-                case "All skins":
-                case "All diaries":
-                case "All musics":
-                case "All audio logs":
-                case "All recordings":
-                case "All statues":
-                case "All pictures":
-                case "All documents":
-                case "All photos":
-                case "All treasures":
-                case "All intel":
-                case "All echos":
-                case "All relics":
-                case "All fish":
-                case "All animals":
-                case "All keys":
-                case "All blueprints":
-                case "All emails":
-                    url = `https://www.google.com/search?q=${encodeURIComponent(query + ' ' + fullSearchTerm)}`;
-                    break;
-                default:
-                    // Pro PSNProfiles, PowerPyx, TrueTrophies nepoužíváme currentSearchTerm v URL
-                    if (source === 'psnprofiles') {
-                        url = `https://psnprofiles.com/search/games?q=${encodeURIComponent(query)}`;
-                    } else if (source === 'powerpyx') {
-                        url = `https://www.powerpyx.com/?s=${encodeURIComponent(query)}`;
-                    } else if (source === 'truetrophies') {
-                        url = `https://www.truetrophies.com/searchresults.aspx?search=${encodeURIComponent(query)}`;
-                    } else { // Fallback na Google s Trophy, pokud není jiný termín
-                        url = `https://www.google.com/search?q=${encodeURIComponent(query + ' Trophy')}`;
-                    }
-                    break;
+            // Zde byly speciální úpravy pro YouTube URL
+            // Opravujeme chybu v URL: `https://www.youtube.com/results?search_query=${encodeURIComponent(query + ' ' + fullSearchTerm)}`;
+            // Správně by to mělo být přímo URL pro YouTube vyhledávání
+            url = `https://www.youtube.com/results?search_query=${encodeURIComponent(query + ' ' + fullSearchTerm)}`;
+        } else if (source === 'psnprofiles') {
+            url = `https://psnprofiles.com/search/games?q=${encodeURIComponent(query)}`;
+        } else if (source === 'powerpyx') {
+            url = `https://www.powerpyx.com/?s=${encodeURIComponent(query)}`;
+        } else if (source === 'truetrophies') {
+            url = `https://www.truetrophies.com/searchresults.aspx?search=${encodeURIComponent(query)}`;
+        } else { // Standardní Google a ostatní zdroje (včetně default pro google)
+            // Zde necháme původní logiku, kde se currentSearchTerm přidává k dotazu,
+            // nebo se použije 'Trophy' pokud není jiný termín
+            if (currentSearchTerm && currentSearchTerm !== 'Trophy Guide') { // Upraveno, aby se Trophy Guide nepřidával duplicitně
+                url = `https://www.google.com/search?q=${encodeURIComponent(query + ' ' + fullSearchTerm)}`;
+            } else {
+                url = `https://www.google.com/search?q=${encodeURIComponent(query + ' Trophy')}`;
             }
         }
         window.open(url, '_blank');
@@ -266,158 +172,62 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
                     element.setAttribute('placeholder', translations[lang][key]);
                 } else if (element.tagName === 'SPAN' || element.tagName === 'BUTTON' || element.tagName === 'H1' || element.tagName === 'H3') {
-                    if (element.classList.contains('color-box')) { // Přeskočí span s třídou color-box
+                    if (element.classList.contains('color-box')) {
                         return;
                     }
-                    // Překládá text, ale pokud je to ikona, změní její textContent na název ikony
                     if (element.classList.contains('material-symbols-outlined')) {
                         const button = element.closest('.search-type-btn, .search-source-btn');
                         if (button) {
-                            const searchTerm = button.dataset.searchTerm || button.dataset.source; // Použijeme dataset.source pro zdrojová tlačítka
+                            const searchTerm = button.dataset.searchTerm || button.dataset.source;
                             switch (searchTerm) {
-                                case 'Trophy Guide':
-                                    element.textContent = 'military_tech';
-                                    break;
-                                case 'Roadmap':
-                                    element.textContent = 'map';
-                                    break;
-                                case 'Full Map':
-                                    element.textContent = 'satellite';
-                                    break;
-                                case 'All collectibles':
-                                    element.textContent = 'diamond';
-                                    break;
-                                case 'All puzzles':
-                                    element.textContent = 'extension';
-                                    break;
-                                case 'All challenges':
-                                    element.textContent = 'sports_martial_arts';
-                                    break;
-                                case 'Speedrun':
-                                    element.textContent = 'timer';
-                                    break;
-                                case 'All bosses':
-                                    element.textContent = 'skull';
-                                    break;
-                                case 'All minigames':
-                                    element.textContent = 'casino';
-                                    break;
-                                case 'Hardest difficulty run':
-                                    element.textContent = 'gpp_bad';
-                                    break;
-                                case 'All main quest':
-                                    element.textContent = 'auto_stories';
-                                    break;
-                                case 'All side quest':
-                                    element.textContent = 'menu_book';
-                                    break;
-                                case 'All secrets':
-                                    element.textContent = 'visibility_off';
-                                    break;
-                                case 'All endings':
-                                    element.textContent = 'movie_filter';
-                                    break;
-                                case 'Good ending':
-                                    element.textContent = 'sentiment_satisfied';
-                                    break;
-                                case 'Bad ending':
-                                    element.textContent = 'sentiment_dissatisfied';
-                                    break;
-                                case 'Secret ending':
-                                    element.textContent = 'encrypted';
-                                    break;
-                                case 'All characters':
-                                    element.textContent = 'person';
-                                    break;
-                                case 'All weapon upgrade':
-                                    element.textContent = 'swords';
-                                    break;
-                                case 'All character upgrades':
-                                    element.textContent = 'person_add';
-                                    break;
-                                case 'All ability upgrades':
-                                    element.textContent = 'neurology';
-                                    break;
-                                case 'All health upgrades':
-                                    element.textContent = 'favorite';
-                                    break;
-                                case 'All energy upgrades':
-                                    element.textContent = 'battery_charging_full';
-                                    break;
-                                case 'All costumes':
-                                    element.textContent = 'apparel'; // Změněno na 'apparel'
-                                    break;
-                                case 'All skins':
-                                    element.textContent = 'layers';
-                                    break;
-                                case 'All diaries':
-                                    element.textContent = 'book';
-                                    break;
-                                case 'All musics':
-                                    element.textContent = 'music_note';
-                                    break;
-                                case 'All audio logs':
-                                    element.textContent = 'audiotrack';
-                                    break;
-                                case 'All recordings':
-                                    element.textContent = 'mic';
-                                    break;
-                                case 'All statues':
-                                    element.textContent = 'sculpture'; // Změněno na 'sculpture'
-                                    break;
-                                case 'All pictures':
-                                    element.textContent = 'image';
-                                    break;
-                                case 'All documents':
-                                    element.textContent = 'description';
-                                    break;
-                                case 'All photos':
-                                    element.textContent = 'camera';
-                                    break;
-                                case 'All treasures':
-                                    element.textContent = 'diamond';
-                                    break;
-                                case 'All intel':
-                                    element.textContent = 'lightbulb';
-                                    break;
-                                case 'All echos':
-                                    element.textContent = 'spatial_audio';
-                                    break;
-                                case 'All relics':
-                                    element.textContent = 'bookmark';
-                                    break;
-                                case 'All fish':
-                                    element.textContent = 'phishing';
-                                    break;
-                                case 'All animals':
-                                    element.textContent = 'pets';
-                                    break;
-                                case 'All keys':
-                                    element.textContent = 'key';
-                                    break;
-                                case 'All blueprints':
-                                    element.textContent = 'widgets';
-                                    break;
-                                case 'All emails':
-                                    element.textContent = 'email';
-                                    break;
-                                case 'google':
-                                    element.textContent = 'travel_explore';
-                                    break;
-                                case 'psnprofiles':
-                                    element.textContent = 'sports_esports';
-                                    break;
-                                case 'powerpyx':
-                                    element.textContent = 'star';
-                                    break;
-                                case 'truetrophies':
-                                    element.textContent = 'verified';
-                                    break;
-                                case 'youtube':
-                                    element.textContent = 'play_circle';
-                                    break;
-                                default:
-                                    break;
+                                case 'Trophy Guide': element.textContent = 'military_tech'; break;
+                                case 'Roadmap': element.textContent = 'map'; break;
+                                case 'Full Map': element.textContent = 'satellite'; break;
+                                case 'All collectibles': element.textContent = 'diamond'; break;
+                                case 'All puzzles': element.textContent = 'extension'; break;
+                                case 'All challenges': element.textContent = 'sports_martial_arts'; break;
+                                case 'Speedrun': element.textContent = 'timer'; break;
+                                case 'All bosses': element.textContent = 'skull'; break;
+                                case 'All minigames': element.textContent = 'casino'; break;
+                                case 'Hardest difficulty run': element.textContent = 'gpp_bad'; break;
+                                case 'All main quest': element.textContent = 'auto_stories'; break;
+                                case 'All side quest': element.textContent = 'menu_book'; break;
+                                case 'All secrets': element.textContent = 'visibility_off'; break;
+                                case 'All endings': element.textContent = 'movie_filter'; break;
+                                case 'Good ending': element.textContent = 'sentiment_satisfied'; break;
+                                case 'Bad ending': element.textContent = 'sentiment_dissatisfied'; break;
+                                case 'Secret ending': element.textContent = 'encrypted'; break;
+                                case 'All characters': element.textContent = 'person'; break;
+                                case 'All weapon upgrade': element.textContent = 'swords'; break;
+                                case 'All character upgrades': element.textContent = 'person_add'; break;
+                                case 'All ability upgrades': element.textContent = 'neurology'; break;
+                                case 'All health upgrades': element.textContent = 'favorite'; break;
+                                case 'All energy upgrades': element.textContent = 'battery_charging_full'; break;
+                                case 'All costumes': element.textContent = 'apparel'; break;
+                                case 'All skins': element.textContent = 'layers'; break;
+                                case 'All diaries': element.textContent = 'book'; break;
+                                case 'All musics': element.textContent = 'music_note'; break;
+                                case 'All audio logs': element.textContent = 'audiotrack'; break;
+                                case 'All recordings': element.textContent = 'mic'; break;
+                                case 'All statues': element.textContent = 'sculpture'; break;
+                                case 'All pictures': element.textContent = 'image'; break;
+                                case 'All documents': element.textContent = 'description'; break;
+                                case 'All photos': element.textContent = 'camera'; break;
+                                case 'All treasures': element.textContent = 'diamond'; break;
+                                case 'All intel': element.textContent = 'lightbulb'; break;
+                                case 'All echos': element.textContent = 'spatial_audio'; break;
+                                case 'All relics': element.textContent = 'bookmark'; break;
+                                case 'All fish': element.textContent = 'phishing'; break;
+                                case 'All animals': element.textContent = 'pets'; break;
+                                case 'All keys': element.textContent = 'key'; break;
+                                case 'All blueprints': element.textContent = 'widgets'; break;
+                                case 'All emails': element.textContent = 'email'; break;
+                                case 'google': element.textContent = 'travel_explore'; break;
+                                case 'psnprofiles': element.textContent = 'sports_esports'; break;
+                                case 'powerpyx': element.textContent = 'star'; break;
+                                case 'truetrophies': element.textContent = 'verified'; break;
+                                case 'youtube': element.textContent = 'play_circle'; break;
+                                default: break;
                             }
                         } else if (element.classList.contains('trophy-icon')) {
                             element.textContent = 'trophy';
@@ -430,23 +240,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-        // Speciální nastavení textu pro tlačítka jazyka, aby se nepřekládaly samy sebou
         document.querySelector('.lang-btn[data-lang="en"]').textContent = "ENG";
         document.querySelector('.lang-btn[data-lang="cs"]').textContent = "CS";
     }
 
-    // function applyTheme(theme) { // Removed theme function
-    //     document.body.classList.remove('dark-theme', 'light-theme');
-    //     document.body.classList.add(`${theme}-theme`);
-    // }
-
     // --- Initial Setup ---
-    // Načtení jazyka z localStorage
     const savedLanguage = localStorage.getItem('selectedLanguage');
     if (savedLanguage && translations[savedLanguage]) {
         currentLanguage = savedLanguage;
     } else {
-        currentLanguage = 'en'; // Výchozí je angličtina
+        currentLanguage = 'en';
         localStorage.setItem('selectedLanguage', currentLanguage);
     }
     langButtons.forEach(btn => {
@@ -456,29 +259,9 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.remove('active');
         }
     });
-    applyTranslations(currentLanguage); // Volání applyTranslations po načtení jazyka
+    applyTranslations(currentLanguage);
 
-    // Načtení motivu z localStorage - NOT NEEDED ANYMORE, SET TO DARK BY DEFAULT IN HTML
-    // const savedTheme = localStorage.getItem('selectedTheme');
-    // if (savedTheme) {
-    //     currentTheme = savedTheme;
-    // } else {
-    //     currentTheme = 'dark'; // Výchozí je tmavý
-    //     localStorage.setItem('selectedTheme', currentTheme);
-    // }
-    // applyTheme(currentTheme);
-    // themeButtons.forEach(btn => {
-    //     if (btn.dataset.theme === currentTheme) {
-    //         btn.classList.add('active');
-    //     } else {
-    //         btn.classList.remove('active');
-    //     }
-    // });
-
-    // Nastavení výchozího aktivního tlačítka pro typ hledání (Trophy Guide) a zdroj (Google)
     document.querySelector('.search-type-btn[data-search-term="Trophy Guide"]').classList.add('active');
-    // Toto je nyní nastaveno přímo v HTML pro 'google'
-    // document.querySelector('.search-source-btn.google').classList.add('active'); 
 
     // --- Event Listeners ---
     langButtons.forEach(button => {
@@ -491,23 +274,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Removed theme button event listener
-    // themeButtons.forEach(button => {
-    //     button.addEventListener('click', () => {
-    //         themeButtons.forEach(btn => btn.classList.remove('active'));
-    //         button.classList.add('active');
-    //         currentTheme = button.dataset.theme;
-    //         localStorage.setItem('selectedTheme', currentTheme);
-    //         applyTheme(currentTheme);
-    //     });
-    // });
-
     searchTypeButtons.forEach(button => {
         button.addEventListener('click', () => {
             searchTypeButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             currentSearchTerm = button.dataset.searchTerm;
-            applyTranslations(currentLanguage); // Zajišťuje, že ikony a texty jsou aktuální
+            applyTranslations(currentLanguage);
         });
     });
 
@@ -515,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             searchSourceButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            // Zde není potřeba měnit currentSearchTerm, jen aktivní zdroj
         });
     });
 
