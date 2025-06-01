@@ -35,7 +35,8 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Changed to column for footer at bottom */
+    justify-content: space-between; /* Pushes content to top, footer to bottom */
     align-items: center;
     min-height: 100vh;
     background-color: var(--primary-bg);
@@ -43,6 +44,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
     position: relative;
+    padding-bottom: 20px; /* Adjusted padding for static footer */
 }
 
 /* Light theme specific styles */
@@ -51,15 +53,23 @@ body.light-theme {
     color: var(--light-text-color); /* Set main text color for light theme */
 }
 
-body.light-theme .central-content-wrapper,
-body.light-theme .corner-utility-left .utility-group,
-body.light-theme .corner-utility-right .utility-group {
+body.light-theme .central-content-wrapper {
     background: rgba(255, 255, 255, 0.7); /* Slightly translucent white */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(200, 200, 200, 0.5);
     box-shadow: 0 8px 32px 0 var(--light-shadow-color);
 }
+
+/* Updated: Make footer-utility-group transparent in light theme */
+body.light-theme .footer-utility-group {
+    background: transparent; /* Changed to transparent */
+    backdrop-filter: none; /* Remove blur for transparency */
+    -webkit-backdrop-filter: none;
+    border: none; /* Remove border for transparency */
+    box-shadow: none; /* Remove shadow for transparency */
+}
+
 
 body.light-theme .search-type-category,
 body.light-theme .search-source-section,
@@ -115,7 +125,7 @@ body.light-theme .theme-btn.active {
 body.light-theme .logo-placeholder,
 body.light-theme .search-source-section h3,
 body.light-theme .search-type-category h3,
-body.light-theme .utility-group span,
+body.light-theme .footer-utility-group span, /* Updated selector for footer utility group span */
 body.light-theme .copyright-info,
 body.light-theme .search-history-container h3, /* Added for history heading */
 body.light-theme .history-item, /* History item text line */
@@ -248,6 +258,8 @@ body.light-theme .icon-button {
     flex-direction: column;
     gap: 20px;
     z-index: 10; /* Ensure it's above background shapes */
+    margin-top: 20px; /* Add margin to top to prevent overlap with potential header */
+    margin-bottom: 20px; /* Adjusted margin to accommodate static footer */
 }
 
 .main-heading-container {
@@ -685,44 +697,48 @@ body.light-theme .search-type-btn.disabled-button {
 }
 
 
-/* Utility corners */
-.corner-utility-left,
-.corner-utility-right {
-    position: absolute;
-    bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 10;
-    margin: 0 40px;
-}
-
-.corner-utility-left {
-    left: 0;
-    align-items: flex-start;
-}
-
-.corner-utility-right {
-    right: 0;
-    align-items: flex-end;
-}
-
-.utility-group {
-    background: rgba(33, 33, 33, 0.7);
+/* New Footer Styles */
+.app-footer {
+    position: static; /* Changed to static for all screen sizes */
+    width: 100%;
+    background: rgba(33, 33, 33, 0.7); /* Glassmorphism background */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(68, 68, 68, 0.5);
-    border-radius: var(--border-radius-main);
-    padding: 10px 15px;
+    border-top: 1px solid rgba(68, 68, 68, 0.5); /* Top border */
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3); /* Shadow at the top */
+    padding: 15px 20px;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
-    color: var(--text-color);
-    font-size: 0.9em;
+    justify-content: center; /* Center items horizontally */
+    align-items: center;
+    gap: 20px; /* Space between footer elements */
+    z-index: 20; /* Ensure it's above other content */
+    box-sizing: border-box; /* Include padding in width */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    margin-top: auto; /* Push footer to the bottom when content is short */
 }
 
-.utility-group span {
+body.light-theme .app-footer {
+    background: rgba(255, 255, 255, 0.7);
+    border-top: 1px solid rgba(200, 200, 200, 0.5);
+    box-shadow: 0 -4px 15px var(--light-shadow-color);
+}
+
+.footer-utility-group {
+    display: flex;
+    flex-direction: row; /* Arrange items in a row */
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+    font-size: 0.9em;
+    background: rgba(33, 33, 33, 0.7); /* Added background for dark theme */
+    backdrop-filter: blur(8px); /* Added blur for dark theme */
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(68, 68, 68, 0.5); /* Added border for dark theme */
+    border-radius: var(--border-radius-main); /* Added border-radius for dark theme */
+    padding: 10px 15px; /* Added padding for dark theme */
+}
+
+.footer-utility-group span {
     font-weight: 600;
 }
 
@@ -758,20 +774,24 @@ body.light-theme .search-type-btn.disabled-button {
     color: #ffffff;
 }
 
+.toplist-container {
+    /* No specific styles needed here, as it's just a container for the script */
+}
+
 .copyright-info {
     font-size: 0.8em;
     color: var(--placeholder-color);
-    padding: 10px 15px;
-    background: rgba(33, 33, 33, 0.7);
-    backdrop-filter: blur(8px);
+    background: rgba(33, 33, 33, 0.7); /* Added background for dark theme */
+    backdrop-filter: blur(8px); /* Added blur for dark theme */
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(68, 68, 68, 0.5);
-    border-radius: var(--border-radius-main);
+    border: 1px solid rgba(68, 68, 68, 0.5); /* Added border for dark theme */
+    border-radius: var(--border-radius-main); /* Added border-radius for dark theme */
+    padding: 10px 15px; /* Added padding for dark theme */
 }
 
 body.light-theme .copyright-info {
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(200, 200, 200, 0.5);
+    background: rgba(255, 255, 255, 0.7); /* Set background for light theme */
+    border: 1px solid rgba(200, 200, 200, 0.5); /* Set border for light theme */
     color: var(--light-placeholder-color);
 }
 
@@ -839,23 +859,16 @@ body.light-theme .copyright-info {
         grid-template-columns: 1fr;
     }
 
-    .corner-utility-left,
-    .corner-utility-right {
-        position: static;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-        box-sizing: border-box;
-        margin: 15px auto;
-        padding: 0 20px;
+    .app-footer {
+        flex-direction: column; /* Stack footer items vertically on small screens */
+        gap: 10px;
+        padding: 10px 15px;
     }
 
-    .utility-group {
-        flex-direction: row;
+    .footer-utility-group {
+        flex-direction: column; /* Stack language/theme selector and buttons */
         align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        font-size: 0.8em;
+        gap: 6px;
     }
 
     .lang-btn,
@@ -866,17 +879,16 @@ body.light-theme .copyright-info {
     }
 
     .copyright-info {
-        padding: 8px 12px;
         font-size: 0.7em;
         text-align: center;
         width: fit-content;
-        margin: 0 auto 15px auto;
+        margin: 0; /* Remove auto margin from copyright info in footer */
     }
 
     body {
         min-height: unset;
-        padding-bottom: 20px;
-        display: block;
+        padding-bottom: 20px; /* Adjusted padding for static footer */
+        display: flex; /* Keep flex display for column layout */
     }
 
     /* History on small screens */
@@ -933,23 +945,17 @@ body.light-theme .copyright-info {
         width: auto; /* Ensure width adapts to content */
     }
 
-    .corner-utility-left,
-    .corner-utility-right {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        margin: 10px auto;
-        padding: 0 10px;
+    .app-footer {
+        padding: 8px 10px;
+        gap: 8px;
     }
 
-    .utility-group {
-        flex-direction: column;
+    .footer-utility-group {
         gap: 6px;
-        padding: 6px 10px;
     }
 
     .copyright-info {
-        margin-bottom: 10px;
+        margin-bottom: 0;
     }
 
     .history-item {
