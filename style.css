@@ -468,8 +468,10 @@ body.light-theme .icon-button {
 
 .search-type-buttons {
     display: flex;
-    flex-direction: column; /* Default to column for categories in grid */
+    flex-wrap: wrap; /* Added to allow buttons to wrap */
     gap: 10px;
+    justify-content: center; /* Added to center buttons */
+    flex-direction: row; /* Explicitly set to row for all sizes */
 }
 
 .search-type-btn {
@@ -956,4 +958,21 @@ body.light-theme .copyright-info {
     .history-research-btn .button-text {
         display: none; /* Hide text on smallest screens for re-search button */
     }
+}
+/* Autocomplete styl */
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: var(--input-bg);
+    color: var(--input-text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    font-size: 1em;
+    z-index: 9999 !important;
+}
+.ui-menu-item-wrapper {
+    padding: 8px 10px;
+}
+.ui-state-active {
+    background-color: var(--accent-color);
 }

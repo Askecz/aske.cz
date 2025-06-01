@@ -1,6 +1,24 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', () => {
+$(function () {
+    $("#gameSearchInput").autocomplete({
+        source: function (request, response) {
+            fetch(`https://api.rawg.io/api/games?key=1af360dc5bc546a39fd737f81daf8df1&search=${encodeURIComponent(request.term)}&page_size=10`)
+                .then(res => res.json())
+                .then(data => {
+                    const titles = data.results.map(game => game.name);
+                    response(titles);
+                })
+                .catch(err => {
+                    console.error("RAWG API chyba:", err);
+                    response([]);
+                });
+        },
+        minLength: 2
+    });
+});
+
     const gameSearchInput = document.getElementById('gameSearchInput');
     const searchTypeButtons = document.querySelectorAll('.search-type-btn');
     const searchSourceButtons = document.querySelectorAll('.search-source-btn');
