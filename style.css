@@ -43,6 +43,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
     position: relative;
+    padding-bottom: 50px; /* Add space for copyright at bottom */
 }
 
 /* Light theme specific styles */
@@ -51,15 +52,22 @@ body.light-theme {
     color: var(--light-text-color); /* Set main text color for light theme */
 }
 
-body.light-theme .central-content-wrapper,
-body.light-theme .corner-utility-left .utility-group,
-body.light-theme .corner-utility-right .utility-group {
+body.light-theme .central-content-wrapper {
     background: rgba(255, 255, 255, 0.7); /* Slightly translucent white */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(200, 200, 200, 0.5);
     box-shadow: 0 8px 32px 0 var(--light-shadow-color);
 }
+
+body.light-theme .utility-group {
+    background: rgba(255, 255, 255, 0.7); /* Slightly translucent white */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    box-shadow: 0 8px 32px 0 var(--light-shadow-color);
+}
+
 
 body.light-theme .search-type-category,
 body.light-theme .search-source-section,
@@ -116,7 +124,7 @@ body.light-theme .logo-placeholder,
 body.light-theme .search-source-section h3,
 body.light-theme .search-type-category h3,
 body.light-theme .utility-group span,
-body.light-theme .copyright-info,
+body.light-theme .background-copyright-info, /* Updated for new position */
 body.light-theme .search-history-container h3, /* Added for history heading */
 body.light-theme .history-item, /* History item text line */
 body.light-theme .history-item .history-label, /* History labels */
@@ -248,6 +256,34 @@ body.light-theme .icon-button {
     flex-direction: column;
     gap: 20px;
     z-index: 10; /* Ensure it's above background shapes */
+    position: relative; /* Needed for absolute positioning of children */
+    padding-top: 80px; /* Add padding for elements at the top */
+}
+
+/* New positioning for utility elements inside central-content-wrapper */
+.top-left-utility,
+.top-right-utility,
+.top-center-utility {
+    position: absolute;
+    z-index: 11; /* Above other content in main wrapper */
+}
+
+.top-left-utility {
+    top: 20px;
+    left: 20px;
+}
+
+.top-right-utility {
+    top: 20px;
+    right: 20px;
+}
+
+.top-center-utility {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
 }
 
 .main-heading-container {
@@ -312,6 +348,7 @@ body.light-theme .icon-button {
     font-weight: 400;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
     white-space: nowrap; /* Prevents text from wrapping */
+    width: auto; /* Allow width to adjust to content */
 }
 
 .action-button:hover {
@@ -368,8 +405,9 @@ body.light-theme .icon-button {
     font-size: 1em;
     font-weight: 500;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-    flex: 1 1 auto; /* Allows buttons to grow and shrink */
-    min-width: 150px; /* Minimum width for buttons */
+    flex: 0 1 auto; /* Allows buttons to shrink and grow based on content */
+    min-width: unset; /* Remove minimum width */
+    width: auto; /* Ensure width adapts to content */
     justify-content: center; /* Center content horizontally */
 }
 
@@ -412,7 +450,7 @@ body.light-theme .icon-button {
     display: flex;
     align-items: center;
     gap: 8px;
-    width: auto; /* Nastav pevnou šířku, nebo ponech min-width pokud chceš, aby se mohla roztáhnout jen o něco více */
+    width: auto; /* Set width to auto to fit content */
     max-width: 100%;
     justify-content: center;
     padding: 12px 20px;
@@ -483,7 +521,7 @@ body.light-theme .icon-button {
     font-size: 0.95em;
     font-weight: 500;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-    width: 100%;
+    width: auto; /* Allow width to adjust to content */
     box-sizing: border-box;
     justify-content: center; /* Align content to the start (left) */
 }
@@ -650,6 +688,7 @@ body.light-theme .search-type-btn.disabled-button {
     font-weight: 500;
     transition: background-color 0.3s ease;
     white-space: nowrap;
+    width: auto; /* Ensure width adapts to content */
 }
 
 .history-research-btn:hover {
@@ -672,6 +711,7 @@ body.light-theme .search-type-btn.disabled-button {
     align-items: center;
     justify-content: center;
     transition: color 0.3s ease;
+    width: auto; /* Ensure width adapts to content */
 }
 
 .history-delete-btn:hover {
@@ -679,28 +719,7 @@ body.light-theme .search-type-btn.disabled-button {
 }
 
 
-/* Utility corners */
-.corner-utility-left,
-.corner-utility-right {
-    position: absolute;
-    bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 10;
-    margin: 0 40px;
-}
-
-.corner-utility-left {
-    left: 0;
-    align-items: flex-start;
-}
-
-.corner-utility-right {
-    right: 0;
-    align-items: flex-end;
-}
-
+/* Utility groups general styles (for language/theme selectors) */
 .utility-group {
     background: rgba(33, 33, 33, 0.7);
     backdrop-filter: blur(8px);
@@ -737,6 +756,7 @@ body.light-theme .search-type-btn.disabled-button {
     font-size: 0.9em;
     font-weight: 500;
     transition: background-color 0.3s ease;
+    width: auto; /* Ensure width adapts to content */
 }
 
 .lang-btn:hover,
@@ -751,20 +771,33 @@ body.light-theme .search-type-btn.disabled-button {
     color: #ffffff;
 }
 
-.copyright-info {
-    font-size: 0.8em;
-    color: var(--placeholder-color);
-    padding: 10px 15px;
-    background: rgba(33, 33, 33, 0.7);
+/* Toplist container new position */
+.toplist-container {
+    padding: 10px 15px; /* Add padding to match utility groups */
+    background: rgba(33, 33, 33, 0.7); /* Background for glass effect */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(68, 68, 68, 0.5);
     border-radius: var(--border-radius-main);
 }
-
-body.light-theme .copyright-info {
+body.light-theme .toplist-container {
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid rgba(200, 200, 200, 0.5);
+}
+
+
+/* Copyright info moved to the very bottom of the page, on the background */
+.background-copyright-info {
+    position: absolute;
+    bottom: 10px; /* Distance from bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    color: var(--placeholder-color);
+    text-align: center;
+    z-index: 5; /* Below main wrapper, above background shapes */
+}
+body.light-theme .background-copyright-info {
     color: var(--light-placeholder-color);
 }
 
@@ -774,6 +807,7 @@ body.light-theme .copyright-info {
     .central-content-wrapper {
         padding: 30px;
         width: 95%;
+        padding-top: 80px; /* Maintain padding for top elements */
     }
 
     .main-heading-container {
@@ -798,6 +832,7 @@ body.light-theme .copyright-info {
 
     .central-content-wrapper {
         padding: 20px;
+        padding-top: 80px; /* Maintain padding for top elements */
     }
 
     .search-input-area {
@@ -810,7 +845,7 @@ body.light-theme .copyright-info {
     }
 
     .action-button {
-        width: 100%;
+        width: auto; /* Adjust for responsiveness */
     }
 
     .search-source-buttons,
@@ -821,25 +856,34 @@ body.light-theme .copyright-info {
 
     .search-source-btn,
     .main-types-row .search-type-btn {
-        min-width: unset;
-        flex: 1 1 45%;
+        min-width: unset; /* Remove min-width for smaller screens too */
+        flex: 1 1 auto; /* Adjust flex for responsiveness */
         font-size: 0.85em;
         padding: 8px 10px;
+        width: auto; /* Ensure width adapts to content */
     }
 
     .search-options-grid {
         grid-template-columns: 1fr;
     }
 
-    .corner-utility-left,
-    .corner-utility-right {
-        position: static;
-        flex-direction: row;
-        justify-content: space-between;
+    /* Reposition utility elements for smaller screens */
+    .top-left-utility,
+    .top-right-utility,
+    .top-center-utility {
+        position: static; /* Make them flow naturally */
+        transform: none; /* Remove translateX */
+        display: flex;
+        justify-content: center;
         width: 100%;
+        margin-bottom: 10px; /* Add some space between them */
+        padding: 0 20px; /* Add horizontal padding */
         box-sizing: border-box;
-        margin: 15px auto;
-        padding: 0 20px;
+    }
+
+    .central-content-wrapper {
+        /* Adjust padding for new utility element flow */
+        padding-top: 20px; /* Original padding if utility elements are no longer absolute */
     }
 
     .utility-group {
@@ -848,26 +892,36 @@ body.light-theme .copyright-info {
         gap: 8px;
         padding: 8px 12px;
         font-size: 0.8em;
+        width: fit-content; /* Allow width to fit content */
+        margin: 0 auto; /* Center the utility groups */
     }
 
     .lang-btn,
     .theme-btn {
         padding: 6px 10px;
         font-size: 0.75em;
+        width: auto; /* Ensure width adapts to content */
     }
 
-    .copyright-info {
-        padding: 8px 12px;
-        font-size: 0.7em;
+    .toplist-container {
+        padding: 8px 12px; /* Smaller padding for toplist on small screens */
+        margin: 0 auto; /* Center the toplist container */
+        width: fit-content; /* Allow width to fit content */
+    }
+
+    .background-copyright-info {
+        position: static; /* Make it flow naturally at the bottom */
+        transform: none; /* Remove translateX */
+        margin-top: 20px; /* Add space above it */
+        margin-bottom: 10px; /* Space from actual bottom of the page */
+        width: 100%;
         text-align: center;
-        width: fit-content;
-        margin: 0 auto 15px auto;
     }
 
     body {
         min-height: unset;
         padding-bottom: 20px;
-        display: block;
+        display: block; /* Allow elements to stack */
     }
 
     /* History on small screens */
@@ -893,6 +947,7 @@ body.light-theme .copyright-info {
     .history-delete-btn {
         flex-grow: 1; /* Allow buttons to take available space */
         justify-content: center; /* Center content within buttons */
+        width: auto; /* Ensure width adapts to content */
     }
     .history-research-btn .button-text {
         display: inline; /* Ensure text is visible on these screens */
@@ -911,18 +966,22 @@ body.light-theme .copyright-info {
 
     .search-source-btn,
     .main-types-row .search-type-btn {
-        flex: 1 1 100%;
+        flex: 1 1 auto; /* Adjust flex for responsiveness */
         font-size: 0.8em;
         padding: 6px 8px;
+        width: auto; /* Ensure width adapts to content */
     }
 
     .search-type-btn {
         font-size: 0.85em;
         padding: 8px 10px;
+        width: auto; /* Ensure width adapts to content */
     }
 
-    .corner-utility-left,
-    .corner-utility-right {
+    /* On smallest screens, stack utility groups and toplist */
+    .top-left-utility,
+    .top-right-utility,
+    .top-center-utility {
         flex-direction: column;
         align-items: center;
         gap: 10px;
@@ -936,8 +995,8 @@ body.light-theme .copyright-info {
         padding: 6px 10px;
     }
 
-    .copyright-info {
-        margin-bottom: 10px;
+    .toplist-container {
+        padding: 6px 10px;
     }
 
     .history-item {
@@ -946,8 +1005,4 @@ body.light-theme .copyright-info {
     .history-research-btn .button-text {
         display: none; /* Hide text on smallest screens for re-search button */
     }
-    /* Re-evaluate if this is still needed, as history-details is now flex-column */
-    /* .history-line {
-        display: block;
-    } */
 }
