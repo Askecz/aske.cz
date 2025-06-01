@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const MAX_HISTORY_ITEMS = 10; // Limit the number of history items
 
-  const translations = {
+    const translations = {
         en: {
             pageTitle: "Fast Guide Search",
             mainHeading: "Fast Guide Search",
@@ -30,29 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             trophyBtn: "Trophy",
             roadmapBtn: "Roadmap",
             mapBtn: "Maps",
-            cheatBtn: "Cheats", // This key is in script.js but not index.html
-            collectibleBtn: "Collectibles", // This key is in script.js but not index.html
-            allFishBtn: "All Fish", // This key is in script.js but not index.html
-            allAnimalsBtn: "All Animals", // This key is in script.js but not index.html
-            allKeysBtn: "All Keys", // This key is in script.js but not index.html
-            allBlueprintsBtn: "All Blueprints", // This key is in script.js but not index.html
-            allEmailsBtn: "All Emails", // This key is in script.js but not index.html
-            languageSelector: "Language:",
-            themeSelector: "Theme:",
-            darkTheme: "Dark",
-            lightTheme: "Light",
-            searchHistory: "Search History", // This key is not used for heading, searchHistoryHeading is
-            searchHistoryHeading: "Search History:", // Added
-            toggleHistory: "Toggle History", // Not directly used in HTML, but good to have
-            clearHistory: "Clear History", // Not directly used in HTML, but good to have
-            psnprofiles: "PSNProfiles",
-            truetrophies: "TrueTrophies",
-            google: "Google",
-            youtube: "YouTube",
-            gamefaqs: "GameFAQs", // This key is in script.js but not index.html
-            playstationtrophies: "PlaystationTrophies",
-
-            // Newly added translations from index.html
+            allCollectiblesBtn: "All Collectibles",
             variousTypesHeading: "Various:",
             puzzlesBtn: "All Puzzles",
             challengesBtn: "All Challenges",
@@ -95,63 +73,45 @@ document.addEventListener('DOMContentLoaded', () => {
             keysBtn: "All Keys",
             blueprintsBtn: "All Blueprints",
             emailsBtn: "All Emails",
-            queryLabel: "Query", // For search history
-            typeLabel: "Type", // For search history
-            sourceLabel: "Source", // For search history
-            timeLabel: "Time", // For search history
-            reSearchBtn: "Re-Search", // For search history
-            noHistory: "No search history yet." // For empty history
+            languageSelector: "Language:",
+            themeSelector: "Theme:",
+            searchHistoryHeading: "Search History:",
+            noHistory: "No search history yet.",
+            reSearchBtn: "Re-Search",
+            queryLabel: "Query",
+            typeLabel: "Type",
+            sourceLabel: "Source",
+            timeLabel: "Time",
+            playstationtrophiesBtn: "PlaystationTrophies" // Added for PlaystationTrophies
         },
         cs: {
-            pageTitle: "Rychlé hledání průvodců",
-            mainHeading: "Rychlé hledání průvodců",
+            pageTitle: "Fast Guide Search",
+            mainHeading: "Fast Guide Search",
             searchInputPlaceholder: "Zadejte název hry nebo trofeje...",
-            selectSearchSource: "Vyberte zdroj hledání:",
+            selectSearchSource: "Vyberte zdroj vyhledávání:",
             searchButtonText: "Hledat",
             mainTypesHeading: "Hlavní typy hledání:",
-            guideBtn: "Průvodce trofejí",
-            trophyBtn: "Trofej",
-            roadmapBtn: "Roadmapa",
+            guideBtn: "Průvodce trofejemi",
+            trophyBtn: "Trofej", // Přidáno
+            roadmapBtn: "Cestovní mapa",
             mapBtn: "Mapy",
-            cheatBtn: "Cheaty", // This key is in script.js but not index.html
-            collectibleBtn: "Sběratelské předměty", // This key is in script.js but not index.html
-            allFishBtn: "Všechny ryby", // This key is in script.js but not index.html
-            allAnimalsBtn: "Všechna zvířata", // This key is in script.js but not index.html
-            allKeysBtn: "Všechny klíče", // This key is in script.js but not index.html
-            allBlueprintsBtn: "Všechny plány", // This key is in script.js but not index.html
-            allEmailsBtn: "Všechny emaily", // This key is in script.js but not index.html
-            languageSelector: "Jazyk:",
-            themeSelector: "Motiv:",
-            darkTheme: "Tmavý",
-            lightTheme: "Světlý",
-            searchHistory: "Historie hledání", // This key is not used for heading, searchHistoryHeading is
-            searchHistoryHeading: "Historie hledání:", // Added
-            toggleHistory: "Přepnout historii", // Not directly used in HTML, but good to have
-            clearHistory: "Vyčistit historii", // Not directly used in HTML, but good to have
-            psnprofiles: "PSNProfiles",
-            truetrophies: "TrueTrophies",
-            google: "Google",
-            youtube: "YouTube",
-            gamefaqs: "GameFAQs", // This key is in script.js but not index.html
-            playstationtrophies: "PlaystationTrophies",
-
-            // Newly added translations from index.html
+            allCollectiblesBtn: "Všechny sběratelské předměty",
             variousTypesHeading: "Různé:",
             puzzlesBtn: "Všechny hádanky",
             challengesBtn: "Všechny výzvy",
             speedrunBtn: "Speedrun",
             bossesBtn: "Všichni bossové",
             minigamesBtn: "Všechny minihry",
-            hardestDifficultyBtn: "Nejtěžší obtížnost",
+            hardestDifficultyBtn: "Průchod na nejtěžší obtížnost",
             mainQuestBtn: "Všechny hlavní úkoly",
             sideQuestBtn: "Všechny vedlejší úkoly",
             secretsBtn: "Všechna tajemství",
-            endingsHeading: "Konce:",
+            endingsHeading: "Konce hry:",
             allEndingsBtn: "Všechny konce",
             goodEndingBtn: "Dobrý konec",
             badEndingBtn: "Špatný konec",
             secretEndingBtn: "Tajný konec",
-            charGearHeading: "Postava / vybavení:",
+            charGearHeading: "Postavy / Výbava:",
             charactersBtn: "Všechny postavy",
             weaponUpgradeBtn: "Vylepšení zbraní",
             characterUpgradeBtn: "Vylepšení postavy",
@@ -162,8 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
             skinsBtn: "Všechny skiny",
             collectiblesHeading: "Sběratelské předměty:",
             diariesBtn: "Všechny deníky",
-            musicsBtn: "Všechny hudby",
-            audioLogsBtn: "Všechny zvukové záznamy",
+            musicsBtn: "Všechna hudba",
+            audioLogsBtn: "Všechny audiozáznamy",
             recordingsBtn: "Všechny nahrávky",
             statuesBtn: "Všechny sochy",
             picturesBtn: "Všechny obrázky",
@@ -177,13 +137,17 @@ document.addEventListener('DOMContentLoaded', () => {
             animalsBtn: "Všechna zvířata",
             keysBtn: "Všechny klíče",
             blueprintsBtn: "Všechny plány",
-            emailsBtn: "Všechny emaily",
-            queryLabel: "Dotaz", // For search history
-            typeLabel: "Typ", // For search history
-            sourceLabel: "Zdroj", // For search history
-            timeLabel: "Čas", // For search history
-            reSearchBtn: "Znovu hledat", // For search history
-            noHistory: "Zatím žádná historie vyhledávání." // For empty history
+            emailsBtn: "Všechny e-maily",
+            languageSelector: "Jazyk:",
+            themeSelector: "Téma:",
+            searchHistoryHeading: "Historie hledání:",
+            noHistory: "Zatím žádná historie hledání.",
+            reSearchBtn: "Znovu hledat",
+            queryLabel: "Dotaz",
+            typeLabel: "Typ",
+            sourceLabel: "Zdroj",
+            timeLabel: "Čas",
+            playstationtrophiesBtn: "PlaystationTrophies" // Added for PlaystationTrophies
         }
     };
 
@@ -383,9 +347,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     searchUrl = `https://www.truetrophies.com/searchresults.aspx?search=${encodeURIComponent(query)}`;
                     break;
                 case 'youtube':
-                    // This URL format for YouTube is incorrect. It looks like it has a typo.
-                    // It should likely be: `https://www.youtube.com/results?search_query=${encodeURIComponent(fullSearchTerm)}`;
-                    // For now, I'll fix it to the correct Youtube URL.
                     searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(fullSearchTerm)}`;
                     break;
                 case 'playstationtrophies':
