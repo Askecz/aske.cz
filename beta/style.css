@@ -41,8 +41,9 @@ body {
     background-color: var(--primary-bg);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    overflow-x: hidden; /* Důležité pro zabránění horizontálního scrollu */
+    overflow-x: hidden;
     position: relative;
+    padding-bottom: 80px; /* Added to prevent overlap with fixed footer */
 }
 
 /* Light theme specific styles */
@@ -52,8 +53,8 @@ body.light-theme {
 }
 
 body.light-theme .central-content-wrapper,
-body.light-theme .corner-utility-left .utility-group,
-body.light-theme .corner-utility-right .utility-group {
+body.light-theme .corner-utility-left .utility-group, /* Kept for reference, will be removed */
+body.light-theme .corner-utility-right .utility-group { /* Kept for reference, will be removed */
     background: rgba(255, 255, 255, 0.7); /* Slightly translucent white */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -83,8 +84,8 @@ body.light-theme .search-input-area #gameSearchInput::placeholder {
 body.light-theme .action-button,
 body.light-theme .search-source-btn,
 body.light-theme .search-type-btn,
-body.light-theme .lang-btn,
-body.light-theme .theme-btn,
+/* body.light-theme .lang-btn, -- Handled by footer specific styles */
+/* body.light-theme .theme-btn, -- Handled by footer specific styles */
 body.light-theme .history-item button,
 body.light-theme .history-research-btn, /* New: Research button in light theme */
 body.light-theme .history-delete-btn { /* History delete button in light theme */
@@ -96,8 +97,8 @@ body.light-theme .history-delete-btn { /* History delete button in light theme *
 body.light-theme .action-button:hover,
 body.light-theme .search-source-btn:hover,
 body.light-theme .search-type-btn:hover,
-body.light-theme .lang-btn:hover,
-body.light-theme .theme-btn:hover,
+/* body.light-theme .lang-btn:hover, -- Handled by footer specific styles */
+/* body.light-theme .theme-btn:hover, -- Handled by footer specific styles */
 body.light-theme .history-research-btn:hover, /* New: Research button hover */
 body.light-theme .history-delete-btn:hover { /* History delete button hover */
     background-color: var(--light-button-hover-bg);
@@ -105,18 +106,21 @@ body.light-theme .history-delete-btn:hover { /* History delete button hover */
 
 body.light-theme .search-source-btn.active,
 body.light-theme .search-type-btn.active,
-body.light-theme .lang-btn.active,
-body.light-theme .theme-btn.active {
+/* body.light-theme .lang-btn.active, -- Handled by footer specific styles */
+/* body.light-theme .theme-btn.active { -- Handled by footer specific styles */
+body.light-theme .search-source-btn.active, /* Duplicated for clarity, original was fine */
+body.light-theme .search-type-btn.active {
     background-color: var(--light-accent-color);
     color: #ffffff; /* White text on accent color button */
     border-color: var(--light-accent-color);
 }
 
+
 body.light-theme .logo-placeholder,
 body.light-theme .search-source-section h3,
 body.light-theme .search-type-category h3,
-body.light-theme .utility-group span,
-body.light-theme .copyright-info,
+/* body.light-theme .utility-group span, -- Handled by footer specific styles */
+/* body.light-theme .copyright-info, -- Handled by footer specific styles */
 body.light-theme .search-history-container h3, /* Added for history heading */
 body.light-theme .history-item, /* History item text line */
 body.light-theme .history-item .history-label, /* History labels */
@@ -312,6 +316,7 @@ body.light-theme .icon-button {
     font-weight: 400;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
     white-space: nowrap; /* Prevents text from wrapping */
+    width: auto; /* Allow width to adjust to content */
 }
 
 .action-button:hover {
@@ -368,8 +373,9 @@ body.light-theme .icon-button {
     font-size: 1em;
     font-weight: 500;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-    flex: 1 1 auto; /* Allows buttons to grow and shrink */
-    min-width: 150px; /* Minimum width for buttons */
+    flex: 0 1 auto; /* Allows buttons to shrink and grow based on content */
+    min-width: unset; /* Remove minimum width */
+    width: auto; /* Ensure width adapts to content */
     justify-content: center; /* Center content horizontally */
 }
 
@@ -412,7 +418,7 @@ body.light-theme .icon-button {
     display: flex;
     align-items: center;
     gap: 8px;
-    width: auto; /* Nastav pevnou šířku, nebo ponech min-width pokud chceš, aby se mohla roztáhnout jen o něco více */
+    width: auto; /* Set width to auto to fit content */
     max-width: 100%;
     justify-content: center;
     padding: 12px 20px;
@@ -441,13 +447,13 @@ body.light-theme .icon-button {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
 }
 
-/* Search Options Grid for other categories */
+/* Search Options Grid for other categories - MODIFIED */
 .search-options-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    display: flex; /* Changed from grid to flex */
+    flex-direction: column; /* Categories will stack vertically */
+    gap: 20px; /* Space between category rows */
     margin-top: 20px;
-    justify-items: center;
+    /* justify-items: center; This is a grid property, not needed for flex column */
 }
 
 .search-type-category {
@@ -456,7 +462,7 @@ body.light-theme .icon-button {
     border-radius: var(--border-radius-main);
     border: 1px solid rgba(68, 68, 68, 0.5);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 100%;
+    width: 100%; /* Each category takes full width */
     box-sizing: border-box;
 }
 
@@ -464,10 +470,12 @@ body.light-theme .icon-button {
     text-align: center;
 }
 
-.search-type-buttons {
+.search-type-buttons { /* MODIFIED for horizontal button layout within each category */
     display: flex;
-    flex-direction: column; /* Default to column for categories in grid */
+    flex-wrap: wrap;
     gap: 10px;
+    justify-content: center; /* Align buttons to the start of the row */
+    flex-direction: row; /* Ensure buttons are in a row */
 }
 
 .search-type-btn {
@@ -483,9 +491,9 @@ body.light-theme .icon-button {
     font-size: 0.95em;
     font-weight: 500;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-    width: 100%;
+    width: auto; /* Allow width to adjust to content */
     box-sizing: border-box;
-    justify-content: center; /* Align content to the start (left) */
+    justify-content: center;
 }
 
 .search-type-btn .material-symbols-outlined {
@@ -650,6 +658,7 @@ body.light-theme .search-type-btn.disabled-button {
     font-weight: 500;
     transition: background-color 0.3s ease;
     white-space: nowrap;
+    width: auto; /* Ensure width adapts to content */
 }
 
 .history-research-btn:hover {
@@ -672,6 +681,7 @@ body.light-theme .search-type-btn.disabled-button {
     align-items: center;
     justify-content: center;
     transition: color 0.3s ease;
+    width: auto; /* Ensure width adapts to content */
 }
 
 .history-delete-btn:hover {
@@ -679,7 +689,8 @@ body.light-theme .search-type-btn.disabled-button {
 }
 
 
-/* Utility corners */
+/* Utility corners - REMOVED/COMMENTED */
+/*
 .corner-utility-left,
 .corner-utility-right {
     position: absolute;
@@ -737,6 +748,7 @@ body.light-theme .search-type-btn.disabled-button {
     font-size: 0.9em;
     font-weight: 500;
     transition: background-color 0.3s ease;
+    width: auto;
 }
 
 .lang-btn:hover,
@@ -767,7 +779,137 @@ body.light-theme .copyright-info {
     border: 1px solid rgba(200, 200, 200, 0.5);
     color: var(--light-placeholder-color);
 }
+*/
 
+/* NEW Footer Bar Styles */
+.footer-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--secondary-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 10px 20px;
+    box-sizing: border-box;
+    z-index: 100;
+    min-height: 60px;
+}
+
+.footer-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-left {
+    justify-content: flex-start;
+}
+
+.footer-center {
+    justify-content: center;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.footer-right {
+    justify-content: flex-end;
+}
+
+.footer-bar .utility-group {
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    padding: 0;
+    display: flex; /* Ensures items within utility group are also flexed if needed */
+    flex-direction: row;
+    align-items: center;
+    gap: 8px; /* Gap between label and buttons in language/theme */
+}
+
+.footer-bar .utility-group span {
+    font-weight: 600;
+    color: var(--text-color); /* Ensure text color is applied */
+}
+
+.footer-bar .language-selection,
+.footer-bar .theme-selection {
+    display: flex;
+    gap: 8px;
+}
+
+.footer-bar .lang-btn,
+.footer-bar .theme-btn {
+    padding: 6px 10px;
+    font-size: 0.85em;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+}
+
+.footer-bar .lang-btn:hover,
+.footer-bar .theme-btn:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.footer-bar .lang-btn.active,
+.footer-bar .theme-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.footer-bar .copyright-info {
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    padding: 0;
+    font-size: 0.85em;
+    color: var(--placeholder-color);
+}
+
+.footer-bar .toplist-container {
+    /* No specific styles needed if default centering is fine */
+}
+
+/* Light theme for footer-bar */
+body.light-theme .footer-bar {
+    background-color: var(--light-secondary-bg);
+    border-top: 1px solid var(--light-border-color);
+}
+
+body.light-theme .footer-bar .utility-group span {
+    color: var(--light-text-color);
+}
+body.light-theme .footer-bar .copyright-info {
+    color: var(--light-placeholder-color); /* Ensure this uses the correct placeholder or text color */
+}
+
+
+body.light-theme .footer-bar .lang-btn,
+body.light-theme .footer-bar .theme-btn {
+    background-color: var(--light-button-bg);
+    color: var(--light-text-color);
+    border-color: var(--light-border-color);
+}
+
+body.light-theme .footer-bar .lang-btn:hover,
+body.light-theme .footer-bar .theme-btn:hover {
+    background-color: var(--light-button-hover-bg);
+}
+
+body.light-theme .footer-bar .lang-btn.active,
+body.light-theme .footer-bar .theme-btn.active {
+    background-color: var(--light-accent-color);
+    color: #ffffff; /* Text on active button should be white for contrast */
+    border-color: var(--light-accent-color);
+}
 
 /* Responsive design adjustments */
 @media (max-width: 1024px) {
@@ -781,14 +923,11 @@ body.light-theme .copyright-info {
         gap: 10px;
     }
 
-    .search-options-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
+    /* .search-options-grid remains flex column, no specific change here needed for this breakpoint */
 }
 
 @media (max-width: 768px) {
-    .main-heading {
+    .main-heading { /* Assuming this class exists or for general h1/h2 */
         font-size: 2em;
     }
 
@@ -810,7 +949,8 @@ body.light-theme .copyright-info {
     }
 
     .action-button {
-        width: 100%;
+        width: 100%; /* Full width on smaller screens */
+        box-sizing: border-box;
     }
 
     .search-source-buttons,
@@ -822,80 +962,69 @@ body.light-theme .copyright-info {
     .search-source-btn,
     .main-types-row .search-type-btn {
         min-width: unset;
-        flex: 1 1 45%;
+        flex: 1 1 auto;
         font-size: 0.85em;
         padding: 8px 10px;
+        width: auto;
     }
 
-    .search-options-grid {
-        grid-template-columns: 1fr;
-    }
+    /* .search-options-grid is already flex column */
 
-    .corner-utility-left,
-    .corner-utility-right {
-        position: static;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-        box-sizing: border-box;
-        margin: 15px auto;
-        padding: 0 20px;
+    /* Footer bar responsiveness */
+    .footer-bar {
+        flex-direction: column;
+        height: auto; /* Allow height to adjust to content */
+        padding: 10px;
+        gap: 10px; /* Gap between stacked sections */
+        position: fixed; /* Remove fixed position on small screens if it causes issues */
     }
-
-    .utility-group {
-        flex-direction: row;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        font-size: 0.8em;
-    }
-
-    .lang-btn,
-    .theme-btn {
-        padding: 6px 10px;
-        font-size: 0.75em;
-    }
-
-    .copyright-info {
-        padding: 8px 12px;
-        font-size: 0.7em;
-        text-align: center;
-        width: fit-content;
-        margin: 0 auto 15px auto;
-    }
-
     body {
-        min-height: unset;
-        padding-bottom: 20px;
-        display: block;
+        padding-bottom: 150px; /* Reset padding if footer is static */
     }
+
+
+    .footer-section {
+        width: 100%;
+        justify-content: center; /* Center sections when stacked */
+        gap: 10px;
+    }
+    .footer-left {
+        flex-direction: column; /* Stack language and theme groups */
+        align-items: center;
+    }
+     .footer-bar .utility-group {
+        justify-content: center; /* Center content of utility group */
+        width: 100%;
+    }
+
 
     /* History on small screens */
     .history-item {
-        flex-direction: column; /* Stack details and actions */
+        flex-direction: column;
         align-items: flex-start;
-        gap: 8px; /* Gap between details and actions */
+        gap: 8px;
     }
 
     .history-details {
-        flex-direction: column; /* Stack query, type, source, time vertically */
-        gap: 2px; /* Smaller gap between lines in details */
+        flex-direction: column;
+        gap: 2px;
         width: 100%;
     }
 
     .history-actions {
-        flex-direction: row; /* Keep buttons in a row */
+        flex-direction: row;
         width: 100%;
         justify-content: space-between;
         margin-left: 0;
     }
     .history-research-btn,
     .history-delete-btn {
-        flex-grow: 1; /* Allow buttons to take available space */
-        justify-content: center; /* Center content within buttons */
+        flex-grow: 1;
+        justify-content: center;
+        width: auto;
     }
     .history-research-btn .button-text {
-        display: inline; /* Ensure text is visible on these screens */
+        display: inline;
     }
 }
 
@@ -906,78 +1035,70 @@ body.light-theme .copyright-info {
     }
 
     .logo-placeholder {
-        font-size: 1.8em; /* Upravená velikost loga pro menší obrazovky */
-    }
-
-    .central-content-wrapper {
-        padding: 15px; /* Snížený padding pro velmi malé obrazovky */
-        width: 98%; /* Malé rozšíření šířky */
-    }
-
-    .search-input-area {
-        gap: 10px; /* Menší mezera mezi inputem a tlačítky */
-    }
-
-    #gameSearchInput {
-        padding: 12px 15px; /* Lehce menší padding pro input */
-        font-size: 1em; /* Mírně menší font */
-    }
-
-    .action-button {
-        padding: 12px 20px; /* Upravený padding pro tlačítka */
-        font-size: 1em; /* Mírně menší font */
+        font-size: 1.2em;
     }
 
     .search-source-btn,
     .main-types-row .search-type-btn {
-        flex: 1 1 100%; /* Roztažení tlačítek na celou šířku */
+        flex: 1 1 45%; /* Allow two buttons per row approx */
+        font-size: 0.8em;
+        padding: 6px 8px;
+    }
+
+    .search-type-btn { /* Buttons in other categories */
         font-size: 0.85em;
-        padding: 8px 12px;
+        padding: 8px 10px;
+        flex: 1 1 45%; /* Allow two buttons per row approx */
     }
 
-    .search-type-btn { /* Pro tlačítka v kategoriích (pokud je mřížka) */
-        font-size: 0.85em;
-        padding: 8px 12px;
-    }
 
-    /* Nadpisy kategorií a sekcí */
-    .search-source-section h3,
-    .search-type-category h3,
-    .search-history-container h3 {
-        font-size: 1.1em;
-    }
-
-    .corner-utility-left,
-    .corner-utility-right {
-        flex-direction: column;
+    .footer-bar .utility-group {
+        flex-direction: column; /* Stack label and buttons vertically */
         align-items: center;
-        gap: 10px;
-        margin: 10px auto;
-        padding: 0 10px;
+    }
+     .footer-bar .language-selection, .footer-bar .theme-selection {
+        justify-content: center;
     }
 
-    .utility-group {
-        flex-direction: column;
-        gap: 6px;
-        padding: 6px 10px;
-    }
-
-    .copyright-info {
-        margin-bottom: 10px;
-    }
 
     .history-item {
         padding: 10px;
     }
     .history-research-btn .button-text {
-        display: none; /* Skryje text na nejmenších obrazovkách pro tlačítko "Research" */
+        display: none;
     }
-    .history-research-btn .material-symbols-outlined {
-        font-size: 1.2em; /* Zajistí viditelnost ikony */
-        margin: 0; /* Odstraní případné marginy */
-    }
-    .history-research-btn {
-        padding: 6px 8px; /* Menší padding */
-        gap: 0; /* Bez mezery, když je text skryt */
-    }
+}
+/* Autocomplete styl */
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: var(--input-bg); /* Use theme variable */
+    color: var(--input-text-color);   /* Use theme variable */
+    border: 1px solid var(--border-color); /* Use theme variable */
+    border-radius: var(--border-radius-button); /* Use theme variable */
+    font-size: 1em;
+    z-index: 9999 !important; /* Ensure it's on top */
+}
+.ui-menu-item-wrapper {
+    padding: 8px 10px;
+    cursor: pointer;
+}
+.ui-state-active, /* Hover/focus state for autocomplete items */
+.ui-autocomplete .ui-menu-item-wrapper:hover {
+    background-color: var(--accent-color) !important; /* Use theme variable, ensure it overrides */
+    color: #ffffff !important; /* Text color on hover */
+    border: none !important; /* Remove any default borders */
+}
+
+/* Light theme for autocomplete */
+body.light-theme .ui-autocomplete {
+    background-color: var(--light-input-bg);
+    color: var(--light-input-text-color);
+    border: 1px solid var(--light-border-color);
+}
+
+body.light-theme .ui-autocomplete .ui-menu-item-wrapper:hover,
+body.light-theme .ui-autocomplete .ui-state-active {
+    background-color: var(--light-accent-color) !important;
+    color: #ffffff !important;
 }

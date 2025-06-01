@@ -1,6 +1,24 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', () => {
+$(function () {
+    $("#gameSearchInput").autocomplete({
+        source: function (request, response) {
+            fetch(`https://api.rawg.io/api/games?key=1af360dc5bc546a39fd737f81daf8df1&search=${encodeURIComponent(request.term)}&page_size=10`)
+                .then(res => res.json())
+                .then(data => {
+                    const titles = data.results.map(game => game.name);
+                    response(titles);
+                })
+                .catch(err => {
+                    console.error("RAWG API chyba:", err);
+                    response([]);
+                });
+        },
+        minLength: 2
+    });
+});
+
     const gameSearchInput = document.getElementById('gameSearchInput');
     const searchTypeButtons = document.querySelectorAll('.search-type-btn');
     const searchSourceButtons = document.querySelectorAll('.search-source-btn');
@@ -27,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchButtonText: "Search",
             mainTypesHeading: "Main Search Types:",
             guideBtn: "Trophy Guide",
+            trophyBtn: "Trophy",
             roadmapBtn: "Roadmap",
             mapBtn: "Maps",
             allCollectiblesBtn: "All Collectibles",
@@ -80,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
             queryLabel: "Query",
             typeLabel: "Type",
             sourceLabel: "Source",
-            timeLabel: "Time"
+            timeLabel: "Time",
+            playstationtrophiesBtn: "PlaystationTrophies" // Added for PlaystationTrophies
         },
         cs: {
             pageTitle: "Fast Guide Search",
@@ -90,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchButtonText: "Hledat",
             mainTypesHeading: "Hlavní typy hledání:",
             guideBtn: "Průvodce trofejemi",
+            trophyBtn: "Trofej", // Přidáno
             roadmapBtn: "Cestovní mapa",
             mapBtn: "Mapy",
             allCollectiblesBtn: "Všechny sběratelské předměty",
@@ -143,7 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
             queryLabel: "Dotaz",
             typeLabel: "Typ",
             sourceLabel: "Zdroj",
-            timeLabel: "Čas"
+            timeLabel: "Čas",
+            playstationtrophiesBtn: "PlaystationTrophies" // Added for PlaystationTrophies
         }
     };
 
@@ -344,6 +366,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
                 case 'youtube':
                     searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(fullSearchTerm)}`;
+                    break;
+                case 'playstationtrophies':
+                    searchUrl = `https://www.google.com/search?q=${encodeURIComponent(fullSearchTerm)}+site:playstationtrophies.org`;
                     break;
                 default:
                     searchUrl = `https://www.google.com/search?q=${encodeURIComponent(fullSearchTerm)}`;
