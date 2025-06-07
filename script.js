@@ -356,7 +356,7 @@ $(function () {
                     searchUrl = `https://www.google.com/search?q=${encodeURIComponent(fullSearchTerm)}`;
                     break;
                 case 'psnprofiles':
-                    searchUrl = `https://psnprofiles.com/search/guides?q=${encodeURIComponent(query)}`;
+                    searchUrl = `https://psnprofiles.com/search/games?q=${encodeURIComponent(query)}`;
                     break;
                 case 'powerpyx':
                     searchUrl = `https://www.powerpyx.com/?s=${encodeURIComponent(fullSearchTerm)}`;
