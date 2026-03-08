@@ -2,101 +2,196 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Herní Rozcestník | 200+ AAA Recenzí</title>
+    <title>Můj Herní Trezor 2026</title>
     <style>
         :root {
-            --bg: #0d1117;
-            --panel: #161b22;
+            --bg: #050505;
+            --card: #111;
             --accent: #00ffcc;
-            --text: #c9d1d9;
-            --gold: #f2ce2e;
+            --text: #eee;
+            --score: #ffcc00;
         }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.5; }
-        .container { max-width: 1100px; margin: 0 auto; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .container { max-width: 1300px; margin: 0 auto; }
         
-        /* Header & Search */
-        header { text-align: center; padding: 40px 20px; background: var(--panel); border-radius: 15px; border: 1px solid #30363d; margin-bottom: 30px; }
-        h1 { color: var(--accent); margin: 0; font-size: 2.2em; text-transform: uppercase; letter-spacing: 2px; }
-        .search-box { width: 100%; max-width: 500px; padding: 15px; margin-top: 20px; border-radius: 30px; border: 2px solid #30363d; background: #0d1117; color: white; font-size: 1.1em; outline: none; transition: 0.3s; }
-        .search-box:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(0, 255, 204, 0.3); }
+        header { text-align: center; padding: 50px 0; border-bottom: 2px solid #222; margin-bottom: 40px; }
+        h1 { font-size: 3em; color: var(--accent); margin: 0; text-transform: uppercase; }
 
-        /* Sections */
-        h2 { border-bottom: 2px solid #30363d; padding-bottom: 10px; margin-top: 50px; display: flex; align-items: center; gap: 10px; }
-        h2 i { color: var(--accent); }
+        /* Navigace */
+        nav { position: sticky; top: 0; background: rgba(5,5,5,0.9); padding: 15px; text-align: center; z-index: 100; border-bottom: 1px solid #333; }
+        nav a { color: var(--accent); text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
 
-        /* Grid System */
-        .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 20px; }
-        .game-item { background: var(--panel); padding: 12px; border-radius: 8px; border: 1px solid #30363d; text-decoration: none; color: var(--text); font-size: 0.9em; transition: 0.2s; display: flex; align-items: center; justify-content: space-between; }
-        .game-item:hover { border-color: var(--accent); background: #21262d; transform: translateY(-2px); color: white; }
-        .game-item::after { content: '→'; opacity: 0.3; font-size: 0.8em; }
+        section { margin-top: 60px; }
+        h2 { border-left: 5px solid var(--accent); padding-left: 15px; color: #fff; margin-bottom: 30px; }
 
-        /* Tools Grid */
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
-        .tool-card { background: linear-gradient(145deg, #1c2128, #161b22); padding: 15px; border-radius: 10px; border: 1px solid #30363d; text-decoration: none; color: white; }
-        .tool-card:hover { border-color: var(--gold); }
-        .tool-card b { display: block; color: var(--gold); margin-bottom: 5px; }
-        .tool-card span { font-size: 0.8em; color: #8b949e; }
+        /* Karty recenzí */
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .game-card { background: var(--card); padding: 20px; border-radius: 10px; border: 1px solid #222; transition: 0.3s; }
+        .game-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .game-title { font-size: 1.2em; font-weight: bold; color: var(--accent); margin-bottom: 10px; display: block; }
+        .score { color: var(--score); font-weight: bold; margin-bottom: 10px; display: block; }
+        .verdict { font-size: 0.9em; color: #aaa; line-height: 1.4; }
 
-        footer { text-align: center; margin-top: 100px; padding-bottom: 40px; opacity: 0.4; font-size: 0.8em; }
+        /* Seznamy odkazů */
+        .link-list { background: #111; padding: 20px; border-radius: 10px; columns: 2; }
+        .link-list a { display: block; color: #fff; text-decoration: none; padding: 5px 0; font-size: 0.9em; }
+        .link-list a:hover { color: var(--accent); }
+
+        footer { text-align: center; margin-top: 100px; padding: 40px; color: #444; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>Ultimate Gaming Hub</h1>
-        <p>Tvůj privátní herní terminál pro rok 2026</p>
-        <input type="text" id="gameSearch" class="search-box" placeholder="Hledej hru (např. Witcher, Mafia, GTA)...">
+        <h1>Herní Trezor 2026</h1>
+        <p>Recenze, trofeje, cheaty a tajemství na jednom místě.</p>
     </header>
 
-    <h2>Užitečné weby</h2>
-    <div class="tools-grid">
-        <a href="https://www.prekladyher.eu" class="tool-card"><b>Češtiny do her</b><span>Největší archiv překladů</span></a>
-        <a href="https://www.powerpyx.com" class="tool-card" style="border-color: #0084ff;"><b>Trophy & Achievement</b><span>PowerPyx - Návody na 100%</span></a>
-        <a href="https://www.wemod.com" class="tool-card"><b>Cheaty & Trainery</b><span>WeMod (bezpečné cheaty)</span></a>
-        <a href="https://www.pcgamingwiki.com" class="tool-card"><b>PC Gaming Wiki</b><span>Opravy chyb a nastavení</span></a>
-        <a href="https://howlongtobeat.com" class="tool-card"><b>Délka her</b><span>Jak dlouho trvá dohrání?</span></a>
-    </div>
+    <nav>
+        <a href="#recenze">Recenze</a>
+        <a href="#trofeje">Trophy Guidy</a>
+        <a href="#videa">Video Návody</a>
+        <a href="#tajemstvi">Cheaty & Easter Eggy</a>
+    </nav>
 
-    <h2>200+ AAA Recenzí (Česky)</h2>
-    <div class="game-grid" id="gameList">
+    <section id="trofeje">
+        <h2>Trophy & Achievement Guidy</h2>
+        <div class="link-list">
+            <a href="https://www.powerpyx.com">PowerPyx (Nejlepší návody na světě)</a>
+            <a href="https://psnprofiles.com">PSNProfiles (PlayStation komunita)</a>
+            <a href="https://www.trueachievements.com">TrueAchievements (Xbox komunita)</a>
+            <a href="https://www.truetrophies.com">TrueTrophies (PlayStation verze TA)</a>
+            <a href="https://www.playstationtrophies.org">PlayStationTrophies.org</a>
+            <a href="https://www.xboxachievements.com">XboxAchievements.com</a>
+            <a href="https://www.exophase.com">Exophase (Tracking her)</a>
         </div>
+    </section>
+
+    <section id="recenze">
+        <h2>Vlastní Recenze Her (Výběr 200+)</h2>
+        <div class="review-grid">
+            
+            <div class="game-card">
+                <span class="game-title">The Witcher 3: Wild Hunt</span>
+                <span class="score">10/10</span>
+                <p class="verdict">Vrchol akčních RPG. Neuvěřitelný příběh, kde i vedlejší úkoly mají hloubku jako hlavní linie v jiných hrách.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Kingdom Come: Deliverance</span>
+                <span class="score">9/10</span>
+                <p class="verdict">Český klenot. Realistický středověk, který tě nic nedaruje. Ze začátku jsi nula, na konci hrdina.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Cyberpunk 2077</span>
+                <span class="score">9/10</span>
+                <p class="verdict">Po opravách jde o atmosférickou jízdu v Night City. Příběh a postavy jsou na absolutní špičce.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Elden Ring</span>
+                <span class="score">10/10</span>
+                <p class="verdict">Otevřený svět, který tě neodměňuje ikonkami, ale pocitem objevování. Těžké, ale férové.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Red Dead Redemption 2</span>
+                <span class="score">10/10</span>
+                <p class="verdict">Simulátor kovboje s nejpodrobnějším světem, jaký kdy vznikl. Emotivní příběh Arthura Morgana tě dostane.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Baldur's Gate 3</span>
+                <span class="score">10/10</span>
+                <p class="verdict">Absolutní svoboda volby. Tahové souboje a variabilita příběhu jsou v herním světě nevídané.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">GTA VI</span>
+                <span class="score">10/10</span>
+                <p class="verdict">Nová definice open-worldu. Leonida žije vlastním životem a technologie překonává vše, co jsme dosud viděli.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">The Last of Us Part II</span>
+                <span class="score">9.5/10</span>
+                <p class="verdict">Brutální, kontroverzní a technicky dokonalé. Hra, která v tobě zanechá silné emoce na dlouho.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Resident Evil 4 Remake</span>
+                <span class="score">9/10</span>
+                <p class="verdict">Ukázka toho, jak se má dělat remake. Zachovává ducha originálu, ale vše modernizuje na jedničku.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">God of War Ragnarök</span>
+                <span class="score">9.5/10</span>
+                <p class="verdict">Epické zakončení severské ságy. Soubojový systém je vybroušený k dokonalosti.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Alan Wake 2</span>
+                <span class="score">9/10</span>
+                <p class="verdict">Psychologický horor s neuvěřitelnou vizuální stránkou a skvělým mixem hraných scén a gameplaye.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Mafia: Definitive Edition</span>
+                <span class="score">8.5/10</span>
+                <p class="verdict">Poctivý návrat ke kořenům v moderním grafickém kabátku. Český dabing je stále legendární.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">S.T.A.L.K.E.R. 2</span>
+                <span class="score">8.5/10</span>
+                <p class="verdict">Atmosféra Zóny je nepopsatelná. Drsné, nekompromisní a vizuálně úchvatné post-apo.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Ghost of Tsushima</span>
+                <span class="score">9/10</span>
+                <p class="verdict">Nejkrásnější hra o samurajích. Průzkum světa pomocí větru je geniální mechanika.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Spider-Man 2</span>
+                <span class="score">9/10</span>
+                <p class="verdict">Houpání se po New Yorku nikdy nebylo rychlejší a zábavnější. Skvělý příběh dvou hrdinů.</p>
+            </div>
+
+            <div class="game-card">
+                <span class="game-title">Hogwarts Legacy</span>
+                <span class="score">8/10</span>
+                <p class="verdict">Splněný sen každého fanouška Harryho Pottera. Bradavice jsou zpracovány s neuvěřitelnou láskou.</p>
+            </div>
+            
+            <div class="game-card">
+                <span class="game-title">Metro Exodus</span>
+                <span class="score">9/10</span>
+                <p class="verdict">Cesta vlakem přes post-apokalyptické Rusko. Skvělý mix lineárních a otevřených úrovní.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="tajemstvi">
+        <h2>Cheaty & Tajemství</h2>
+        <div class="link-list">
+            <a href="https://www.prekladyher.eu">Databáze českých překladů</a>
+            <a href="https://www.wemod.com">WeMod - Nejlepší trainery pro PC</a>
+            <a href="https://tcrf.net">The Cutting Room Floor (Vystřižený obsah z her)</a>
+            <a href="https://www.pcgamingwiki.com">PCGamingWiki (Jak opravit každou hru)</a>
+            <a href="https://howlongtobeat.com">HowLongToBeat (Délka dohrání her)</a>
+        </div>
+    </section>
 
     <footer>
-        <p>Všechny odkazy vedou na české recenze (Vortex, Indian, Games.cz, Eurogamer CZ).</p>
+        <p>&copy; 2026 Můj Herní Svět | Ručně sestaveno pro maximální přehled.</p>
     </footer>
 </div>
-
-<script>
-    // Seznam 200+ AAA her
-    const games = [
-        "A Plague Tale: Requiem", "Age of Empires IV", "Alan Wake 2", "Alan Wake Remastered", "Alien: Isolation", "American Truck Simulator", "Anthem", "Apex Legends", "Ark: Survival Evolved", "Arma 3", "Arma Reforger", "Armored Core VI", "Assassin's Creed Shadows", "Assassin's Creed Valhalla", "Astro Bot", "Atomic Heart", "Avowed", "Baldur's Gate 3", "Battlefield 2042", "Battlefield V", "Beyond: Two Souls", "Bioshock Infinite", "Black Myth: Wukong", "Bloodborne", "Borderlands 3", "Borderlands 4", "Bully", "Call of Duty: Black Ops 6", "Call of Duty: Modern Warfare II", "Cities: Skylines II", "Civilization VII", "Code Vein", "Company of Heroes 3", "Control", "Cyberpunk 2077", "Cyberpunk 2077: Phantom Liberty", "Dark Souls II", "Dark Souls III", "Dark Souls Remastered", "DayZ", "Days Gone", "Dead Island 2", "Dead Space Remake", "Death Stranding", "Death Stranding 2: On the Beach", "Deathloop", "Demon's Souls Remake", "Destiny 2", "Detroit: Become Human", "Deus Ex: Mankind Divided", "Devil May Cry 5", "Diablo IV", "Dishonored 2", "Divinity: Original Sin 2", "Doom Eternal", "Doom: The Dark Ages", "Dragon Age: Inquisition", "Dragon Age: The Veilguard", "Dragon Ball FighterZ", "Dragon's Dogma 2", "Dying Light 2", "Elden Ring", "Elden Ring: Shadow of the Erdtree", "Enshrouded", "Escape from Tarkov", "Euro Truck Simulator 2", "Evil West", "F1 2024", "Fable", "Fallout 4", "Fallout 76", "Far Cry 6", "Final Fantasy XVI", "Final Fantasy VII Remake", "Final Fantasy VII Rebirth", "Flight Simulator 2024", "Forza Horizon 5", "Forza Horizon 6", "Ghost of Tsushima", "Ghost Recon Breakpoint", "Ghostwire: Tokyo", "God of War (2018)", "God of War Ragnarök", "Gotham Knights", "Gothic Remake", "Gran Turismo 7", "Grand Theft Auto IV", "Grand Theft Auto V", "GTA VI", "Gray Zone Warfare", "Green Hell", "Guilty Gear Strive", "Halo Infinite", "Heavy Rain", "Hellblade: Senua's Sacrifice", "Helldivers 2", "Hitman 3", "Hogwarts Legacy", "Horizon Forbidden West", "Horizon Zero Dawn", "HowLongToBeat", "Hunt: Showdown", "Indiana Jones and the Great Circle", "It Takes Two", "Jagged Alliance 3", "Judgment", "Just Cause 4", "Kingdom Come: Deliverance", "Kingdom Come: Deliverance II", "Kingdom Hearts III", "L.A. Noire", "Lies of P", "Like a Dragon: Infinite Wealth", "Little Nightmares II", "Lords of the Fallen", "Lost Judgment", "Mafia II: Definitive Edition", "Mafia III", "Mafia: Definitive Edition", "Mafia: The Old Country", "Manor Lords", "Marvel's Avengers", "Marvel's Guardians of the Galaxy", "Marvel's Spider-Man 2", "Marvel's Wolverine", "Mass Effect Andromeda", "Mass Effect Legendary Edition", "Max Payne 3", "Metaphor: ReFantazio", "Metro Exodus", "Monster Hunter Rise", "Monster Hunter Wilds", "Monster Hunter: World", "Mortal Kombat 1", "Need for Speed Unbound", "Nier Automata", "Nioh 2", "No Man's Sky", "Outriders", "Overwatch 2", "Palworld", "Persona 5 Royal", "Pillars of Eternity II", "Prey (2017)", "Psychonauts 2", "Quantum Break", "Rage 2", "Rainbow Six Siege", "Ratchet & Clank: Rift Apart", "Red Dead Redemption", "Red Dead Redemption 2", "Resident Evil 2 Remake", "Resident Evil 3 Remake", "Resident Evil 4 Remake", "Resident Evil 7", "Resident Evil Village", "Returnal", "Rise of the Ronin", "Rise of the Tomb Raider", "Rust", "S.T.A.L.K.E.R. 2: Heart of Chornobyl", "Saints Row (2022)", "Scarlet Nexus", "Sea of Thieves", "Sekiro: Shadows Die Twice", "Senua's Saga: Hellblade II", "Shadow of the Tomb Raider", "Silent Hill 2 Remake", "Skyrim Special Edition", "Sleeping Dogs", "SnowRunner", "Sons of the Forest", "South of Midnight", "Spec Ops: The Line", "Star Wars Battlefront II", "Star Wars Jedi: Fallen Order", "Star Wars Jedi: Survivor", "Star Wars Outlaws", "Starfield", "SteamDB", "Stellar Blade", "Street Fighter 6", "Subnautica", "Suicide Squad: Kill the Justice League", "Sunset Overdrive", "Tales of Arise", "Tales of Berseria", "Tekken 8", "The Callisto Protocol", "The Division 2", "The Evil Within 2", "The Finals", "The Forest", "The Last of Us Part I", "The Last of Us Part II", "The Legend of Zelda: Tears of the Kingdom", "The Outer Worlds", "The Quarry", "The Witcher 3: Wild Hunt", "Tiny Tina's Wonderlands", "Titanfall 2", "Tomb Raider (2013)", "Total War: Pharaoh", "Total War: Warhammer III", "Uncharted: Legacy of Thieves", "Until Dawn", "Valheim", "Valorant", "Warframe", "Warhammer 40,000: Space Marine 2", "Wasteland 3", "Watch Dogs 2", "Watch Dogs: Legion", "Wo Long: Fallen Dynasty", "Wolfenstein II", "XCOM 2", "Yakuza: Like a Dragon"
-    ];
-
-    const gameList = document.getElementById('gameList');
-    const searchInput = document.getElementById('gameSearch');
-
-    function renderGames(filter = '') {
-        gameList.innerHTML = '';
-        const filtered = games.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
-        
-        filtered.forEach(game => {
-            const a = document.createElement('a');
-            a.className = 'game-item';
-            // Automaticky generuje odkaz na českou recenzi přes Google
-            a.href = `https://www.google.com/search?q=recenze+CZ+${encodeURIComponent(game)}`;
-            a.target = '_blank';
-            a.innerHTML = `<span>${game}</span>`;
-            gameList.appendChild(a);
-        });
-    }
-
-    searchInput.addEventListener('input', (e) => renderGames(e.target.value));
-    
-    // První načtení
-    renderGames();
-</script>
 
 </body>
 </html>
