@@ -2,196 +2,160 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Můj Herní Trezor 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTRA GAMING HUB | Vše o hrách na jednom místě</title>
     <style>
-        :root {
-            --bg: #050505;
-            --card: #111;
-            --accent: #00ffcc;
-            --text: #eee;
-            --score: #ffcc00;
-        }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 1300px; margin: 0 auto; }
-        
-        header { text-align: center; padding: 50px 0; border-bottom: 2px solid #222; margin-bottom: 40px; }
-        h1 { font-size: 3em; color: var(--accent); margin: 0; text-transform: uppercase; }
-
-        /* Navigace */
-        nav { position: sticky; top: 0; background: rgba(5,5,5,0.9); padding: 15px; text-align: center; z-index: 100; border-bottom: 1px solid #333; }
-        nav a { color: var(--accent); text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
-
-        section { margin-top: 60px; }
-        h2 { border-left: 5px solid var(--accent); padding-left: 15px; color: #fff; margin-bottom: 30px; }
-
-        /* Karty recenzí */
-        .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .game-card { background: var(--card); padding: 20px; border-radius: 10px; border: 1px solid #222; transition: 0.3s; }
-        .game-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .game-title { font-size: 1.2em; font-weight: bold; color: var(--accent); margin-bottom: 10px; display: block; }
-        .score { color: var(--score); font-weight: bold; margin-bottom: 10px; display: block; }
-        .verdict { font-size: 0.9em; color: #aaa; line-height: 1.4; }
-
-        /* Seznamy odkazů */
-        .link-list { background: #111; padding: 20px; border-radius: 10px; columns: 2; }
-        .link-list a { display: block; color: #fff; text-decoration: none; padding: 5px 0; font-size: 0.9em; }
-        .link-list a:hover { color: var(--accent); }
-
-        footer { text-align: center; margin-top: 100px; padding: 40px; color: #444; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0c10; color: #c5c6c7; margin: 0; line-height: 1.6; }
+        header { background-color: #1f2833; color: #66fcf1; padding: 20px; text-align: center; border-bottom: 2px solid #45a29e; }
+        nav { background: #1f2833; padding: 10px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        nav a { color: #66fcf1; text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; }
+        nav a:hover { color: #45a29e; }
+        .container { display: grid; grid-template-columns: 1fr 300px; gap: 20px; padding: 20px; max-width: 1200px; margin: auto; }
+        section { background: #1f2833; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        h2 { border-left: 5px solid #66fcf1; padding-left: 10px; color: #fff; }
+        .grid-news { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .news-item { background: #0b0c10; padding: 10px; border-radius: 5px; border: 1px solid #45a29e; }
+        .game-card { background: #45a29e; color: #0b0c10; padding: 15px; border-radius: 8px; font-size: 0.9em; }
+        .game-card h3 { margin-top: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; background: #0b0c10; }
+        table, th, td { border: 1px solid #45a29e; padding: 10px; text-align: left; }
+        th { background: #1f2833; color: #66fcf1; }
+        .badge { background: #66fcf1; color: #0b0c10; padding: 2px 8px; border-radius: 3px; font-weight: bold; font-size: 0.8em; }
+        footer { text-align: center; padding: 20px; background: #1f2833; margin-top: 40px; color: #45a29e; }
+        input, textarea { width: 100%; padding: 10px; margin: 5px 0; background: #0b0c10; border: 1px solid #45a29e; color: white; }
+        .btn { background: #66fcf1; color: #0b0c10; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
+<header>
+    <h1>ULTRA GAMING HUB</h1>
+    <p>Tvůj ultimátní zdroj pro gaming, hardware a esport</p>
+</header>
+
+<nav>
+    <a href="#news">Novinky</a>
+    <a href="#reviews">Recenze</a>
+    <a href="#database">Databáze</a>
+    <a href="#guides">Návody</a>
+    <a href="#hardware">Hardware</a>
+    <a href="#community">Komunita</a>
+</nav>
+
 <div class="container">
-    <header>
-        <h1>Herní Trezor 2026</h1>
-        <p>Recenze, trofeje, cheaty a tajemství na jednom místě.</p>
-    </header>
-
-    <nav>
-        <a href="#recenze">Recenze</a>
-        <a href="#trofeje">Trophy Guidy</a>
-        <a href="#videa">Video Návody</a>
-        <a href="#tajemstvi">Cheaty & Easter Eggy</a>
-    </nav>
-
-    <section id="trofeje">
-        <h2>Trophy & Achievement Guidy</h2>
-        <div class="link-list">
-            <a href="https://www.powerpyx.com">PowerPyx (Nejlepší návody na světě)</a>
-            <a href="https://psnprofiles.com">PSNProfiles (PlayStation komunita)</a>
-            <a href="https://www.trueachievements.com">TrueAchievements (Xbox komunita)</a>
-            <a href="https://www.truetrophies.com">TrueTrophies (PlayStation verze TA)</a>
-            <a href="https://www.playstationtrophies.org">PlayStationTrophies.org</a>
-            <a href="https://www.xboxachievements.com">XboxAchievements.com</a>
-            <a href="https://www.exophase.com">Exophase (Tracking her)</a>
-        </div>
-    </section>
-
-    <section id="recenze">
-        <h2>Vlastní Recenze Her (Výběr 200+)</h2>
-        <div class="review-grid">
-            
-            <div class="game-card">
-                <span class="game-title">The Witcher 3: Wild Hunt</span>
-                <span class="score">10/10</span>
-                <p class="verdict">Vrchol akčních RPG. Neuvěřitelný příběh, kde i vedlejší úkoly mají hloubku jako hlavní linie v jiných hrách.</p>
+    <div class="main-content">
+        
+        <section id="news">
+            <h2>Aktuální novinky</h2>
+            <div class="grid-news">
+                <div class="news-item">
+                    <span class="badge">HOT</span>
+                    <h3>GTA VI odloženo na rok 2026?</h3>
+                    <p>Spekulace se šíří internetem. Rockstar zatím mlčí, ale zdroje mluví o dalším ladění detailů...</p>
+                    <a href="#" style="color: #66fcf1;">Číst více...</a>
+                </div>
+                <div class="news-item">
+                    <span class="badge">ESPORT</span>
+                    <h3>Mistrovství světa v CS2</h3>
+                    <p>Finálový víkend začíná v kodaňské Royal Areně. Kdo získá trofej?</p>
+                    <a href="#" style="color: #66fcf1;">Číst více...</a>
+                </div>
             </div>
+        </section>
 
-            <div class="game-card">
-                <span class="game-title">Kingdom Come: Deliverance</span>
-                <span class="score">9/10</span>
-                <p class="verdict">Český klenot. Realistický středověk, který tě nic nedaruje. Ze začátku jsi nula, na konci hrdina.</p>
-            </div>
+        <section id="reviews">
+            <h2>Nejnovější recenze</h2>
+            <article>
+                <h3>Cyberpunk 2077: Phantom Liberty <span style="color: #66fcf1;">(9.5/10)</span></h3>
+                <p>Neuvěřitelný návrat k formě. CD Projekt Red dokázal, že umí vyprávět příběhy jako nikdo jiný na světě.</p>
+                <ul>
+                    <li><strong>Plusy:</strong> Příběh, atmosféra, Idris Elba</li>
+                    <li><strong>Mínusy:</strong> Stále občasné bugy v AI</li>
+                </ul>
+            </article>
+            <hr border="1" color="#45a29e">
+            <article>
+                <h3>Elden Ring: Shadow of the Erdtree <span style="color: #66fcf1;">(10/10)</span></h3>
+                <p>Mistrovské dílo, které definuje žánr soulslike. Obtížnost je brutální, ale férová.</p>
+            </article>
+        </section>
 
-            <div class="game-card">
-                <span class="game-title">Cyberpunk 2077</span>
-                <span class="score">9/10</span>
-                <p class="verdict">Po opravách jde o atmosférickou jízdu v Night City. Příběh a postavy jsou na absolutní špičce.</p>
-            </div>
+        <section id="database">
+            <h2>Očekávané hry (Kalendář)</h2>
+            <table>
+                <tr>
+                    <th>Hra</th>
+                    <th>Platforma</th>
+                    <th>Datum vydání</th>
+                    <th>Očekávání</th>
+                </tr>
+                <tr>
+                    <td>Kingdom Come: Deliverance II</td>
+                    <td>PC, PS5, Xbox</td>
+                    <td>Únor 2025</td>
+                    <td>Vysoké</td>
+                </tr>
+                <tr>
+                    <td>The Elder Scrolls VI</td>
+                    <td>PC, Xbox</td>
+                    <td>TBA</td>
+                    <td>Legendární</td>
+                </tr>
+            </table>
+        </section>
 
-            <div class="game-card">
-                <span class="game-title">Elden Ring</span>
-                <span class="score">10/10</span>
-                <p class="verdict">Otevřený svět, který tě neodměňuje ikonkami, ale pocitem objevování. Těžké, ale férové.</p>
-            </div>
+        <section id="guides">
+            <h2>Návody a Tipy</h2>
+            <ul>
+                <li><a href="#" style="color: #c5c6c7;">Jak najít všechny skryté předměty v God of War</a></li>
+                <li><a href="#" style="color: #c5c6c7;">Nejlepší buildy pro začátečníky v Path of Exile</a></li>
+                <li><a href="#" style="color: #c5c6c7;">Konfigurační tipy pro zvýšení FPS v kompetitivních hrách</a></li>
+            </ul>
+        </section>
 
-            <div class="game-card">
-                <span class="game-title">Red Dead Redemption 2</span>
-                <span class="score">10/10</span>
-                <p class="verdict">Simulátor kovboje s nejpodrobnějším světem, jaký kdy vznikl. Emotivní příběh Arthura Morgana tě dostane.</p>
-            </div>
+        <section id="community">
+            <h2>Fórum & Komunita</h2>
+            <p>Přidej se do diskuze!</p>
+            <form>
+                <input type="text" placeholder="Tvoje přezdívka">
+                <textarea rows="4" placeholder="Co máš na srdci?"></textarea>
+                <button type="button" class="btn">Odeslat příspěvek</button>
+            </form>
+        </section>
+    </div>
 
-            <div class="game-card">
-                <span class="game-title">Baldur's Gate 3</span>
-                <span class="score">10/10</span>
-                <p class="verdict">Absolutní svoboda volby. Tahové souboje a variabilita příběhu jsou v herním světě nevídané.</p>
-            </div>
+    <div class="sidebar">
+        <section class="game-card">
+            <h3>Hra měsíce</h3>
+            <p><strong>Black Myth: Wukong</strong></p>
+            <p>Akční RPG inspirované čínskou mytologií, které trhá rekordy na Steamu.</p>
+            <p><em>Hraje právě teď: 1,2 mil. lidí</em></p>
+        </section>
 
-            <div class="game-card">
-                <span class="game-title">GTA VI</span>
-                <span class="score">10/10</span>
-                <p class="verdict">Nová definice open-worldu. Leonida žije vlastním životem a technologie překonává vše, co jsme dosud viděli.</p>
-            </div>
+        <section>
+            <h3>Hardware koutku</h3>
+            <p><strong>Doporučená GPU:</strong></p>
+            <small>NVIDIA RTX 4080 Super</small><br>
+            <small>AMD Radeon RX 7900 XTX</small>
+            <hr>
+            <p><strong>Periferie:</strong></p>
+            <small>Logitech G Pro X Superlight 2</small>
+        </section>
 
-            <div class="game-card">
-                <span class="game-title">The Last of Us Part II</span>
-                <span class="score">9.5/10</span>
-                <p class="verdict">Brutální, kontroverzní a technicky dokonalé. Hra, která v tobě zanechá silné emoce na dlouho.</p>
-            </div>
-
-            <div class="game-card">
-                <span class="game-title">Resident Evil 4 Remake</span>
-                <span class="score">9/10</span>
-                <p class="verdict">Ukázka toho, jak se má dělat remake. Zachovává ducha originálu, ale vše modernizuje na jedničku.</p>
-            </div>
-
-            <div class="game-card">
-                <span class="game-title">God of War Ragnarök</span>
-                <span class="score">9.5/10</span>
-                <p class="verdict">Epické zakončení severské ságy. Soubojový systém je vybroušený k dokonalosti.</p>
-            </div>
-
-            <div class="game-card">
-                <span class="game-title">Alan Wake 2</span>
-                <span class="score">9/10</span>
-                <p class="verdict">Psychologický horor s neuvěřitelnou vizuální stránkou a skvělým mixem hraných scén a gameplaye.</p>
-            </div>
-
-            <div class="game-card">
-                <span class="game-title">Mafia: Definitive Edition</span>
-                <span class="score">8.5/10</span>
-                <p class="verdict">Poctivý návrat ke kořenům v moderním grafickém kabátku. Český dabing je stále legendární.</p>
-            </div>
-
-            <div class="game-card">
-                <span class="game-title">S.T.A.L.K.E.R. 2</span>
-                <span class="score">8.5/10</span>
-                <p class="verdict">Atmosféra Zóny je nepopsatelná. Drsné, nekompromisní a vizuálně úchvatné post-apo.</p>
-            </div>
-
-            <div class="game-card">
-                <span class="game-title">Ghost of Tsushima</span>
-                <span class="score">9/10</span>
-                <p class="verdict">Nejkrásnější hra o samurajích. Průzkum světa pomocí větru je geniální mechanika.</p>
-            </div>
-
-            <div class="game-card">
-                <span class="game-title">Spider-Man 2</span>
-                <span class="score">9/10</span>
-                <p class="verdict">Houpání se po New Yorku nikdy nebylo rychlejší a zábavnější. Skvělý příběh dvou hrdinů.</p>
-            </div>
-
-            <div class="game-card">
-                <span class="game-title">Hogwarts Legacy</span>
-                <span class="score">8/10</span>
-                <p class="verdict">Splněný sen každého fanouška Harryho Pottera. Bradavice jsou zpracovány s neuvěřitelnou láskou.</p>
-            </div>
-            
-            <div class="game-card">
-                <span class="game-title">Metro Exodus</span>
-                <span class="score">9/10</span>
-                <p class="verdict">Cesta vlakem přes post-apokalyptické Rusko. Skvělý mix lineárních a otevřených úrovní.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="tajemstvi">
-        <h2>Cheaty & Tajemství</h2>
-        <div class="link-list">
-            <a href="https://www.prekladyher.eu">Databáze českých překladů</a>
-            <a href="https://www.wemod.com">WeMod - Nejlepší trainery pro PC</a>
-            <a href="https://tcrf.net">The Cutting Room Floor (Vystřižený obsah z her)</a>
-            <a href="https://www.pcgamingwiki.com">PCGamingWiki (Jak opravit každou hru)</a>
-            <a href="https://howlongtobeat.com">HowLongToBeat (Délka dohrání her)</a>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Můj Herní Svět | Ručně sestaveno pro maximální přehled.</p>
-    </footer>
+        <section>
+            <h3>Top Streameři</h3>
+            <ol>
+                <li>Shroud (Valorant)</li>
+                <li>Asmongold (WoW/MMO)</li>
+                <li>Agraelus (Variety)</li>
+            </ol>
+        </section>
+    </div>
 </div>
+
+<footer>
+    <p>&copy; 2026 ULTRA GAMING HUB | Vytvořeno pro pravé hráče | <a href="#" style="color: #66fcf1;">Mapa stránek</a></p>
+</footer>
 
 </body>
 </html>
