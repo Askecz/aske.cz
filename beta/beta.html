@@ -3,159 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA GAMING HUB | Vše o hrách na jednom místě</title>
+    <title>Aske | Na webu se pracuje</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0c10; color: #c5c6c7; margin: 0; line-height: 1.6; }
-        header { background-color: #1f2833; color: #66fcf1; padding: 20px; text-align: center; border-bottom: 2px solid #45a29e; }
-        nav { background: #1f2833; padding: 10px; text-align: center; position: sticky; top: 0; z-index: 100; }
-        nav a { color: #66fcf1; text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; }
-        nav a:hover { color: #45a29e; }
-        .container { display: grid; grid-template-columns: 1fr 300px; gap: 20px; padding: 20px; max-width: 1200px; margin: auto; }
-        section { background: #1f2833; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-        h2 { border-left: 5px solid #66fcf1; padding-left: 10px; color: #fff; }
-        .grid-news { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .news-item { background: #0b0c10; padding: 10px; border-radius: 5px; border: 1px solid #45a29e; }
-        .game-card { background: #45a29e; color: #0b0c10; padding: 15px; border-radius: 8px; font-size: 0.9em; }
-        .game-card h3 { margin-top: 0; }
-        table { width: 100%; border-collapse: collapse; margin: 10px 0; background: #0b0c10; }
-        table, th, td { border: 1px solid #45a29e; padding: 10px; text-align: left; }
-        th { background: #1f2833; color: #66fcf1; }
-        .badge { background: #66fcf1; color: #0b0c10; padding: 2px 8px; border-radius: 3px; font-weight: bold; font-size: 0.8em; }
-        footer { text-align: center; padding: 20px; background: #1f2833; margin-top: 40px; color: #45a29e; }
-        input, textarea { width: 100%; padding: 10px; margin: 5px 0; background: #0b0c10; border: 1px solid #45a29e; color: white; }
-        .btn { background: #66fcf1; color: #0b0c10; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            letter-spacing: 5px;
+            color: #58a6ff;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #8b949e;
+            margin-top: 10px;
+        }
+
+        .loader {
+            margin: 30px auto;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #30363d;
+            border-top: 3px solid #58a6ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.8rem;
+            color: #484f58;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>ULTRA GAMING HUB</h1>
-    <p>Tvůj ultimátní zdroj pro gaming, hardware a esport</p>
-</header>
-
-<nav>
-    <a href="#news">Novinky</a>
-    <a href="#reviews">Recenze</a>
-    <a href="#database">Databáze</a>
-    <a href="#guides">Návody</a>
-    <a href="#hardware">Hardware</a>
-    <a href="#community">Komunita</a>
-</nav>
-
-<div class="container">
-    <div class="main-content">
-        
-        <section id="news">
-            <h2>Aktuální novinky</h2>
-            <div class="grid-news">
-                <div class="news-item">
-                    <span class="badge">HOT</span>
-                    <h3>GTA VI odloženo na rok 2026?</h3>
-                    <p>Spekulace se šíří internetem. Rockstar zatím mlčí, ale zdroje mluví o dalším ladění detailů...</p>
-                    <a href="#" style="color: #66fcf1;">Číst více...</a>
-                </div>
-                <div class="news-item">
-                    <span class="badge">ESPORT</span>
-                    <h3>Mistrovství světa v CS2</h3>
-                    <p>Finálový víkend začíná v kodaňské Royal Areně. Kdo získá trofej?</p>
-                    <a href="#" style="color: #66fcf1;">Číst více...</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="reviews">
-            <h2>Nejnovější recenze</h2>
-            <article>
-                <h3>Cyberpunk 2077: Phantom Liberty <span style="color: #66fcf1;">(9.5/10)</span></h3>
-                <p>Neuvěřitelný návrat k formě. CD Projekt Red dokázal, že umí vyprávět příběhy jako nikdo jiný na světě.</p>
-                <ul>
-                    <li><strong>Plusy:</strong> Příběh, atmosféra, Idris Elba</li>
-                    <li><strong>Mínusy:</strong> Stále občasné bugy v AI</li>
-                </ul>
-            </article>
-            <hr border="1" color="#45a29e">
-            <article>
-                <h3>Elden Ring: Shadow of the Erdtree <span style="color: #66fcf1;">(10/10)</span></h3>
-                <p>Mistrovské dílo, které definuje žánr soulslike. Obtížnost je brutální, ale férová.</p>
-            </article>
-        </section>
-
-        <section id="database">
-            <h2>Očekávané hry (Kalendář)</h2>
-            <table>
-                <tr>
-                    <th>Hra</th>
-                    <th>Platforma</th>
-                    <th>Datum vydání</th>
-                    <th>Očekávání</th>
-                </tr>
-                <tr>
-                    <td>Kingdom Come: Deliverance II</td>
-                    <td>PC, PS5, Xbox</td>
-                    <td>Únor 2025</td>
-                    <td>Vysoké</td>
-                </tr>
-                <tr>
-                    <td>The Elder Scrolls VI</td>
-                    <td>PC, Xbox</td>
-                    <td>TBA</td>
-                    <td>Legendární</td>
-                </tr>
-            </table>
-        </section>
-
-        <section id="guides">
-            <h2>Návody a Tipy</h2>
-            <ul>
-                <li><a href="#" style="color: #c5c6c7;">Jak najít všechny skryté předměty v God of War</a></li>
-                <li><a href="#" style="color: #c5c6c7;">Nejlepší buildy pro začátečníky v Path of Exile</a></li>
-                <li><a href="#" style="color: #c5c6c7;">Konfigurační tipy pro zvýšení FPS v kompetitivních hrách</a></li>
-            </ul>
-        </section>
-
-        <section id="community">
-            <h2>Fórum & Komunita</h2>
-            <p>Přidej se do diskuze!</p>
-            <form>
-                <input type="text" placeholder="Tvoje přezdívka">
-                <textarea rows="4" placeholder="Co máš na srdci?"></textarea>
-                <button type="button" class="btn">Odeslat příspěvek</button>
-            </form>
-        </section>
+    <div class="container">
+        <h1>Aske</h1>
+        <div class="loader"></div>
+        <p>Na webu se momentálně pracuje...</p>
     </div>
 
-    <div class="sidebar">
-        <section class="game-card">
-            <h3>Hra měsíce</h3>
-            <p><strong>Black Myth: Wukong</strong></p>
-            <p>Akční RPG inspirované čínskou mytologií, které trhá rekordy na Steamu.</p>
-            <p><em>Hraje právě teď: 1,2 mil. lidí</em></p>
-        </section>
-
-        <section>
-            <h3>Hardware koutku</h3>
-            <p><strong>Doporučená GPU:</strong></p>
-            <small>NVIDIA RTX 4080 Super</small><br>
-            <small>AMD Radeon RX 7900 XTX</small>
-            <hr>
-            <p><strong>Periferie:</strong></p>
-            <small>Logitech G Pro X Superlight 2</small>
-        </section>
-
-        <section>
-            <h3>Top Streameři</h3>
-            <ol>
-                <li>Shroud (Valorant)</li>
-                <li>Asmongold (WoW/MMO)</li>
-                <li>Agraelus (Variety)</li>
-            </ol>
-        </section>
+    <div class="footer">
+        &copy; 2026 Aske
     </div>
-</div>
-
-<footer>
-    <p>&copy; 2026 ULTRA GAMING HUB | Vytvořeno pro pravé hráče | <a href="#" style="color: #66fcf1;">Mapa stránek</a></p>
-</footer>
 
 </body>
 </html>
