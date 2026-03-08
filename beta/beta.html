@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Gaming Hub</title>
+    <style>
+        :root {
+            --bg: #0b0e14;
+            --card: #161b22;
+            --accent: #00ffd5;
+            --ps: #00439c;
+            --xbox: #107c10;
+            --text: #f0f6fc;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; padding: 30px; border-bottom: 2px solid #30363d; margin-bottom: 30px; }
+        h1 { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; }
+        h2 { color: #8b949e; border-left: 4px solid var(--accent); padding-left: 15px; margin-top: 40px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+        a { background: var(--card); color: var(--text); text-decoration: none; padding: 12px; border-radius: 6px; border: 1px solid #30363d; transition: 0.2s; font-size: 0.9em; text-align: center; }
+        a:hover { border-color: var(--accent); background: #21262d; transform: translateY(-2px); }
+        .badge-ps { border-bottom: 3px solid var(--ps); }
+        .badge-xb { border-bottom: 3px solid var(--xbox); }
+        .desc { display: block; font-size: 0.75em; color: #8b949e; margin-top: 4px; }
+        footer { margin-top: 50px; text-align: center; opacity: 0.5; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Herní Rozcestník</h1>
+        <p>Recenze • Trofeje • Češtiny • Tajemství</p>
+    </header>
+
+    <h2>Recenze & Kritika</h2>
+    <div class="grid">
+        <a href="https://www.vortex.cz" target="_blank">Vortex (CZ)</a>
+        <a href="https://www.indian-tv.cz" target="_blank">Indian (CZ)</a>
+        <a href="https://games.tiscali.cz" target="_blank">Games.cz (CZ)</a>
+        <a href="https://www.hrej.cz" target="_blank">Hrej.cz (CZ)</a>
+        <a href="https://www.zing.cz" target="_blank">Zing.cz (CZ)</a>
+        <a href="https://www.sector.sk" target="_blank">Sector (SK)</a>
+        <a href="https://www.ign.com" target="_blank">IGN</a>
+        <a href="https://www.gamespot.com" target="_blank">GameSpot</a>
+        <a href="https://www.eurogamer.net" target="_blank">Eurogamer</a>
+        <a href="https://www.metacritic.com" target="_blank">Metacritic</a>
+        <a href="https://opencritic.com" target="_blank">OpenCritic</a>
+        <a href="https://www.kotaku.com" target="_blank">Kotaku</a>
+        <a href="https://www.polygon.com" target="_blank">Polygon</a>
+        <a href="https://www.pcgamer.com" target="_blank">PC Gamer</a>
+        <a href="https://www.rockpapershotgun.com" target="_blank">Rock Paper Shotgun</a>
+        <a href="https://www.gamesradar.com" target="_blank">GamesRadar+</a>
+        <a href="https://www.destructoid.com" target="_blank">Destructoid</a>
+        <a href="https://www.videogameschronicle.com" target="_blank">VGC</a>
+        <a href="https://www.gameinformer.com" target="_blank">Game Informer</a>
+        <a href="https://www.giantbomb.com" target="_blank">Giant Bomb</a>
+        <a href="https://www.digitaltrends.com/gaming/" target="_blank">Digital Trends</a>
+        <a href="https://www.dualshockers.com" target="_blank">DualShockers</a>
+    </div>
+
+    <h2>Trophy & Achievement Guidy</h2>
+    <div class="grid">
+        <a href="https://www.powerpyx.com" target="_blank" style="border-color:gold;">PowerPyx <span class="desc">TOP Návody</span></a>
+        <a href="https://psnprofiles.com" target="_blank" class="badge-ps">PSNProfiles <span class="desc">PlayStation Komunita</span></a>
+        <a href="https://www.playstationtrophies.org" target="_blank" class="badge-ps">PS Trophies.org</a>
+        <a href="https://www.trueachievements.com" target="_blank" class="badge-xb">TrueAchievements <span class="desc">Xbox Komunita</span></a>
+        <a href="https://www.xboxachievements.com" target="_blank" class="badge-xb">Xbox Achievements.com</a>
+        <a href="https://www.truetrophies.com" target="_blank" class="badge-ps">TrueTrophies</a>
+        <a href="https://www.exophase.com" target="_blank">Exophase <span class="desc">Multiplatformní tracking</span></a>
+    </div>
+
+    <h2>Video Návody & Walkthroughs</h2>
+    <div class="grid">
+        <a href="https://www.youtube.com/@PowerPyx" target="_blank">PowerPyx (YT)</a>
+        <a href="https://www.youtube.com/@Maka91Productions" target="_blank">Maka91 (Xbox/Achievement Expert)</a>
+        <a href="https://www.youtube.com/@FightinCowboy" target="_blank">FightinCowboy (Soulslike King)</a>
+        <a href="https://www.youtube.com/@PS5Trophies" target="_blank">PS5Trophies</a>
+        <a href="https://www.youtube.com/@VaatiVidya" target="_blank">VaatiVidya <span class="desc">Herní Lore</span></a>
+    </div>
+
+    <h2>Cheaty, Češtiny & Easter Eggy</h2>
+    <div class="grid">
+        <a href="https://www.prekladyher.eu" target="_blank">PrekladyHer.eu <span class="desc">Databáze češtin</span></a>
+        <a href="https://www.wemod.com" target="_blank">WeMod <span class="desc">Trainery pro PC</span></a>
+        <a href="https://tcrf.net" target="_blank">The Cutting Room Floor <span class="desc">Vystřižený obsah</span></a>
+        <a href="https://www.eeggs.com" target="_blank">Easter Egg Archive <span class="desc">Herní vtipy</span></a>
+        <a href="https://www.pcgamingwiki.com" target="_blank">PCGamingWiki <span class="desc">Opravy her</span></a>
+        <a href="https://www.gamefaqs.com" target="_blank">GameFAQs <span class="desc">Textové návody & Cheaty</span></a>
+    </div>
+
+    <h2>Užitečné nástroje</h2>
+    <div class="grid">
+        <a href="https://howlongtobeat.com" target="_blank">HowLongToBeat <span class="desc">Délka her</span></a>
+        <a href="https://www.speedrun.com" target="_blank">Speedrun.com <span class="desc">Světové rekordy</span></a>
+        <a href="https://isthereanydeal.com" target="_blank">IsThereAnyDeal <span class="desc">Slevy na hry</span></a>
+        <a href="https://steamdb.info" target="_blank">SteamDB <span class="desc">Statistiky Steamu</span></a>
+    </div>
+
+    <footer>
+        <p>Tento rozcestník je tvůj herní kompas. 2026</p>
+    </footer>
+</div>
+
+</body>
+</html>
