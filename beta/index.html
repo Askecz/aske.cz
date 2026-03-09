@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MGS | Secure Gateway</title>
+    <title>MGS | Tactical Search Console</title>
     <style>
         :root {
             --mgs-green: #5b6d5b;
@@ -19,145 +19,118 @@
             color: var(--mgs-light-green);
             font-family: var(--font-main);
             margin: 0;
-            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 90vh;
+            min-height: 100vh;
             text-transform: uppercase;
             overflow: hidden;
         }
 
-        /* Scanline efekt */
+        /* CRT Scanline efekt */
         body::before {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 10;
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 255, 0, 0.06));
+            z-index: 100;
             background-size: 100% 4px, 3px 100%;
             pointer-events: none;
         }
 
-        .terminal-container {
-            border: 2px solid var(--mgs-green);
-            padding: 30px;
+        .codec-frame {
+            border: 3px solid var(--mgs-green);
             background-color: var(--mgs-dark-grey);
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 0 20px rgba(91, 109, 91, 0.4);
-            text-align: center;
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 30px rgba(91, 109, 91, 0.2);
             position: relative;
+            z-index: 10;
         }
 
-        h1 {
-            color: var(--mgs-orange);
-            font-size: 1.2rem;
+        .header {
+            border-bottom: 2px solid var(--mgs-green);
             margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .status-line {
-            font-size: 0.8rem;
-            margin-bottom: 20px;
-            color: var(--mgs-green);
-            border-bottom: 1px solid var(--mgs-green);
             padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+        }
+
+        h2 {
+            color: var(--mgs-orange);
+            font-size: 1.1rem;
+            margin-top: 0;
         }
 
         input {
-            background: transparent;
+            background: rgba(0,0,0,0.5);
             border: 1px solid var(--mgs-green);
             color: var(--mgs-orange);
             padding: 15px;
             font-family: var(--font-main);
+            width: 100%;
+            box-sizing: border-box;
             outline: none;
-            width: 80%;
+            font-size: 1.1rem;
             text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            letter-spacing: 2px;
         }
 
-        button {
+        .btn {
+            margin-top: 20px;
             background: var(--mgs-green);
             color: var(--mgs-black);
             border: none;
-            padding: 10px 30px;
+            padding: 12px 25px;
             cursor: pointer;
             font-weight: bold;
             font-family: var(--font-main);
-            transition: 0.3s;
+            width: 100%;
+            transition: 0.2s;
         }
 
-        button:hover {
+        .btn:hover {
             background: var(--mgs-light-green);
-            box-shadow: 0 0 10px var(--mgs-light-green);
         }
 
-        #msg {
+        #search-section {
+            display: none; /* Skryté do zadání kódu */
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer-info {
             margin-top: 20px;
-            font-size: 0.9rem;
-            height: 1.2rem;
-        }
-
-        .loading-bar {
-            width: 0%;
-            height: 4px;
-            background: var(--mgs-orange);
-            margin-top: 10px;
-            transition: width 0.5s;
+            font-size: 0.7rem;
+            color: #444;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<div class="terminal-container">
-    <div class="status-line">CLASSIFIED DATA ACCESS | FREQ: 140.85</div>
-    <h1>IDENTIFICATION REQUIRED</h1>
-    
-    <input type="password" id="passcode" placeholder="ENTER CODE" maxlength="3" onkeypress="handleKeyPress(event)">
-    <br>
-    <button onclick="checkCode()">VERIFY</button>
+<div class="codec-frame">
+    <div class="header">
+        <span>STN: DIS-093</span>
+        <span>FREQ: 140.85</span>
+    </div>
 
-    <div id="msg">AWAITING INPUT...</div>
-    <div id="loader" class="loading-bar"></div>
-</div>
+    <div id="login-section">
+        <h2>ENTER ACCESS CODE</h2>
+        <input type="password" id="passcode" placeholder="***" maxlength="3">
+        <button class="btn" onclick="verifyAccess()">AUTHORIZE</button>
+        <p id="error-msg" style="color: red; font-size: 0.8rem; margin-top: 10px; height: 1rem;"></p>
+    </div>
 
-<script>
-    function handleKeyPress(e) {
-        if (e.key === 'Enter') checkCode();
-    }
-
-    function checkCode() {
-        const code = document.getElementById('passcode').value;
-        const msg = document.getElementById('msg');
-        const loader = document.getElementById('loader');
-
-        if (code === "123") {
-            msg.style.color = "var(--mgs-light-green)";
-            msg.innerText = "ACCESS GRANTED. REDIRECTING...";
-            loader.style.width = "100%";
-            
-            // Simulace přenosu dat před přesměrováním
-            setTimeout(() => {
-                window.location.href = "https://aske.cz/";
-            }, 1500);
-        } else {
-            msg.style.color = "red";
-            msg.innerText = "ACCESS DENIED. INVALID CODE.";
-            document.getElementById('passcode').value = "";
-            
-            // Krátký efekt otřesu při chybě
-            document.querySelector('.terminal-container').style.borderColor = "red";
-            setTimeout(() => {
-                document.querySelector('.terminal-container').style.borderColor = "var(--mgs-green)";
-            }, 500);
-        }
-    }
-</script>
-
-</body>
-</html>
+    <div id="search-section">
+        <h2 style="color: var(--mgs-light-green);">DATA LINK ESTABLISHED</h2>
+        <p style="font-size: 0.8rem; margin-bottom: 15px;">TARGET: GLOBAL INFORMATION NETWORK (GOOGLE)</p>
