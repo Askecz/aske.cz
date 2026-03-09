@@ -20,7 +20,6 @@
             font-family: var(--font-main);
             margin: 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
@@ -46,29 +45,16 @@
             background-color: var(--mgs-dark-grey);
             padding: 40px;
             width: 90%;
-            max-width: 600px;
+            max-width: 500px;
             box-shadow: 0 0 30px rgba(91, 109, 91, 0.2);
-            position: relative;
             z-index: 10;
+            text-align: center;
         }
 
-        .header {
-            border-bottom: 2px solid var(--mgs-green);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-        }
-
-        h2 {
-            color: var(--mgs-orange);
-            font-size: 1.1rem;
-            margin-top: 0;
-        }
+        h2 { color: var(--mgs-orange); font-size: 1.1rem; margin-top: 0; }
 
         input {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.7);
             border: 1px solid var(--mgs-green);
             color: var(--mgs-orange);
             padding: 15px;
@@ -76,61 +62,90 @@
             width: 100%;
             box-sizing: border-box;
             outline: none;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-align: center;
-            letter-spacing: 2px;
+            margin-bottom: 15px;
         }
 
         .btn {
-            margin-top: 20px;
             background: var(--mgs-green);
             color: var(--mgs-black);
             border: none;
-            padding: 12px 25px;
+            padding: 12px;
             cursor: pointer;
             font-weight: bold;
             font-family: var(--font-main);
             width: 100%;
-            transition: 0.2s;
+            text-transform: uppercase;
         }
 
-        .btn:hover {
-            background: var(--mgs-light-green);
-        }
+        .btn:hover { background: var(--mgs-light-green); }
 
-        #search-section {
-            display: none; /* Skryté do zadání kódu */
-            animation: fadeIn 0.5s ease;
-        }
+        #search-section { display: none; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .footer-info {
-            margin-top: 20px;
-            font-size: 0.7rem;
-            color: #444;
-            text-align: center;
+        .success-flash { animation: flash 0.3s; }
+        @keyframes flash {
+            50% { background-color: var(--mgs-green); }
         }
     </style>
 </head>
 <body>
 
-<div class="codec-frame">
-    <div class="header">
-        <span>STN: DIS-093</span>
-        <span>FREQ: 140.85</span>
-    </div>
-
+<div class="codec-frame" id="mainFrame">
     <div id="login-section">
-        <h2>ENTER ACCESS CODE</h2>
-        <input type="password" id="passcode" placeholder="***" maxlength="3">
-        <button class="btn" onclick="verifyAccess()">AUTHORIZE</button>
-        <p id="error-msg" style="color: red; font-size: 0.8rem; margin-top: 10px; height: 1rem;"></p>
+        <h2>IDENTIFICATION REQUIRED</h2>
+        <input type="text" id="passcode" placeholder="ENTER CODE" maxlength="3" autocomplete="off">
+        <button type="button" class="btn" onclick="verify()">AUTHORIZE</button>
+        <p id="status" style="font-size: 0.7rem; margin-top: 10px;">AWAITING SIGNAL...</p>
     </div>
 
     <div id="search-section">
-        <h2 style="color: var(--mgs-light-green);">DATA LINK ESTABLISHED</h2>
-        <p style="font-size: 0.8rem; margin-bottom: 15px;">TARGET: GLOBAL INFORMATION NETWORK (GOOGLE)</p>
+        <h2 style="color: var(--mgs-light-green);">ACCESS GRANTED</h2>
+        <input type="text" id="query" placeholder="SEARCH GOOGLE INTEL...">
+        <button type="button" class="btn" onclick="doSearch()">EXECUTE SEARCH</button>
+        <p style="font-size: 0.7rem; margin-top: 10px; color: var(--mgs-green);">CONNECTED TO GLOBAL NET</p>
+    </div>
+</div>
+
+<script>
+    // Funkce pro ověření kódu
+    function verify() {
+        const val = document.getElementById('passcode').value;
+        const frame = document.getElementById('mainFrame');
+        
+        if (val === "123") {
+            // Efekt úspěchu
+            frame.classList.add('success-flash');
+            
+            setTimeout(() => {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('search-section').style.display = 'block';
+                document.getElementById('query').focus();
+            }, 300);
+        } else {
+            document.getElementById('status').innerText = "INVALID CODE - ACCESS DENIED";
+            document.getElementById('status').style.color = "red";
+            document.getElementById('passcode').value = "";
+        }
+    }
+
+    // Funkce pro vyhledávání
+    function doSearch() {
+        const q = document.getElementById('query').value;
+        if (q.trim() !== "") {
+            window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(q);
+        }
+    }
+
+    // Podpora klávesy Enter pro obě pole
+    document.getElementById('passcode').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') verify();
+    });
+
+    document.getElementById('query').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') doSearch();
+    });
+</script>
+
+</body>
+</html>
