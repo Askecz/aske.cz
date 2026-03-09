@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MGS | Trophy Database</title>
+    <title>MGS | Secure Gateway</title>
     <style>
-        /* MGS Vizuální Styl */
         :root {
             --mgs-green: #5b6d5b;
             --mgs-light-green: #a8bfa8;
@@ -24,12 +23,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 2px solid var(--mgs-green);
-            min-height: 95vh;
+            justify-content: center;
+            min-height: 90vh;
             text-transform: uppercase;
+            overflow: hidden;
         }
 
-        /* Scanline efekt pro retro monitor */
+        /* Scanline efekt */
         body::before {
             content: " ";
             display: block;
@@ -42,178 +42,119 @@
             pointer-events: none;
         }
 
-        header {
+        .terminal-container {
+            border: 2px solid var(--mgs-green);
+            padding: 30px;
+            background-color: var(--mgs-dark-grey);
             width: 100%;
-            max-width: 800px;
-            border-bottom: 4px solid var(--mgs-orange);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
+            max-width: 500px;
+            box-shadow: 0 0 20px rgba(91, 109, 91, 0.4);
+            text-align: center;
+            position: relative;
         }
 
         h1 {
-            margin: 0;
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-        }
-
-        .codec-container {
-            border: 2px solid var(--mgs-green);
-            padding: 20px;
-            background-color: var(--mgs-dark-grey);
-            width: 100%;
-            max-width: 600px;
-            box-shadow: 0 0 15px rgba(91, 109, 91, 0.3);
-        }
-
-        .search-box {
-            display: flex;
-            gap: 10px;
+            color: var(--mgs-orange);
+            font-size: 1.2rem;
             margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .status-line {
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            color: var(--mgs-green);
+            border-bottom: 1px solid var(--mgs-green);
+            padding-bottom: 10px;
         }
 
         input {
-            flex-grow: 1;
             background: transparent;
             border: 1px solid var(--mgs-green);
             color: var(--mgs-orange);
-            padding: 10px;
+            padding: 15px;
             font-family: var(--font-main);
             outline: none;
+            width: 80%;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
         }
 
         button {
             background: var(--mgs-green);
             color: var(--mgs-black);
             border: none;
-            padding: 10px 20px;
+            padding: 10px 30px;
             cursor: pointer;
             font-weight: bold;
             font-family: var(--font-main);
+            transition: 0.3s;
         }
 
         button:hover {
             background: var(--mgs-light-green);
+            box-shadow: 0 0 10px var(--mgs-light-green);
         }
 
-        .results {
+        #msg {
             margin-top: 20px;
-            min-height: 200px;
+            font-size: 0.9rem;
+            height: 1.2rem;
         }
 
-        .trophy-card {
-            border-left: 5px solid var(--mgs-orange);
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            margin-bottom: 10px;
-            animation: flicker 0.1s infinite alternate;
-        }
-
-        .rarity {
-            color: var(--mgs-orange);
-            font-size: 0.8rem;
-        }
-
-        @keyframes flicker {
-            0% { opacity: 0.95; }
-            100% { opacity: 1; }
-        }
-
-        footer {
-            margin-top: auto;
-            font-size: 0.7rem;
-            color: var(--mgs-green);
+        .loading-bar {
+            width: 0%;
+            height: 4px;
+            background: var(--mgs-orange);
+            margin-top: 10px;
+            transition: width 0.5s;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>TACTICAL TROPHY DATA RETRIEVAL</h1>
-    <div style="font-size: 0.8rem;">STATUS: ONLINE | FREQ: 140.85</div>
-</header>
+<div class="terminal-container">
+    <div class="status-line">CLASSIFIED DATA ACCESS | FREQ: 140.85</div>
+    <h1>IDENTIFICATION REQUIRED</h1>
+    
+    <input type="password" id="passcode" placeholder="ENTER CODE" maxlength="3" onkeypress="handleKeyPress(event)">
+    <br>
+    <button onclick="checkCode()">VERIFY</button>
 
-<div class="codec-container">
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Zadejte název trofeje..." onkeypress="handleKeyPress(event)">
-        <button onclick="searchTrophy()">SEARCH</button>
-    </div>
-
-    <div id="results" class="results">
-        <p style="color: var(--mgs-green);">Očekávám zadání parametrů mise...</p>
-    </div>
+    <div id="msg">AWAITING INPUT...</div>
+    <div id="loader" class="loading-bar"></div>
 </div>
 
-<footer>
-    &copy; 2026 PHILANTHROPY DATA SYSTEMS - NO PLACE FOR HIDEO
-</footer>
-
 <script>
-    // Základní reálná data
-    const coreGames = [
-        { title: "Metal Gear Solid", platform: "PS1", trophies: "50" },
-        { title: "Metal Gear Solid 2: Sons of Liberty", platform: "PS2/PS3", trophies: "46" },
-        { title: "Metal Gear Solid 3: Snake Eater", platform: "PS2/PS3", trophies: "46" },
-        { title: "Metal Gear Solid 4: Guns of the Patriots", platform: "PS3", trophies: "34" },
-        { title: "Metal Gear Solid V: The Phantom Pain", platform: "PS4/PS5", trophies: "43" },
-        { title: "Metal Gear Rising: Revengeance", platform: "PS3/PC", trophies: "51" },
-        { title: "Metal Gear Solid: Peace Walker", platform: "PSP/PS3", trophies: "50" }
-    ];
-
-    // Generátor pro dosažení přesného počtu 1000 položek
-    const trophyDatabase = [];
-    
-    function initializeDatabase() {
-        // 1. Přidáme reálné hry
-        coreGames.forEach(game => trophyDatabase.push(game));
-
-        // 2. Dopočítáme do 1000 (přidáme 993 generovaných záznamů)
-        const remaining = 1000 - coreGames.length;
-        for (let i = 1; i <= remaining; i++) {
-            trophyDatabase.push({
-                title: `VR Mission Protocol ${100 + i}`,
-                platform: i % 2 === 0 ? "FOXHOUND NET" : "OUTER HEAVEN",
-                trophies: Math.floor(Math.random() * 50) + 10
-            });
-        }
-        console.log("DATABASE STATUS: 1000 ENTRIES LOADED.");
-    }
-
-    // Inicializace při startu
-    initializeDatabase();
-
     function handleKeyPress(e) {
-        if (e.key === 'Enter') searchTrophy();
+        if (e.key === 'Enter') checkCode();
     }
 
-    function searchTrophy() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = '';
+    function checkCode() {
+        const code = document.getElementById('passcode').value;
+        const msg = document.getElementById('msg');
+        const loader = document.getElementById('loader');
 
-        if (!query) {
-            resultsDiv.innerHTML = '<p style="color: var(--mgs-orange);">ZADEJTE IDENTIFIKAČNÍ KÓD...</p>';
-            return;
-        }
-
-        // Vyhledávání v databázi 1000 her
-        const filtered = trophyDatabase.filter(t => 
-            t.title.toLowerCase().includes(query) || 
-            t.platform.toLowerCase().includes(query)
-        );
-
-        if (filtered.length > 0) {
-            resultsDiv.innerHTML = `<p style="font-size: 0.8rem; margin-bottom: 10px;">NALEZENO ZÁZNAMŮ: ${filtered.length}</p>`;
-            filtered.forEach(t => {
-                resultsDiv.innerHTML += `
-                    <div class="trophy-card">
-                        <div class="rarity">[ ${t.platform} ]</div>
-                        <div style="font-weight: bold; margin: 5px 0;">${t.title}</div>
-                        <div style="font-size: 0.9rem;">POČET TROFEJÍ: ${t.trophies}</div>
-                    </div>
-                `;
-            });
+        if (code === "123") {
+            msg.style.color = "var(--mgs-light-green)";
+            msg.innerText = "ACCESS GRANTED. REDIRECTING...";
+            loader.style.width = "100%";
+            
+            // Simulace přenosu dat před přesměrováním
+            setTimeout(() => {
+                window.location.href = "https://aske.cz/";
+            }, 1500);
         } else {
-            resultsDiv.innerHTML = '<p>DATA NENALEZENA. ENCRYPTION MISMATCH.</p>';
+            msg.style.color = "red";
+            msg.innerText = "ACCESS DENIED. INVALID CODE.";
+            document.getElementById('passcode').value = "";
+            
+            // Krátký efekt otřesu při chybě
+            document.querySelector('.terminal-container').style.borderColor = "red";
+            setTimeout(() => {
+                document.querySelector('.terminal-container').style.borderColor = "var(--mgs-green)";
+            }, 500);
         }
     }
 </script>
